@@ -1,0 +1,472 @@
+\chapter{Decomposing Tensor Products of SU($N$)}
+
+Ok so we have seen (or at least argued) the importance of irreps to particle physics, and have become comfortable with drawing Young-Tableaux diagrams. We now need to return to the question asked after \Cref{eqn:phi(ij)varphikYT}. Reworded the question is "given the Young-Tableaux of two irreps, $D_{r_1}$ and $D_{r_2}$, how do we write their tensor product as a direct sum of irreps?" In other words, how do we take tensor products of Young-Tableaux diagrams? The answer is a procedure known as the \textit{Littlewood-Richardson} (or \textit{Clebsch-Gordan}) rules. 
+
+\section{Littlewood-Richardson Rules}
+
+As we did above, let's label our two irreps by $D_{r_1}$ and $D_{r_2}$, then we find the tensor product $D_{r_1}\otimes D_{r_2}$ via the following procedure. 
+
+\mybox{
+\ben[label=(\roman*)]
+    \item Draw the Young-Tableaux for $D_{r_1}$ and $D_{r_2}$. 
+    \item Label the rows of $D_{r_2}$ with letters, as indicated in the following example 
+    \begin{center}
+        \byt 
+            a & a & a & a \\
+            b & b  \\
+            c 
+        \eyt
+    \end{center}
+    \item Add the boxes of $D_{r_2}$ to $D_{r_1}$ one at a time starting with the first row acording to these following rules: 
+    \ben[label=(\alph*)]
+        \item Augmented Young-Tableaux must be a valid Young-Tableaux. 
+        \item Boxes with the same label ($a$, $b$ etc) \textit{cannot} be in the same column (as they are symmetrised in $D_{r_2}$ so if we antisymmetrise the result vanishes).
+        \item Two or more Young-Tableaux with the same shape \textit{and} the same labels count as one diagram.
+        \item Cancel columns with $N$ rows (i.e. remove the invariant parts). 
+        \item At any given box position, define 
+        \bse 
+            n_a = \text{number of $a$s in the upper-right quadrant from this box},
+        \ese 
+        and similarly for $n_b$ etc. Then require $n_a \geq n_b \geq n_c$, and so remove any diagrams that don't obey this, i.e. the following diagram is not valid because the red $a$ has $n_b=2$ but $n_a=1$.
+        \begin{center}
+            \byt 
+                ~ & & & a \\
+                & b & b \\
+                a & \textcolor{red}{a}
+            \eyt 
+        \end{center}
+    \een 
+\een 
+}
+
+This will probably seem highly cryptic, but it's rather straight forward. Let's give an example. 
+
+\bex 
+    Let's consider the tensor product $\mathbf{8}\otimes \mathbf{8}$ in SU($3$). You showed what this corresponds to as Young-Tableaux at the very end of last lecture, so let's just apply the Littlewood-Richardson rules to find the decomposition. 
+    
+    The first $a$ box gets distributed as
+    \begin{center}
+        \byt 
+            ~ & \\
+            ~ 
+        \eyt ~ $\bigotimes$ ~ \byt 
+            a & a \\
+            b
+        \eyt ~ = ~ $\Bigg($ \byt 
+            ~ & & a \\
+            ~ 
+        \eyt ~ $\bigoplus$ ~ \byt 
+            ~ & \\
+            & a
+        \eyt ~ $\bigoplus$ ~ \byt 
+            ~ & \\
+            ~ \\
+            a
+        \eyt ~ $\Bigg)$ $\bigotimes$ ~ \byt 
+            a \\
+            b
+        \eyt.
+    \end{center}
+    Now we can consider each term on the right-hand side in turn. I will just finish off the first term on the right-hand side and leave the other two as exercises. The only terms we'll cancel (i.e. won't draw) are the ones that don't make valid Young-Tableaux (e.g. 4 columns or more columns then previous row). The rest we'll explain at the end.  
+    \begin{equation*}
+        \begin{split}
+            \byt 
+                ~ & & a \\
+                ~ 
+            \eyt ~ \otimes ~ \byt 
+                a \\ 
+                b
+            \eyt ~ & = ~ \Bigg( ~ \byt 
+                ~ & & a & a \\
+                ~
+            \eyt ~ \oplus ~ \byt 
+                ~ & & a \\
+                & a 
+            \eyt ~ \oplus ~ \byt
+                ~ & & a \\
+                ~ \\
+                a
+            \eyt ~ \Bigg) \otimes \byt 
+                b
+            \eyt \\
+            & = ~ \byt 
+                ~ & & a & a & b \\
+                ~
+            \eyt ~ \oplus ~ \byt 
+                ~ & & a & a \\
+                ~ & b 
+            \eyt ~ \oplus ~ \byt 
+                ~ & & a & a \\
+                ~ \\
+                b
+            \eyt \\
+            & \oplus ~ \byt 
+                ~ & & a & b \\
+                & a
+            \eyt ~ \oplus ~  \byt 
+                ~ & & a  \\
+                & a & b 
+            \eyt ~ \oplus ~ \byt 
+                ~ & & a \\
+                & a \\
+                b
+            \eyt \\
+            & \oplus ~ \byt 
+                ~ & & a & b \\
+                ~ \\ 
+                a 
+            \eyt ~ \oplus ~ \byt 
+                ~ & & a  \\
+                & b\\ 
+                a 
+            \eyt,
+        \end{split}
+    \end{equation*}
+    where each row of the calculation corresponds to one term in the brackets. 
+    
+    Ok so how do we cancel/simplify this? The following terms go because the red $a$s violate condition (e)
+    \begin{center}
+        \byt 
+            ~ & & a & \textcolor{red}{a} & b \\
+            ~
+        \eyt \qquad \qquad  \byt 
+            ~ & & \textcolor{red}{a} & b \\
+            & a
+        \eyt \qquad \qand \qquad  \byt 
+                ~ & & \textcolor{red}{a} & b \\
+                ~ \\ 
+                a 
+            \eyt
+    \end{center}
+    Then we can simplify these terms using condition (d)
+    \begin{center}
+        \byt 
+            ~ & & a & a \\
+            ~ \\
+            b
+        \eyt \qquad \qquad \byt 
+            ~ & & a \\
+            & a \\
+            b
+        \eyt \qquad \qand \qquad \byt 
+            ~ & & a \\
+            & b \\
+            a
+        \eyt 
+    \end{center}
+    to become 
+    \begin{center}
+        \byt 
+            ~ & a & a \\
+        \eyt \qquad \qquad \byt 
+            ~ & a \\
+            a 
+        \eyt \qquad \qand \qquad \byt 
+            ~ & a \\
+            b 
+        \eyt.
+    \end{center}
+    Note that the final two diagrams here are different diagrams because, although they have the same shape, they don't have the same label distribution. 
+    
+    So we're left with
+    \bse
+            \byt 
+            ~ & & a \\
+            ~ 
+        \eyt ~ \otimes ~ \byt 
+            a \\ 
+            b
+        \eyt ~ = ~ \byt 
+            ~ & & a & a \\
+            & b 
+        \eyt ~ \oplus ~ \byt 
+            ~ & a & a 
+        \eyt ~ \oplus ~ \byt 
+            ~ & & a \\
+            & a & b 
+        \eyt ~ \oplus ~ \byt 
+            ~ & a \\
+            a
+        \eyt ~ \oplus ~ \byt 
+            ~ & a \\
+            b
+        \eyt
+    \ese
+\eex 
+
+\bbox 
+    Finish the rest of the example and convert it into bold font notation to obtain 
+    \bse 
+        \mathbf{8} \otimes \mathbf{8} = \mathbf{27} \oplus \mathbf{10} \oplus \overline{\mathbf{10}} \oplus \mathbf{8} \oplus \mathbf{8} \oplus \mathbf{1}
+    \ese 
+    \textit{Hint: If you have a Young-Tableaux where every column has $N$ rows, then you write it in bold font notation as $\mathbf{1}$. So in this question the $\mathbf{1}$ comes from a diagram of the form}
+    \begin{center}
+        \byt 
+            ~ & \\
+            & \\
+            &
+        \eyt.
+    \end{center}
+\ebox 
+
+\section{Final Comment on Young-Tableaux}
+
+As we have seen, Young-Tableaux are a very neat and useful trick for the study of SU($N$). Other Lie groups, however, a more complicated. For example, for SO($N$) the fundamental representation acts as 
+\bse
+    \varphi^i \mapsto {M^i}_j \varphi^j,
+\ese 
+where $M\in SO(N)$. The decomposition of the tensor product with two indices is not just the symmetric plus antisymmetric. Indeed it turns out that the trace forms an invariant subspace, and so our decomposition is
+\bse 
+    \varphi^i\psi^j = \underbrace{\frac{1}{2}\big(\varphi^i\psi^j + \varphi^j\psi^i\big) - \frac{1}{N}\del^{ij}\varphi^k\psi^k}_{\text{Symmetric Traceless}} + \underbrace{\frac{1}{N} \del^{ij} \varphi^k\psi^k}_{\text{Trace}} +\underbrace{\frac{1}{2}\big(\varphi^i\psi^j - \varphi^j\psi^i\big)}_{\text{Antisymmetric}}.
+\ese 
+We can see that this is the case by showing that the $\del^{ij}$ is an invariant tensor under SO($N$):\footnote{In SO($N$) upper and lower indices aren't different.}
+\bse
+    \begin{split}
+        \del^{ij} & \mapsto {M^i}_{i'} {M^j}_{j'} \del^{i'j'} \\
+        & = {M^i}_{i'} {M^j}_{i'} \\
+        & = {M^i}_{i'} {(M^T)^{i'}}_{j} \\
+        & = \del^{ij}
+    \end{split}    
+\ese 
+where we have used $MM^T=\b1$. This result would not have held for SU($N$) because we would need the Hermitian conjugate, not just the transpose. 
+
+\section{Systematic Approach To Irreps}
+
+Recall that we can relate a Lie group to a Lie algebra via the exponential map. That is if $U$ is an element of the Lie group, then we can write it as $U=e^X$, where $X$ is an element of the appropriate Lie algebra. The question is can we relate the representation of a Lie group to the representation of a Lie algebra? Well first we need the definition of the representation of a Lie algebra. 
+
+\bd[Representation Of Lie Algebra]
+    Let $(\mathfrak{g},[,])$ be a Lie algebra of dimension $n$. Then we obtain a \textit{representation of the Lie algebra} on $V$, by prescribing a Lie algebra homomorphism, $d$. That is a map $d$ satisfying: for all $X,Y\in \mathfrak{g}$ and $\a,\beta\in\C$\footnote{Or whatever the underlying field is.}
+    \ben[label=(\roman*)]
+        \item Linearity; $d(\a X + \beta Y) = \a d(X) + \beta d(Y)$, and
+        \item $d\big([X,Y]\big) = [d(X),d(Y)] = d(X)\circ d(Y) - d(Y)\circ d(X)$, where $\circ$ is the composition as maps. 
+    \een 
+\ed
+
+For the time being we shall assume our representations are matrices, in order to compare to the stuff we've been saying for representations of Lie groups. We will actually deter from this when we introduce the adjoint representation later.
+
+\bp 
+    We can obtain a representation on the Lie algebra given one on the Lie group, via the exponential map, defined via 
+    \be 
+    \label{eqn:RepresentationOfLieAlgebraFromGroup}
+        D(e^X) = e^{d(X)},
+    \ee 
+    provided $d$ is linear. 
+\ep 
+
+\bq 
+    Let $D$ be the representation of our Lie group. Then let 
+    \bse 
+        U = e^X, \qand V = e^Y
+    \ese 
+    be two arbitrary elements in the Lie group, with $X$ and $Y$ being elements of the corresponding Lie algebra. Then we have 
+    \bse 
+        D\big(e^X\big) D\big(e^Y\big) = e^{d(X)}e^{d(Y)} = e^{d(X)+d(Y)+\frac{1}{2}[d(X),d(Y)]+...},
+    \ese 
+    where we have used the BCH formula. Then use the fact that $D$ is a representation, 
+    \bse 
+        D\big(e^X\big)D(e^Y\big) = D\big(e^Xe^Y\big) = D\big(e^{X+Y+\frac{1}{2}[X,Y]+...}\big) = e^{d(X+Y+\frac{1}{2}[X,Y]+...)}.
+    \ese 
+    Finally use the fact that $d$ is a linear map to obtain 
+    \bse 
+        e^{d(X)+d(Y)+\frac{1}{2}[d(X),d(Y)]+...} = e^{d(X)+d(Y)+\frac{1}{2}d([X,Y])+...},
+    \ese 
+    which gives us condition (ii). 
+\eq 
+
+\bd[Equivalent Representations Of Lie Algebras]
+    Let $(\mathfrak{g},[,])$ be a Lie algebra and let $d_1$ and $d_2$ be two representations. Then we say $d_1$ and $d_2$ are \textit{equivalent} if there exists a constant matrix $S$ such that 
+    \bse
+        d_2(X) = S d_1(X) S^{-1}, \qquad \forall X\in\mathfrak{g}.
+    \ese 
+\ed 
+
+\bd[Reducible Representations Of Lie Algebras]
+    We say a representation $d$ of a Lie algebra is \textit{reducible} if it is equivalent to a block diagonal matrix\footnote{See \Cref{eqn:CompletelyReducibleMatrix}}. We can also define it as the condition that it can be written as the direct sum of irreps:\footnote{Again see the definitions for Lie Groups.} e.g.
+    \bse 
+        d = d_a\oplus d_b.
+    \ese 
+\ed 
+
+\bp 
+    Let $D$ and $\widetilde{D}$ be two equivalent representations of a Lie group, i.e. 
+    \bse 
+        \widetilde{D}(g) = S D(g) S^{-1} \qquad \forall g \in G.
+    \ese 
+    Then their associated Lie algebra representations, $d$ and $\widetilde{d}$, are also equivalent. 
+\ep 
+
+\bq 
+    This proof relies on the fact that 
+    \bse 
+        (SAS^{-1})^n = SA^nS^{-1}
+    \ese 
+    for any matrix $A$. Simply consider the definitions:
+    \bse 
+        \begin{split}
+            \widetilde{D}\big(e^X\big) & = S D\big(e^X\big)S^{-1} \\
+            e^{\widetilde{d}(X)} & = S e^{d(X)} S^{-1} \\
+            & = S \Big(\sum_{n=0}^{\infty} \frac{(dX)^n}{n!}\Big) S^{-1} \\
+            & = \sum_{n=0}^{\infty} \frac{(Sd(X)S^{-1})^n}{n!} \\
+            & = e^{Sd(X)S^{-1}}, \\
+            \implies \widetilde{d}(X) & = Sd(X) S^{-1}  \qquad \forall X\in\mathfrak{g}.
+        \end{split}
+    \ese
+\eq 
+
+\bbox 
+    Using the block diagonal matrix version for reducible representations of Lie groups, \Cref{eqn:CompletelyReducibleMatrix}, show that reducible representations of Lie groups correspond to reducible representations of Lie algebras. In other words, show
+    \bse 
+        \exp\bigg(\begin{pmatrix}
+            A & 0 \\
+            0 & B
+        \end{pmatrix}\bigg) = \begin{pmatrix}
+            e^A & 0 \\
+            0 & e^B
+        \end{pmatrix}
+    \ese
+\ebox 
+
+\bbox 
+    Show that unitary representations of Lie groups correspond to antihermitian representations of Lie algebras. That is 
+    \bse 
+        \big[D(g)\big]^{\dagger} = [D(g)]^{-1} \qquad \iff \qquad \big[d(X)\big]^{\dagger} = -d(X).
+    \ese 
+\ebox
+
+So how do the representations of Lie algebras act on the representation space? The answer is 
+\be 
+\label{eqn:ActionOfRepresentationLieAlgebra}
+    d(X): \psi^{i_1...i_n} \mapsto {X^{i_1}}_j \psi^{ji_2...i_n} + {X^{i_2}}_j \psi^{i_1j...i_n} + ... + {X^{i_n}}_j \psi^{i_1...i_{n-1}j}
+\ee 
+We set the proof (for $n=2,3$) as an exercise here\footnote{As it is set as one on Dr. Dorigini's course, and on the off change someone is reading this while doing his course I don't want to just give the answer.}
+
+\bbox 
+    If $D(U):\phi^{ij}\mapsto {U^i}_r {U^j}_s \phi^{rs}$ find the action of the corresponding Lie algebra by putting ${U^i}_{j} = {\del^i}_j + \epsilon {u^i}_j$ and considering $\cO(\epsilon)$ terms. Similarly write down the action of the Lie algebra on $\phi^{ijk}$.
+\ebox 
+
+The important point about Lie algebras to understand is that, unlike Lie groups, they are vector spaces and so they have a basis. Putting this together with the fact that the representation map $d$ is linear, we see that for Lie algebras we can find the entire representation by simply knowing it for a basis! This is an extremely useful property. For example it makes dealing with Schur's Lemma much easier. Note, however, that because we do not require $d$ to be invertible it is not generally true that the representation algebra and Lie algebra have the same dimension. That is, its possible that $d$ maps two basis vectors to the same element in the representation, which would give the representation a lower dimension then the Lie algebra itself. There is always a privileged representation which is the Lie algebra itself, this is the topic of the next section. 
+
+\section{The Adjoint Representation}
+
+\bd[Adjoint Representation]
+    Let $[\mathfrak{g},[,])$ be a Lie algebra. Then the linear map 
+    \bse
+        \begin{split}
+            ad : \mathfrak{g} & \to \mathfrak{g} \\
+            X & \mapsto ad(X),
+        \end{split}
+    \ese 
+    defined via its action:
+    \be 
+    \label{eqn:AdjointRepresentation}
+        ad(X) :(Y) \mapsto [X,Y].
+    \ee 
+    We call this the \textit{adjoint representation}.
+\ed 
+
+\bbox 
+    Prove that the adjoint representation is indeed a representation. That is show it is:
+    \ben[label=(\roman*)]
+        \item Linear, 
+        \item Antisymmetric, and 
+        \item Obeys the Jaccobi identity. 
+    \een 
+\ebox 
+
+Note that unlike the other representations we have considered so far, the adjoint representation does not give a matrix. It is just a linear map, which is all we need for a representation, as stated way back in \Cref{rem:RepresentationNeedNotBeMatrix}. We can, though, extract a matrix form for the adjoint representation as follows. We know that the representation is a vector space and has a basis, $\{X_a\}$, and we know that the Lie bracket of two elements is an element itself. This just gives us the structure constants, \Cref{eqn:StructureConstants}. So we can use these structure constants to construct a matrix. To be more clear, we have 
+\bse 
+    ad(X_a) : X_b \mapsto [X_a,X_b] = {f_{ab}}^cX_c,
+\ese 
+so as think of the adjoint representation in terms of the matrices 
+\bse 
+    {(T_a)_b}^c := {\big(ad(X_a)\big)_b}^c = {f_{ab}}^c.
+\ese 
+For a given $a$ this is a $\dim\mathfrak{g}\times\dim\mathfrak{g}$ matrix. 
+
+\bbox 
+    Suppose that the structure constants of a Lie algebra $\mathfrak{g}$ in a basis $\{X_a\}$ are ${f_{ab}}^c$. Now switch to a new basis $\{X'_a\}$, related to the old one by $X'_a = {S^b}_aX_b$, where ${S^b}_a$ is a nonsingular matrix. Show that in the new basis the structure constants are 
+    \bse 
+        {f'_{ab}}^c = {S^p}_a {S^q}_b {(S^{-1})^c}_r {f_{pq}}^r.
+    \ese 
+    \textit{Comment: Again this is something taken straight from the problem sheets to Dr. Dorigoni's course. However I think it's a useful exercise so have included it here.}
+\ebox 
+
+\subsection{Killing form}
+
+As we have said many times a Lie algebra is a vector space and this has given us many nice results. However a Lie algebra is even nicer than this: it also comes with a natural \textit{inner product}. 
+
+\bd[Killing Form]
+    Let $(\mathfrak{g},[,])$ be a Lie algebra. Then we can define an inner product, called the \textit{Killing form} (or \textit{Cartan metric}) by 
+    \be 
+    \label{eqn:KillingForm}
+        B(X,Y) := \Tr \big( ad(X)\cdot ad(Y)\big) \big),
+    \ee 
+    where $ad(X)$ is the matrix representing $X$.
+\ed 
+
+We can write the Killing form in components as 
+\bse
+    \begin{split}
+        B(X_a,X_b) & = \Tr \big( {[ad(X_a)ad(X_b)]^e}_c\big) \\
+        & = \Tr \big( {[ad(X_a)]^e}_d {[ad(X_b)]^d}_c \big) \\
+        & = {f_{ac}}^d{f_{bd}}^c \\
+        & =: g_{ab}.
+    \end{split}
+\ese
+Note that $g_{ab}=g_{ba}$, which we expect from an inner product. 
+
+\subsection{Casimir Operator}
+
+An important application of the Killing form is what is known as the \textit{Casimir operator}. 
+
+\bd[Casimir Operator]
+    Let $g_{ab}$ be the components of the Killing form for a Lie algebra $(\mathfrak{g},[,])$. Then \textbf{if} the Killing form is invertible we can define 
+    \bse 
+        g^{ab} := (g^{-1})_{ab}.
+    \ese 
+    In \textbf{any} representation, $d$, we can then define the \textit{Casimir operator} 
+    \be 
+    \label{eqn:CasimirOperator}
+        C_d = \sum_{a,b=1}^{\dim \mathfrak{g}} g^{ab} \cdot d(X_a) \cdot d(X_b),
+    \ee 
+    where $\{X_a\}$ is a basis for the Lie algebra. 
+\ed 
+
+It is a fact that the Casimir operator commutes with all elements in the representation. As the Lie bracket is linear, we can write this as 
+\bse 
+    [C_d, d(X_a)] = 0 \qquad \forall a\in \{1,...,\dim\mathfrak{g}\}.
+\ese 
+This is a very powerful result; if $d$ is an irrep then we know, from Schur's Lemma, that 
+\bse 
+    C_d = \l \cdot \b1.
+\ese
+
+\bex 
+\label{example:Casimirsu(2)}
+    As an example, consider $\mathfrak{su}(2)$. Here the Killing form is 
+    \be
+    \label{eqn:SU(2)KillingForm}
+        g_{ab} = -2\del_{ab}.
+    \ee 
+    This is invertible, and we obtain 
+    \bse 
+        g^{ab} = -\frac{1}{2}\del^{ab}.
+    \ese 
+    So here the Casimir is given by 
+    \bse 
+        C = -\frac{1}{2}\Big(\big[d(X_1)\big]^2 + \big[d(X_2)\big]^2 + \big[d(X_3)\big]^2\Big).
+    \ese 
+    This tells you that whenever $d$ is an irrep of SU($2$) that the Casimir is a multiple of the identity. This is often written as 
+    \bse 
+        J^2 = J_1^2 + J_2^2 + J_3^2 = \l \b1,
+    \ese 
+    to make the connection with the angular momentum of a particle. We will see this more in detail soon. 
+\eex 
+
+\bbox 
+    Prove \Cref{eqn:SU(2)KillingForm}. \textit{Hint: Use}
+    \bse 
+        [X_a,X_b] = \sum_c\epsilon_{abc}X_c
+    \ese 
+    \textit{for $\mathfrak{su}(2)$, where $\epsilon_{abc}$ is the Levi-Civita tensor.}
+\ebox 

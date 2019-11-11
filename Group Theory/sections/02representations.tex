@@ -1,0 +1,477 @@
+\chapter{Representations}
+
+We started this course saying that groups are important to particle physicists because they are related to symmetries, but we are yet to actually give justification for this claim. We shall hopefully give clarity of this point in this lecture. 
+
+\section{Representations Of Lie Groups}
+
+Recall that symmetries in quantum mechanics (QM) correspond to unitary operators acting on the Hilbert space:
+\bse 
+    U : \ket{\psi} \to U\ket{\psi}, \qand U : \bra{\psi} \to \bra{\psi}U^{\dagger}.
+\ese 
+We require that the operators are unitary because the physically meaningful thing in QM are probabilities, which always appear as inner products. So if the operator $U$ corresponds to some symmetry of the system the probability shouldn't change and so we have 
+\bse 
+    \braket{\psi}{\psi} = \bra{\psi}U^{\dagger}U\ket{\psi}
+\ese
+and so we need $U^{\dagger}U=\b1$. Furthermore, the operator must respect the symmetry group's properties. For example, if we are considering the symmetry of rotations, if $U$ represents this symmetry then we know that the composition of two rotations is a rotation
+\bse 
+    R(\varphi_{x_2},\varphi_{y_2},\varphi_{z_2})R(\varphi_{x_1},\varphi_{y_1},\varphi_{z_1}) = R(\varphi_{x_3},\varphi_{y_3},\varphi_{z_3}),
+\ese 
+and so the corresponding operator must satisfy 
+\bse 
+    U(\varphi_{x_2},\varphi_{y_2},\varphi_{z_2})U(\varphi_{x_1},\varphi_{y_1},\varphi_{z_1}) = U(\varphi_{x_3},\varphi_{y_3},\varphi_{z_3}).
+\ese 
+
+In the mathematical lingo, we say that the operators form a \textit{representation} of the symmetry group. Let's be more precise. 
+
+\bd[Representation Of Lie Group]
+    Let $G$ be a Lie group of dimension $n$ and $V$ be a real vector space of the same dimension. Then we obtain a \textit{representation} of $G$ on $V$ by prescribing an invertible, smooth map $D : G \to GL(n,\R)$ such that: for all $g_1,g_2\in G$
+    \be 
+    \label{eqn:RepOfGroup}
+        D(g_1\bullet g_1) = D(g_1)\cdot D(g_2), \qand D(e) = \b1_d,
+    \ee 
+    where the $\cdot$ is matrix multiplication. We call the vector space $V$ the \textit{representation space}. We can extend this definition to $\C$ trivially. 
+\ed 
+
+\bnn
+    From now on we will drop the $\cdot$ for matrix multplication and assume it is understood implictly. 
+\enn 
+
+\bbox 
+    Show that \Cref{eqn:RepOfGroup} implies 
+    \be
+    \label{eqn:RepresentationInverse}
+        D\big(g^{-1}\big) = \big[D(g)\big]^{-1},
+    \ee 
+    where the left-hand side $-1$ means the inverse element in the group and the right-hand side $-1$ means the matrix inverse. 
+\ebox 
+
+\br 
+\label{rem:RepresentationNeedNotBeMatrix}
+    In fact the above definition of a representation is not as general as possible; all we require is that $D$ be a group homomorphism. That is it maps elements of the Lie group to linear maps acting on the representation space that respect the group structure, i.e. obey \Cref{eqn:RepOfGroup} with $\cdot$ now corresponding to composition of maps. It is true that matrices are such maps, however not all such maps are matrices. For \textit{almost} all of this course, though, we will consider matrix representations and so work off the above definition. I say almost because later we will consider something called the adjoint representation of Lie algebras, which is not a matrix representation but is a linear map. However even in this case we will show how we can write it as a matrix.
+\er 
+
+\bp 
+    If $D(g)$ is a representation of $G$ of dimension $n$ on $V$ then so is 
+    \bse 
+        \widetilde{D}(g) := SD(g)S^{-1},
+    \ese 
+    where $S$ is a constant, invertible matrix. We say that $D(g)$ and $\widetilde{D}(g)$ are \textit{equivalent}.
+\ep 
+
+\bq 
+    We just need to show it obeys \Cref{eqn:RepOfGroup}. Firstly we have 
+    \bse 
+        \begin{split}
+            \widetilde{D}(g_1\bullet g_2) & := S D(g_1\bullet g_2) S^{-1} \\
+            & = S D(g_1) D(g_2) S^{-1} \\
+            & = S D(g_1) S^{-1} S D(g_2) S^{-1} \\
+            & = \big(S D(g_1) S^{-1}\big)\big( S D(g_2) S^{-1}\big) \\
+            & = \widetilde{D}(g_1) \widetilde{D}(g_2),
+        \end{split}
+    \ese 
+    where we have used the fact that $D(g)$ is a representation, inserted $\b1_n=S^{-1}S$ and used the associativity of matrix multiplication.
+    
+    Secondly we have 
+    \bse 
+        \widetilde{D}(e) := S D(e) S^{-1} = S \b1_n S^{-1} = SS^{-1} = \b1_n,
+    \ese 
+    where again we have used that $D(g)$ is a representation. 
+\eq 
+
+\bd[Unitary Equivalence]
+    Let $D(g)$ and $\widetilde{D}(g)$ be equivalent representations of $G$ on $V$. Then if we can choose $S$ to be unitary then $D(g)$ and $\widetilde{D}(g)$ are said to be \textit{unitarily equivalent}.
+\ed 
+
+\br 
+    It is common to refer to two equivalent representations $D(g)$ and $\widetilde{D}(g)$ that are \textit{not} unitarily equivalent as \textit{unitarily inequivalent}.
+\er 
+
+\bd[Unitary Representation]
+    Let $G$ be a Lie group with representation map $D$. If $D[g]$ is unitary for all $g\in G$ then we say the representation is \textit{unitary}. 
+\ed 
+
+\section{Representations of SU($n$)}
+
+The main group we are going to be considered in representing is SU($n$), \Cref{eqn:SU(n)}. It is important to note that the idea of a representation holds for a general Lie group. That is we do not need to only consider matrix Lie groups, as we are in these notes. The idea of a representation is to convert the group into a set of matrices, as we know how to calculate the action of a matrix on a vector space (which we just write as a column matrix). However SU($n$) is already a matrix group and so we don't really need to do anything to it. But first a comment on notation 
+
+\bnn 
+    We will denote the elements of a matrix using indices. We will adopt the convention that the contravariant (i.e. upper) index tells us the \textit{row}, and the covariant (lower) index tells us the \textit{column}. For an explicit example, let $U$ be an $n\times n$ matrix, then 
+    \bse 
+        U = \begin{pmatrix}
+            {U^1}_1 & {U^1}_2 & ... & {U^1}_n \\
+            {U^2}_1 & {U^2}_2 & ... & \vdots \\
+            \vdots & \vdots & \vdots & \vdots \\
+            {U^n}_1 & {U^n}_2 & ... & {U^n}_n
+        \end{pmatrix}.
+    \ese 
+\enn 
+
+\subsection{Fundamental \& Antifundamental Representations}
+
+As we have just said, SU($n$) already has the properties of a representation, that is it's already a matrix group and obeys the properties \Cref{eqn:RepOfGroup}. We can therefore just let $D$ be the identity map. This is known as the fundamental representation. 
+
+\bd[Fundamental Representation Of Lie Group]
+    Let $G$ be a matrix Lie group. Then we define the \textit{fundamental representation} of $G$ o $V$ simply as 
+    \be 
+    \label{eqn:FundamentalRepGroup}
+        D(U) = U.
+    \ee 
+    We can define it via its action on an element $\phi\in V$:
+    \be 
+    \label{eqn:FundamentalRepGroupAction}
+        D(U) : \phi \mapsto U\phi = {U^i}_j \phi^j.
+    \ee 
+\ed 
+
+There is another important representation of matrix Lie groups related to the fundamental representation. We define it below. 
+
+\bd[Antifundamental Representation Of Lie Group]
+    Let $G$ be a matrix Lie group. Then we define the \textit{antifundamental representation} or \textit{conjugate representation} on $G$ on $V$ as
+    \be 
+    \label{eqn:AntifundamentalRepGroup}
+        \overline{D}(U) = \overline{U},
+    \ee 
+    where the bar denotes complex conjugation. For bookkeeping (i.e. comparison to the fundamental rep.) we denote the vector transforming in the antifundamental representation with a lower index. That is, for $\phi\in V$ we write 
+    \be
+    \label{eqn:AntifundamentalRepGroupAction}
+        \overline{D}(U) : \phi \mapsto \overline{U}\phi = {(U^{\dagger})_j}^k \phi_k.
+    \ee 
+\ed 
+
+Note that the dimension of the fundamental representation and antifundamental representation agree. This tells us their representation spaces have the same dimension, but we think of them as transposes (i.e. we turn a row index into a column index, $\phi^k \to \phi_k$). For the following we shall denote the latter vector space as $\overline{V}$. This does \textit{not} mean the complex conjugate of $V$ but simply that we lower the index. An example is given below. An interesting question is "are the fundamental and antifundamental representations equivalent?" We will return to this question later. 
+
+\br 
+    Note in \Cref{eqn:AntifundamentalRepGroupAction} we used 
+    \bse 
+        {(U^{\dagger})_j}^k = {\overline{U}_k}^j
+    \ese 
+    as the Hermitian conjugate is both complex conjugation and transpose. 
+\er 
+
+\bbox 
+    Prove that the antifundamental representation is in fact a representation. That is show \Cref{eqn:AntifundamentalRepGroup} satisfies \Cref{eqn:RepOfGroup}.
+\ebox 
+
+There is another representation we will use. This one might seem a bit boring, but it will actually prove useful later when discussing Young-Tableauxs, so bear with it. 
+
+\bd[Trivial Representation]
+    Let $G$ be a Lie group. Then we have the \textit{trivial representation} of $G$ over $V$ by the one-point map:
+    \be 
+    \label{eqn:TrivialRepresentationGroup}
+        D(U) = \b1 \qquad \forall U \in G. 
+    \ee 
+    It simply acts as
+    \be 
+    \label{eqn:TrivialRepresentationGroupAction}
+        D(U) : \phi \mapsto \b1\phi = \phi,
+    \ee 
+    so it `does nothing'. 
+\ed 
+
+\br 
+    Note that, unlike the fundamental/antifundamental representations, the trivial representation does not require $G$ to be a matrix Lie group. 
+\er 
+
+\subsection{Tensor Products of $D$ \& $\overline{D}$}
+
+The way we defined the action of $D$ and $\overline{D}$ looks a lot like the index notation for tensors. So the obvious question is "can we take tensor products of these?" The answer is, of course, yes because the tensor product of two matrices is well defined. We define the representation space of this tensor product construction in the usual manner for the tensor product of vectors. That is we give $\phi$ one upper index for every $D$ and one lower index for every $\overline{D}$. The dimension of the representation (and therefore also the representation space) is given by $n^{d+\overline{d}}$, where $n$ is the dimension of $D/\overline{D}$, $d$ is the number of $D$s and $\overline{d}$ is the number of $\overline{D}$s. To help clarify this let's give a couple examples. 
+
+\bex 
+    Let $D$ be the $n$-dimensional fundamental representation of the Lie group $G$ over $V$. Then define $D_T := D\otimes D \otimes \overline{D}$. Then it acts on vectors in $\phi \in V\otimes V\otimes \overline{V}$. We tend to denote its action in terms of indices as follows:
+    \bse 
+        D_T(U) : {\phi^{ij}}_k \mapsto {U^i}_{i'} {U^j}_{j'} {\big(U^{\dagger}\big)^{k'}}_{k} {\phi^{i'j'}}_{k'}.
+    \ese
+    The dimension of the tensor product representation, $D_T$, is $n^3$. We haven't actually shown that this is in fact a representation. This is the content of the next exercise.
+\eex 
+
+\bbox 
+    Show that $D_T$ defined above forms a representation. That is shows it obeys \Cref{eqn:RepOfGroup}. \textit{Hint: Note that ${\b1^i}_j = \del^i_j$. The other property is a bit trickier to see. Just write down the action of $D(UV)$ on ${\phi^{ij}}_k$, expand ${(UV)^i}_j = {U^i}_k{V^k}_j$ and then use the fact that you can move around index terms freely.}\footnote{This hint might be more cryptic then helpful. If that's the case and you still can't do it, feel free to email me. It's actually not hard to show, but difficult to give much more of a hint without doing the question.}
+\ebox 
+
+There is a useful trick to notice that can save us a lot of time when we have contracted indices. As with tensors in GR, indices that are contracted (i.e. in $T^{ij}S_j$, $j$ is contracted) are called \textit{dummy} indices and do not transform. This comes from the fact that  covariant and contravariant indices transform in exactly the opposite way. We have a similar thing here when we consider the fundamental and antifundamental representations of SU($2$). We leave the proof of this as an exercise below.\footnote{If you hate these last two exercises, blame Dr. Dorigoni not me... They're exercises in his notes and I don't want to put the answers here for obvious reasons. If you are stuck with either of them, please feel free to email me and I can explain.}
+
+\bbox 
+    Show that 
+    \bse 
+        {\phi^{jk}}_{k} := {\phi^{j\ell}}_k \del^k_{\ell}
+    \ese 
+    transforms in the fundamental representation. That is 
+    \bse 
+        D_T(U) {\phi^{jk}}_k = {U^j}_{j'} {\phi^{j'k}}_k = D(U){\phi^{jk}}_k.
+    \ese
+    \textit{Hint: You will need to use the fact that we're considering SU($n$) and so $U^{\dagger}U=\b1$.}
+\ebox 
+
+\section{Reducible \& Irreducible Representations}
+
+The last exercise shows that some tensor product constructions don't actually give rise to anything knew, and we can essentially consider just the action of one part of it independently. In other words, it appears we can `reduce' complicated constructions into more bite size bits and deal with them one by one. If we can do this, we say the representation if \textit{reducible}. 
+
+\bd[Reducible Representation]
+    A representation of a Lie group,\footnote{In fact we will see this holds for representations of Lie algebras too.} $D$, of dimension $n$ is called \textit{reducible} if it is equivalent to representation of the form 
+    \bse 
+        SD(g)S^{-1} = \begin{pmatrix}
+            A(g) & C(g) \\
+            0 & B(g) 
+        \end{pmatrix}
+    \ese
+    for all $g\in G$.
+\ed 
+
+\br 
+    In the definition above, the matrix $C$ need not be a square matrix, all we require is that the complete matrix on the right-hand side is $n\times n$ (otherwise it wouldn't be equivalent to $D$). For example We could have
+    \bse 
+        A \in M^{\C}_{d_1\times d_1}, \qquad B \in M^{\C}_{d_2\times d_2}, \qand  C \in M^{\C}_{d_1\times d_2}.
+    \ese 
+    This would give $n=d_1+d_2$.
+\er 
+
+\bd[Completely Reducible]
+    A reducible representation is said to be \textit{completely reducible} if $C(g)=0$ for all $g\in G$, i.e. 
+    \be
+    \label{eqn:CompletelyReducibleMatrix}
+        SD(g)S^{-1} = \begin{pmatrix}
+            A(g) & 0 \\
+            0 & B(g) 
+        \end{pmatrix}.
+    \ee
+\ed 
+
+There is an alternate way we can write the condition of reducible. Note that the representation space of a reducible representation will have an \textit{invariant} subspace. That is if we set the bottom $d_2$ entries of the column matrix of $\phi\in V$ to 0 we get 
+\bse 
+    \begin{pmatrix}
+        A & C \\
+        0 & B 
+    \end{pmatrix}  \begin{pmatrix}
+        \underline{\a} \\
+        0 
+    \end{pmatrix} = \begin{pmatrix}
+        A\underline{\a} \\
+        0 
+    \end{pmatrix},
+\ese 
+where $\underline{\a}$ has $d_1$ entries. We can write this mathematically as follows. 
+
+\bd[Invariant Subspace]
+    Let $D$ be a representation of a Lie group $G$ on $V$. Then we call the subspace $U\ss V$ an \textit{invariant subspace} if for all $g\in G$ and $u\in U$
+    \bse 
+        D(g)u \in U.
+    \ese 
+\ed 
+
+Now note that if a representation is completely reducible then the representation space consists exactly of 2 separate invariant subspaces. That is, 
+\bse 
+    \begin{pmatrix}
+        A & 0 \\
+        0 & B 
+    \end{pmatrix}  \begin{pmatrix}
+        \underline{\a} \\
+        \underline{\beta}
+    \end{pmatrix} = \begin{pmatrix}
+        A\underline{\a} \\
+        B\underline{\beta}
+    \end{pmatrix},
+\ese 
+and so $\a$ and $\beta$ never talk to each other. We can therefore decompose $V$ into a \textit{direct sum} of its invariant subspaces, in this case
+\bse 
+    V = a \oplus b,
+\ese 
+where $\underline{\a}\in a$ and $\underline{\beta}\in b$ with $\dim V = \dim a + \dim b = d_1 + d_2$.
+
+We can therefore write the condition for completely reducible in a nice mathematical formulation. First we need the definition of an irreducible representation. 
+
+\bd[Irreducible Representation]
+    Let $D$ be a representation of a Lie group\footnote{Again it will hold for representations of Lie algebras too. Same for the next definition.} $G$ on $V$. We say that this representation is \textit{irreducible}, or more simply an \textit{irrep}, if $V$ has no non-trivial\footnote{Basically every representation space has the trivial subspace $\{0\}\in V$.} invariant subspace of any equivalent representation of $D$. 
+\ed 
+
+\bd[Completely Reducible (Direct Sum)]
+    Let $D$ be a representation of a Lie group on $V$. Then we call $D$ \textit{completely reducible} if it can be written as a direct sum of irreps:
+    \be 
+    \label{eqn:CompletelyReducibleDirectSum}
+        D(g) = A(g) \oplus B(g).
+    \ee 
+    This acts on $V = a \oplus b$ as 
+    \bse 
+        D(g)V = A(g)a \oplus B(g)b.
+    \ese 
+\ed 
+
+\bex 
+    In the last exercise (about contracted indices) we have 
+    \bse 
+        D_T = D \oplus \b1 \oplus \b1,
+    \ese 
+    where $\b1$ is the trivial representation. 
+\eex
+
+\bp 
+    Let $D$ be a completely reducible representation. Then the dimension of $D$ is equal to the sum of the dimension of the irreps in the direct sum.
+\ep 
+
+\bt[Maschke]
+    If a unitary representation is reducible then it is also completely reducible.
+\et 
+
+\bq 
+    Let $D$ be our representation of $G$ over $V$ with dimension $n$. As $D$ is reducible, it has an invariant subspace of $V$. Let $V_1 \ss V$ be this invariant subspace with dimension $d_1$. Then, as $V$ is a vector space, we can define a basis
+    \bse 
+        \big\{ e_1, ..., e_{d_1} , e_{d_1+1}, ... , e_{d_1+d_2}\big\},
+    \ese
+    where $n=d_1+d_2$. We are free to choose this basis such that $\{e_1,...,e_{d_1}\}$ is a basis for $V_1$. Define the subspace spanned by $\{e_{d_1+1},...,e_{d_1+d_2}\}$ by $V_2$. We see straight away that $V_1$ and $V_2$ are orthogonal.
+    
+    Now because $V_1$ is an invariant subspace we know every $v_1$ satisfies
+    \bse 
+        D(g)v_1 \in V_1,
+    \ese
+    and so can be decompose it in the basis $\{e_1,...,e_{d_1}\}$. The inner product with an arbitrary element $v_2\in V_2$ must vanish by orthogonality, i.e. 
+    \bse 
+        \big( D(g)v_1, v_2 \big) = 0.
+    \ese 
+    This holds for all elements $g\in G$ and so in particular holds for $g^{-1}\in G$. Now use the property of inner products:
+    \bse 
+        \big( D(g^{-1})v_1, v_2 \big) = \Big(v_1, \big(D(g^{-1})\big)^{\dagger}v_2 \Big).
+    \ese
+    Next use the fact that $D$ is unitary and so 
+    \bse 
+        \big(D(g^{-1})\big)^{\dagger} = \big(D(g^{-1})\big)^{-1} = D(g),
+    \ese 
+    where the last line comes from \Cref{eqn:RepresentationInverse} along with the fact that the inverse in the group is unique (i.e. $(g^{-1})^{-1}=g$). Putting this together we get 
+    \bse 
+        \big( v_1, D(g)v_2\big) = 0,
+    \ese 
+    which tells us 
+    \bse 
+        D(g)v_2 \in V_2,
+    \ese 
+    and so $V_2$ is an invariant subspace. Finally using the fact that $V_1$ and $V_2$ completely span $V$ we have 
+    \bse 
+        V = V_1 \oplus V_2,
+    \ese 
+    and so we can decompose $D$ in a similar manner. 
+\eq 
+
+This theorem is incredible powerful because it tells us that for SU($n$) the only thing we need to consider is irreducible representations and their direct sums. This \textit{massively} simplifies things. 
+
+\br 
+    Note also for SU($2$) Maschke's theorem allows us to stop distinguishing between just reducible and completely reducible. We shall therefore just say reducible (as it's one less word).
+\er
+
+\bl
+    Let $D$ be a representation with equivalent representation $\widetilde{D}(g) = SD(g)S^{-1}$. Then $D$ is reducible if, and only if, $\widetilde{D}$ is reducible.
+\el
+
+\bbox
+    Prove the above Lemma. 
+    
+    \br
+        \textit{Basically what you end up showing here is the same as showing that the equivalence of representations forms an equivalence relation (i.e. all the square box notation I was using in my proof that $\Z_n$ is a group). This gives further justification of me saying its worth learning about equivalence classes.}
+    \er
+\ebox 
+
+\subsection{Symmetric $\oplus$ Antisymmetric}
+
+People familiar with GR will probably know that you can decompose any 2 index tensor into a sum of its symmetric and antisymmetric parts. This subsection aims to show you can do the same thing for the tensor product of two representations. 
+
+Let's consider the tensor product of two fundamental representations.
+\bse 
+    D_B(U) = (D\otimes D)(U) : \phi^{ij} \mapsto {U^i}_{i'}{U^j}_{j'}\phi^{i'j'}.
+\ese 
+What the comment at the start of this subsection is saying is that we want to show that 
+\bse 
+    \begin{split}
+        \phi^{(ij)} & := \frac{1}{2}\big( \phi^{ij} + \phi^{ji}\big) \qquad \qquad  \text{(symmetric)}, \\
+        \phi^{[ij]} & := \frac{1}{2}\big( \phi^{ij} - \phi^{ji}\big) \qquad \qquad \text{(antisymmetric)}.
+    \end{split}
+\ese 
+are invariant subspaces, and so we can decompose $D_B$ into a direct sum
+\bse 
+    D_B = D_S \oplus D_A,
+\ese 
+where 
+\bse 
+    \begin{split}
+        D_S(U) : \phi^{ij} & \mapsto \frac{1}{2}\big( {U^i}_{i'}{U^j}_{j'} + {U^j}_{j'}{U^i}_{i'}\big) \phi^{i'j'} \\
+        D_A(U) : \phi^{ij} & \mapsto \frac{1}{2}\big( {U^i}_{i'}{U^j}_{j'} - {U^j}_{j'}{U^i}_{i'}\big) \phi^{i'j'}.
+    \end{split}
+\ese 
+
+It is easy to see that $\phi^{ij}=\phi^{(ij)}+\phi^{[ij]}$, so we just need to show that they are invariant under the action of $D$. We show this result for the symmetric case and leave the antisymmetric case as an exercise.
+
+Denote the symmetric/antisymmetric parts of $V$ by $V_S/V_A$ respectively. We need to show that 
+\bse 
+    D_S(U)\phi_S \in V_S, \qand D_A\phi_A = 0
+\ese 
+for all $\phi_S\in V_S$ and $\phi_A\in V_A$. The general elements of $V_S/V_A$ are given above, so direct calculation gives 
+\bse 
+    \begin{split}
+        D_S(U)\phi_S & = \frac{1}{4} \big( {U^i}_{i'}{U^j}_{j'} + {U^j}_{j'}{U^i}_{i'}\big)\phi^{i'j'} + \frac{1}{4} \big( {U^j}_{j'}{U^i}_{i'} + {U^i}_{i'}{U^j}_{j'}\big) \phi^{j'i'} \\
+        & = \frac{1}{4} \big( {U^i}_{i'}{U^j}_{j'} + {U^j}_{j'}{U^i}_{i'}\big)\phi^{i'j'} + \frac{1}{4} \big( {U^i}_{i'}{U^j}_{j'} + {U^j}_{j'}{U^i}_{i'}\big) \phi^{j'i'} \\
+        & = \frac{1}{4} \big( {U^i}_{i'}{U^j}_{j'} + {U^j}_{j'}{U^i}_{i'}\big)\big(\phi^{i'j'}+\phi^{j'i'}\big) \\
+        & = \frac{1}{2} {U^i}_{i'}{U^j}_{j'} \big(\phi^{i'j'}+\phi^{j'i'}\big),
+    \end{split}
+\ese 
+which is symmetric in $i\leftrightarrow j$, and so is an element of $V_S$. Now consider the action on an antisymmetric element: the only thing that will change is the sign between the two terms on the first line and so the same calculation will result in 
+\bse 
+    D_S(U)\phi_A = \frac{1}{4}\big( {U^i}_{i'}{U^j}_{j'} - {U^j}_{j'}{U^i}_{i'}\big)\big( \phi^{i'j'} + \phi^{j'i'}\big) = 0,
+\ese 
+which is the desired result. 
+
+\bbox 
+    Show the analogous calculation for $D_A(U)$.
+\ebox 
+
+This means we can express $D_B(U)$ as 
+\bse 
+    D_B(U) = \begin{pmatrix}
+        D_S(U) & 0 \\
+        0 & D_A(U)
+    \end{pmatrix}.
+\ese 
+Let's just check that dimensions work out. We said that the dimension of the tensor product of representations was the product of the dimensions. This gives (assuming $\dim D=n$)
+\bse 
+    \dim D_B = n^2.
+\ese 
+Now recall that we said the dimension of a Lie matrix group is equal to the number of free parameters in the matrix. The fundamental representation doesn't do anything to the matrices, and so it's dimension is also given by the number of free parameters. $D_S(U)/D_A(U)$ are symmetric/antisymmetric $n\times n$ matrices, and so have dimensions 
+\bse 
+    \dim D_S = \frac{n(n+1)}{2}, \qand \dim D_A = \frac{n(n-1)}{2}
+\ese 
+adding these gives 
+\bse 
+    \dim D_S + \dim D_A = n^2 = \dim D_B,
+\ese 
+which is exactly what we wanted. 
+
+\br 
+    Note there was noting special about us using the tensor product of two fundamental representations. A completely analogous calculation also holds for 
+    \bse 
+        \overline{D}_B = \overline{D}\otimes \overline{D}, \qquad D_C = D\otimes \overline{D}, \qand \overline{D}_C = \overline{D}\otimes D.
+    \ese 
+\er 
+
+\section{Schur's Lemma}
+
+We have just invested a considerable amount of time and effort in obtaining a irreps, but any sensible person would ask "why do we care about them?" Well we have already given a reasonable answer above (the idea that, for unitary representations, everything is described in terms of irreps), however there is a physical answer which might be more satisfying to us physicists. It comes in the form of a famous Lemma. 
+
+\bl[Schur's Lemma]
+    Let $D$ be an irrep of $G$ over $V$. Then if there exists a matrix $H$ such that for all $g\in G$
+    \be 
+    \label{eqn:SchursLemma}
+        [H, D(g)] = 0 \qquad \implies \qquad H = \l \cdot \b1,
+    \ee 
+    where $\l\in \C$.\footnote{Or whatever the field of the vector space is.}
+\el 
+
+\bq 
+    Let $\underline{v}\in V$ be an eigenvector of $H$ with eigenvalue $\l$,\footnote{Note every matrix has at least one because $\det (B - \l\cdot \b1) = 0$ has a solution.} then if $H$ commutes with $D(g)$ then 
+    \bse 
+        H\big(D(g)\underline{v}\big) = D(g) H\underline{v} = \l \cdot \big(D(g)\underline{v}\big).
+    \ese
+    This tells us that $D(g)\underline{v}$ is also a eigenvector of $H$ with the same eigenvalue. This is true for all $g$ and so we conclude that the eigenspace $V_{\l}$ is an invariant subspace of $D$ (otherwise we would get a different eingenvalue with $H$). But $D$ is a irrep so it has no non-trivial invariant subspaces, and because the eigenspace is not empty we are forced to conclude that $V_{\l} = V$, so \textit{every} element in $V$ is an eigenvector of $H$ with eigenvalue $\l$. This is just the statement that $H = \l \cdot \b1$.
+\eq 
+
+So why is this a nice physical answer to our question at the start of this section? Well recall that any exact symmetry should commute with the Hamiltonian. So for a group $G$ to be a symmetry, we require 
+\bse 
+    [H,D(g)] = 0 \qquad \forall g \in G.
+\ese 
+Schur's Lemma therefore tells us that the Hamiltonian acts as $E\cdot \b1$ on an irrep of a symmetry group $G$. In fancier language: states in an irrep of an exact symmetry group form a \textit{multiplet} with degenerate energies. This is a very powerful statement, because recalling that small equation of Einsteins, $E=mc^2$, we see that states that are connected by an irrep of an exact symmetry group \textit{have the same mass}! This is the reason why an electron and a positron have the same mass. It is a fact that the dimension of the irrep corresponds to the number of terms in the multiplet, and so if we can find an irrep of dimension $n$ that commutes with $H$ we instantly know that there are $n$ particles with equal mass. 
+
+Now if that isn't a physically compelling argument for why irreps are worth studying, then I'm sorry but you're never going to be convinced. 

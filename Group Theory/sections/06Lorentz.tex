@@ -1,0 +1,537 @@
+\chapter{Lorentz Group \& Cartan Classification}
+
+\br 
+    Unfortunately this lecture is the one that is must heavily bashed by the lack of time on the course, so a lot of the material is sort of brushed over or set as exercises. I shall try and flush out this lecture with additional information to help clarify things, however as with previous exercises, I won't type the answers to any of the exercises set in Dr. Dorigoni's notes/problem sheets. I am currently typing up several courses, so it might be a while before I get round to doing this, and if you're reading this it means I haven't done it yet.
+\er 
+
+We saw last lecture that $\mathfrak{su}(2)$ appeared to be some kind of `building block' for other Lie algebras. In this lecture we are going to show that this is actually more powerful than just the case of $\mathfrak{su}(3)$ discussed in the previous lecture, by first considering the Lorentz group and then touching on Cartan's classification.
+
+\section{Lorentz Group}
+
+The Lorentz group, denoted SO$(3,1)$,\footnote{Some people write SO$(1,3)$, it doesn't matter, the numbers just indicate the number of $+$s and $-$s in the metric.} is the group whose elements are $4\times 4$, invertible matrices which we denote by $\Lambda$. We write their action on elements in $\R^4$ as
+\bse 
+    X^{'\mu} = {\Lambda^{\mu}}_{\nu} X^{\nu}.
+\ese 
+They preserve the pseudo-inner product on $\R^4$, i.e. 
+\be
+\label{eqn:X'etaX'=XetaX}
+    X^{'\mu}\eta_{\mu\nu}X^{'\nu} = X^{\mu}\eta_{\mu\nu}X^{\nu},
+\ee 
+where we use signature
+\bse 
+    \eta_{\mu\nu} = \text{diag}(1,-1,-1,-1).
+\ese 
+Physically the Lorentz group corresponds to spatial rotations and Lorentz boosts.
+
+\br 
+\label{rem:NonCompactGroups}
+    The Lorentz group is an example of what are known as \textit{non-compact groups}. We will not discuss technically what this means here but simply say that it corresponds to the range of the parameters being open intervals.\footnote{See a book on topology for more details on compact spaces.} This is the case for the Lorentz group because we can only boost asymptotically to the speed of light. That is the parameter $\beta := v/c$ has range $\beta\in(-1,1)$, which is open. We will return to this fact shortly.
+\er 
+
+\bbox 
+    Use \Cref{eqn:X'etaX'=XetaX} to show that 
+    \bse 
+        {\Lambda^{\rho}}_{\mu}\eta_{\rho\tau}{\Lambda^{\tau}}_{\nu} = \eta_{\mu\nu}.
+    \ese 
+    This is often given as a defining property of the Lorentz group. Use this result to show that 
+    \bse 
+        {\Lambda^{\mu}}_{\nu} = {\del^{\mu}}_{\nu} + \epsilon {\omega^{\mu}}_{\nu} 
+    \ese 
+    is the infinitesimal deviation from the identity element in SO$(3,1)$, provided $\omega_{\mu\nu}=-\omega_{\nu\mu}$.
+\ebox 
+
+The previous result tells us about the Lie algebra. The generators are the ${\omega^{\mu}}_{\nu}$s, an the antisymmetry condition tells us that the dimension is $d=\frac{4(4-1)}{2} = 6$. These are the three spatial rotations ad the three boosts, and you can show they obey the commutation relations
+\be 
+\label{eqn:JKCommutators}
+    \begin{split}
+        [J_i,J_j] & = \epsilon_{ijk}J_k \\
+        [J_i,K_j] & = \epsilon_{ijk}K_k \\
+        [K_i,K_j] & = -\epsilon_{ijk}J_k,
+    \end{split}
+\ee 
+where the $J$s are the generators of spatial rotations and the $K$s are generators of boosts. 
+
+
+\subsection{Smart Basis}
+
+The first relation in \Cref{eqn:JKCommutators} looks just like a $\mathfrak{su}(2)$, but the second two mess it all up. The question is "can we change coordinates in such a way as to produce two\footnote{Note we know it's two because the dimension is $6$ and each $\mathfrak{su}(2)$ has dimension $3$.} sets of $\mathfrak{su}(2)$?" The answer is yes, and is accomplished by defining 
+\be 
+\label{eqn:NbarN}
+    N_i := \frac{1}{2}\big( J_i - i K_i) \qand \overline{N}_i := \frac{1}{2}\big( J_i + i K_i)
+\ee 
+
+\bcl 
+    The expressions \Cref{eqn:NbarN} form a basis for $\mathfrak{so}(3,1)$ and obey the commutation relations 
+    \be 
+        \begin{split}
+            [N_i,N_j] & = \epsilon_{ijk}N_k \\
+            [\overline{N}_i,\overline{N}_j] & = \epsilon_{ijk}\overline{N}_k \\
+            [N_i,\overline{N}_j] & = 0.
+        \end{split}
+    \ee 
+\ecl 
+
+\bbox 
+    Prove the above claim. 
+\ebox 
+
+The above claim gives us exactly what we wanted, two separate copies of $\mathfrak{su}(2)$ embedded in $\mathfrak{so}(3,1)$. We write this as 
+\bse 
+    \mathfrak{so}(3,1) = \underbrace{\mathfrak{su}(2)_L}_{N} \times \underbrace{\mathfrak{su}(2)_R}_{\overline{N}},
+\ese 
+where the $L/R$ stand for left/right, respectively. The reason for this will become clear in just a moment. Therefore the irreps of the Lorentz algebra are completely specified once we specify the irreps of the two $\mathfrak{su}(2)$s. This is brilliant because in lecture 3 we classified all the representations of SU($2$) (which we can convert into representations of the Lie algebra). They were specified by a single integer, $j$, related to the dimension $d=j+1$. So we can categorise all of the representations of SO$(3,1)$ using two integers, $(j_1,j_2)$, with dimension $d=(j_1+1)(j_2+1)$. We give some examples below.\footnote{The Young-Tableaux here might look a little strange. The important thing to note is the we are \textit{not} taking the tensor product of two Young-Tableaux, but the Cartesian product. This just corresponds to categorising the representations by the double $(j_1,j_2)$, see a linear algebra book if this doesn't make sense.}
+
+\begin{center}
+	\begin{tabular}{@{} p{2cm} p{5cm} p{2cm} p{2cm} p{3cm} @{}}
+		\toprule
+		$(j_1,j_2)$ & Name & Symbol & Dimension & Young-Tableaux \\
+		\midrule 
+		$(0,0)$ & Scalar & $\phi$ & 1 & $1_L\times 1_R$ \\ \\
+		$(1,0)$ & Left-handed Weyl Spinor & $\psi_{\a}$ & 2 & ${\byt ~ \eyt}_L \times 1$ \\ \\
+		$(0,1)$ & Right-handed Weyl Spinor & $\overline{\psi}_{\dot{\a}}$ & 2 & $1_L \times {\byt ~ \eyt}_R $ \\ \\
+		$(1,1)$ & Vector & $A_{\a\dot{\a}}$ & 4 & ${\byt ~ \eyt}_L \times {\byt ~ \eyt}_R $ \\ \\
+		$(2,0)$ & Self-dual $2$-form & $F_{\a\beta}$ & 3 & $ {\byt ~ & \eyt}_L \times 1_R $  \\ \\
+		$(0,2)$ & Antiself-dual $2$-form & $B_{\dot{\a}\dot{\beta}}$ & 3 & $1_L \times {\byt ~ & \eyt}_R $ \\ \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+\br 
+\label{rem:LorentzGroupVsAlgebra}
+    Now things are a little subtle because we're treading the line between mixing the Lie group, which have the matrices ${\Lambda^{\mu}}_{\nu}$, and the Lie algebra,which have the basis elements $\{N_i,\overline{N}_i\}$. The objects in the table above are in the representation space of the Lie group (that's why we can draw Young-Tableaux), but we want to use the nice properties of the Lie algebra to study things. What we have to remember is that the two structures are related by the exponential map, and we can related their representations this way. I shall try to be as explicit as possible in the following but it's likely I'll make a couple errors. 
+\er 
+
+\bnn 
+    As we have done in the table above, we will denote elements of $SU(2)_L$ with $\a,\beta$ etc., and we will denote elements of $SU(2)_R$ with $\dot{\a},\dot{\beta}$ etc. The reason is that this is the usual notation used in places like supersymmetry. Note that both indices take values in $\{1,2\}$.
+\enn 
+
+We should stop a second a make a few comments on the table above. The first three entries are fine, but we call the $(1,1)$ entry a vector. As is required it has an $\a$ and a $\dot{\a}$ index, but we're used to writing vectors with a single spacetime index, $\mu$. So what's going on? Well, as we will see shortly, it turns out that something of the form $A_{\a\dot{\a}}$ does indeed transform as a vector in SO($3,1$), i.e. we can `repackage' the information such that 
+\bse 
+    A^{\mu} \mapsto {\Lambda^{\mu}}_{\nu} A^{\nu}. 
+\ese 
+A similar thing holds for the $(2,0)$ and $(0,2)$ entries, but we won't discuss that here. 
+
+\br 
+    As we just said, the last two are not going to be important to us here but for completeness, basically they obey 
+    \bse 
+        F = \star F, \qand B = -\star B,
+    \ese 
+    where $\star$ is the \textit{Hodge dual}.\footnote{See a book on differential geometry.} In spacetime components this can be written 
+    \bse 
+        F_{\mu\nu} = \frac{1}{2}\epsilon_{\mu\nu\rho\sig}F_{\rho\sig}, \qand B_{\mu\nu} = -\frac{1}{2}\epsilon_{\mu\nu\rho\sig}B_{\rho\sig}.
+    \ese 
+    These structures play crucial roles in the study of so-called \textit{Yang-Mills instantons}.
+\er  
+
+There is another important representation to consider, but this one is \textit{reducible}. It is known as a \textit{Dirac spinor} and is given by $(1,0)\oplus(0,1)$, which we write in matrix form as\footnote{It is also often written with $\psi_L$ and $\psi_R$ as entries.}
+\bse 
+    \psi_D = \begin{pmatrix}
+        \psi_{\a} \\
+        \overline{\psi}_{\dot{\a}}
+    \end{pmatrix}.
+\ese 
+It has dimension $\dim(1,0)+\dim(0,1) = 2+2 =4$, however it is \textit{not} a vector as 
+\bse 
+    (1,0)\oplus(0,1) \neq (1,1).
+\ese
+
+\br 
+    As was the case with the $j$s in the previous lecture, we are using the mathematician's notation with integers not half integers. A physicist would write the Dirac spinor as $(\frac{1}{2},0)\oplus(0,\frac{1}{2})$. Same for the other terms in the table above.
+\er 
+
+\subsection{Left-Handed vs Right-Handed Spinors}
+
+Let's consider the left-handed Weyl spinors first. As per the table above, they transform like the fundamental representation in $SU(2)_L$ and via the trivial representation in $SU(2)_R$. Keeping \Cref{rem:LorentzGroupVsAlgebra} in mind, we can convert this into a statement about the representations of the Lie algebras $\mathfrak{su}(2)_{L/R}$. In terms of our basis $\{N_i,\overline{N}_i\}_{i\in\{1,2,3\}}$, we have\footnote{Note the representation $d(X)=0$ in the Lie algebra corresponds to $D(e^0)=\b1$ in the Lie group, which is exactly the trivial representation.}
+\be 
+\label{eqn:dNLeftHanded}
+    d(N_i) = \tau_i = -\frac{i}{2}\sig_i, \qand d(\overline{N}_i) = 0,
+\ee 
+where we have used the basis \Cref{eqn:TauBasis} (so the commutators work nicely). So what does this representation look like in terms of the Lie group? That is we want to find an expression for 
+\bse 
+    D(\Lambda) : \psi_{\a} \mapsto {\Lambda^{\beta}}_{\a}\psi_{\beta}
+\ese
+in terms of the representation of the Lie algebra. How do we do this? Well we use the exponential map to obtain
+\bse 
+    {\Lambda^{\mu}}_{\nu} = \exp\big( {\omega^{\mu}}_{\nu}\big).
+\ese 
+Note this is a finite transformation as we don't have the small parameter $\epsilon$, as we did in the exercise above. As we said after this exercise, ${\omega^{\mu}}_{\nu}$ has $6$ free parameters, $3$ of which are the rotations and the other $3$ the boosts. We shall denote these by $r_i$ and $b_i$ with $i\in\{1,2,3\}$. Now the $d(N_i)/d(\overline{N}_i)$ span the representation, and so we obtain 
+\bse 
+    D(\Lambda) : \psi_{\a} \mapsto \exp \big[ n_i d(N_i){\big]^{\beta}}_{\a} \psi_{\beta},
+\ese 
+with $n_i\in\C$ and where we don't get any $d(\overline{N}_i)$ terms by \Cref{eqn:dNLeftHanded}. 
+
+The question is "what are the $n_i$s?" Well they are linear combinations of the $r_i$ and $b_i$ mentioned above, and we can decide how by using our required interpretation. We want the $r_i$s to be the rotations, and we have seen previously that the rotations are given by $\exp(a_iA_i)$ where $a_i$ are the rotation angles and $A_i$ are the rotation matrices in the Lie algebra. We therefore want the $r_i$ term to come in the form 
+\bse 
+    \exp(r_i\tau_i) = \exp\bigg(-\frac{i}{2}r_i\sig_i\bigg).
+\ese 
+Similarly we want the boost parts \textit{not} to look like a rotation, and so we don't want the $i$ factor, i.e. we want something of the form 
+\bse 
+    \exp(-ib_i\tau_i) = \exp\bigg(-\frac{b_i}{2}\sig_i\bigg).
+\ese 
+Using \Cref{eqn:dNLeftHanded}, we therefore take
+\be
+\label{eqn:n_ir_ib_i}
+    n_i = r_i -ib_i.
+\ee 
+Note these two sign conventions have been chosen so that they line up with \Cref{eqn:NbarN}. Putting this together we get 
+\be
+\label{eqn:LieGroupOnLeftHanded}
+    D(\Lambda) : \psi_{\a} \mapsto {M^{\beta}}_{\a} \psi_{\beta}, \qquad \text{with} \qquad {M^{\beta}}_{\a} := \exp \bigg( -\frac{ir_i}{2} \sig_i - \frac{b_i}{2}\sig_i{\bigg)^{\beta}}_{\a}.
+\ee 
+
+\br 
+    Note that ${M^{\beta}}_{\a} \in SL(2,\C)$ and \textit{not} $SU(2)$. That is it is not unitary. This is a result of a theorem which says that non-compact groups cannot have unitary representations, and in \Cref{rem:NonCompactGroups} we said that the Lorentz group is non-compact. Note that this result stems from the fact that we have complexified the $n_i$s. If we had not (e.g. if we'd set $n_i=r_i+b_i$) then we could have got two types of rotation in \Cref{eqn:LieGroupOnLeftHanded} and we would have been studying SO(4), which is compact.
+\er 
+
+We can now redo the whole game for the right-handed spinors. In this case we have the representation opposite to \Cref{eqn:dNLeftHanded}, namely
+\bse 
+    \widetilde{d}(N_i) = 0, \qand \widetilde{d}(\overline{N}_i) = \tau_i = -\frac{i}{2}\sig_i.
+\ese 
+If we consider the same Lorentz transformation as above, everything follows through the same, apart from now we use 
+\bse 
+    \overline{n}_i = r_i + ib_i,
+\ese
+and obtain 
+\be 
+\label{eqn:LieGroupOnRightHanded}
+    \widetilde{D}(\Lambda) : \psi_{\dot{\a}} \mapsto {(M^*)^{\dot{\beta}}}_{\dot{\a}} \psi_{\dot{\beta}}, \qquad \text{with} \qquad {(M^*)^{\dot{\beta}}}_{\dot{\a}} := \exp \bigg( -\frac{ir_i}{2} \sig_i + \frac{b_i}{2}\sig_i{\bigg)^{\dot{\beta}}}_{\dot{\a}}.
+\ee
+
+Note that basically the only difference between the representations on left-handed and right-handed Weyl spinors is the sign before the boost part. This corresponds to physically to a property known as \textit{helicity}. Helicity basically tells you the projection of the spin of a massless particle (which Weyl spinors are) onto its momentum, we call the two options left- and right-handed (hence the names we've been using). These names come from our hands: make a thumbs up but don't curl your fingers all the way in, now imagine your thumb points in the direction of momentum, then your fingers tell you about the spin direction. A right-handed spinor has spin-momentum projection like your right hand looks, and similarly for a left-handed spinor. 
+
+\begin{center}
+    \btik 
+        \draw[thick, ->] (-5,0) -- (-1,0) node [midway] {\AxisRotatorL};
+        \node at (-3,-1) {Left-Handed};
+        \draw[thick, ->] (1,0) -- (5,0) node [midway] {\AxisRotatorR};
+        \node at (3,-1) {Right-Handed};
+    \etik 
+\end{center}
+
+\subsection{Vectors}
+
+We can now return to the comment we made about about the fact that $A_{\a\dot{\a}}$ is a vector. Let's looks how it transforms:
+\bse 
+    D(\Lambda)\times\widetilde{D}(\Lambda) : A_{\a\dot{\a}} \mapsto {M^{\beta}}_{\a} {(M^*)^{\dot{\beta}}}_{\dot{\a}} A_{\beta\dot{\beta}} = (MAM^{\dagger})_{\a\dot{\a}}.
+\ese 
+This still doesn't look anything like the transformation of a vector. We recover our usual vector type transformation by introducing the following vector of matrices
+\bse 
+    \sig^{\mu} := (\b1_{2\times2}, -\sig_1, -\sig_2, -\sig_3).
+\ese 
+We can use this to repackage the information of a vector $X^{\mu}$ as a $2\times 2$ matrix. We define 
+\bse 
+    X_{\a\dot{\a}} := X^{\mu}\eta_{\mu\nu} \sig^{\nu} = \begin{pmatrix}
+        X^0 + X^3 & X^1 - iX^2 \\
+        X^1 + iX^2 & X^0 - X^3
+    \end{pmatrix}.
+\ese 
+Now we have just chosen to label the entries of this $2\times 2$ matrix with an $\a\dot{\a}$, but haven't shown it actually relates to the $\a\dot{\a}$ notation of left-handed/right-handed representations. Well it turns out that if you consider the Lorentz transformation 
+\bse 
+    X^{'\mu} = {\Lambda^{\mu}}_{\nu}X^{\nu}, 
+\ese
+where this $\Lambda$ is the same as the one in \Cref{eqn:LieGroupOnLeftHanded,eqn:LieGroupOnRightHanded}, it translates to 
+\be 
+\label{eqn:XAlphaDotAlpha}
+    X^{'}_{\a\dot{\a}} = (MXM^{\dagger})_{\a\dot{\a}}.
+\ee 
+The proof of this is the content of the next exercise.\footnote{This is something that was set as a problem sheet question on the course, so I don't want to type the answer. If the question is unclear at all, please feel free to email me for further clarity.}
+
+\bbox 
+    Given the matrices 
+    \bse 
+        \begin{split}
+            J_1 & = \begin{pmatrix} 
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & -1 \\
+                0 & 0 & 1 & 0
+            \end{pmatrix}, \qquad J_2 = \begin{pmatrix} 
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 \\
+                0 & 0 & 0 & 0 \\
+                0 & -1 & 0 & 0
+            \end{pmatrix}, \qquad J_3 = \begin{pmatrix} 
+                0 & 0 & 0 & 0 \\
+                0 & 0 & -1 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 0
+            \end{pmatrix}, \\ \\
+            K_1 & = \begin{pmatrix} 
+                0 & 1 & 0 & 0 \\
+                1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0
+            \end{pmatrix}, \qquad K_2 = \begin{pmatrix} 
+                0 & 0 & 1 & 0 \\
+                0 & 0 & 0 & 0 \\
+                1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0
+            \end{pmatrix}, \qquad K_3 = \begin{pmatrix} 
+                0 & 0 & 0 & 1 \\
+                0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 \\
+                1 & 0 & 0 & 0
+            \end{pmatrix}
+        \end{split}
+    \ese
+    show that the vector representation of SO($3,1$) corresponds to the $(1,1)$ representation of $SU(2)_L \times SU(2)_R$. That is prove that \Cref{eqn:XAlphaDotAlpha} holds. \textit{Hint: Construct the explicit representation of the generators $N_i/\overline{N}_i$ of $SU(2)_L\times SU(2)_R$ starting from the $J_i/K_i$ matrices given above.}
+\ebox 
+
+\section{Cartan Classification}
+
+So we have done a lot of work regarding representations of groups, the final question we want to ask is "can we classify all Lie algebras and their representations?" The answer is yes and no. The no part just means that their are too many Lie algebras, and so we need to restrict ourselves to a smaller set. The yes will take some time to get to. First we need to introduce some definitions.\footnote{Some of these may have appeared above. I have decided to present them here again anyways just so this section is easier to read.}
+
+\subsection{Some More Definitions/Theorems}
+
+\bd[Abelian Lie Algebra]
+    A Lie algebra $(\mathfrak{g},[,])$ is said to be \textit{Abelian} if the Lie bracket of any two elements vanishes. That is, for all $g_1,g_2\in\mathfrak{g}$
+    \bse 
+        [g_1,g_2] = 0.
+    \ese 
+\ed 
+
+\bd[Lie Subalgebra]
+    Let $(\mathfrak{g},[,])$ be a Lie algebra. Then then we call $\mathfrak{h}\ss \mathfrak{g}$ a \textit{Lie subalgebra} if it is a subspace and it is closed under the Lie bracket, i.e. 
+    \bse 
+        [h_1,h_2] \in \mathfrak{h}, \qquad \forall h_1,h_2\in\mathfrak{h}.
+    \ese
+\ed
+
+\bd[Invariant Lie Subalgebra/Ideals]
+    An \textit{invariant Lie subalgebra} is a Lie subalgebra that goes into itself under commutation with \textit{any} element of the full Lie algebra. That is, for all $g\in \mathfrak{g}$ and $h\in\mathfrak{h}$
+    \bse 
+        [h,g] \in \mathfrak{h}.
+    \ese
+    We also refer to these as \textit{ideals}.
+\ed 
+
+\bc 
+    Every Lie algebra posses two ideals, namely $\mathfrak{h}=\{0\}$ and $\mathfrak{h}=\mathfrak{g}$. We refer to these as \textit{trivial} ideals. 
+\ec
+
+\bbox 
+    Verify the above Corollary. \textit{Hint: This is not a trick question, it is very straight forward.}
+\ebox 
+
+\bd[Simple Lie Algebra]
+    A Lie algebra is called \textit{simple} if it has $\dim\mathfrak{g}>1$\footnote{This is included to exclude $U(1)$ factors.} and it has no non-trivial ideals. 
+\ed 
+
+\br 
+    Ideals is a similar concept to an invariant subspace of a representation. Similarly, simple Lie algebras are akin to irreps. 
+\er 
+
+It is the \textit{Abelian ideals} that mess up our classification process. This is just because once you enter an after you hit one element of an Abelian ideal, everything commutes and so you loose all the information (i.e. the structure constants are all vanishing). This motives the next definition. 
+
+\bd[Semisimple Lie Algebras]
+    A Lie algebra is said to be \textit{semisimple} if it has no Abelian ideals.
+\ed 
+
+\bt 
+    A semisimple Lie algebra can be written as a direct sum of simple Lie algebras. 
+\et 
+
+\bt[Cartan]
+    A Lie algebra is semisimple if, and only if, its Killing form is non-degenerate. That is $g^{ab}$ is well defined. 
+\et 
+
+\bq 
+    See page 41 of Dexter Chua's notes for part of the proof.
+\eq 
+
+\bd[Ad-Diagonalisable]
+    Let $(\mathfrak{g},[,])$ be a Lie algebra. We say an element $X\in\mathfrak{g}$ is \textit{ad-diagonalisable} if the adjoint representation ad$(X)$ is diagonalisable.
+\ed 
+
+\subsection{Standard Form Of Semisimple Lie Algebras}
+
+Essentially what we're going to try and do is use some smart basis such that our Lie algebra becomes a bunch of $\mathfrak{su}(2)$s. This basis is known as the \textit{Chevalley basis}. We are going to use our discussion of $\mathfrak{su}(3)$ from last lecture as a guiding example. 
+
+\subsubsection{Step 1}
+Find a maximal set of independent, commuting, ad-diagonalisable elements, $\{H_1,...,H_r\}$. The value $r$ is known as the \textit{rank} of the Lie algebra, and the subalgebra 
+\be 
+\label{eqn:CartanSubalgebra}
+    \mathfrak{h} := \text{span}_{\C}\{H_1,...,H_r\}
+\ee 
+is known as the \textit{Cartan subalgebra}, it is \textit{not} unique. The idea is going to be to simultaneously diagonalise the (adjoint) representation of all of these, as we did last lecture. This is why we require $\{H_i\}$ to be ad-diagonalisable.
+
+\bex 
+    We saw last lecture that for $\mathfrak{su}(2)$, $r=1$ and we can chose $H=\sig_3$. We also saw that $r=2$ for $\mathfrak{su}(3)$ and had $H_1\sim \l_3$ and $H_2 \sim \l_8$. This result generalised for $\mathfrak{su}(N)$, where $r=N-1$.
+\eex 
+
+\subsubsection{Step 2}
+
+Consider the algebra as a representation space on its own, i.e. use the adjoint representation. From the definition of a representation, and the fact that $[H_i,H_j]=0$, we have 
+\bse 
+    [ad(H_i),ad(H_j)] = 0 \qquad \forall i,j\in\{1,...,r\}.
+\ese 
+
+\bp 
+    Let $\mathfrak{h}$ be a rank $r$ Cartan subalgebra of $\mathfrak{g}$. Then any $X\in\mathfrak{g}$ that satisfies $[X,H_i]=0$ for all $i\in\{1,...,r\}$, then $X\in\mathfrak{h}$.
+\ep 
+
+This proposition basically tells us that every diagonal element is non-zero in at least one of the $H_i$s, as if one wasn't then the diagonal matrix with only that one entry in it would commute with all other $H_i$s. Combining this result with the fact that the matrices of the adjoint representation are $\dim\mathfrak{g}\times \dim\mathfrak{g}$ in size, we get the following important result. 
+
+\bc 
+    The simultaneous eigenvectors\footnote{We allow the eigenvalue to be zero here.} of the ad$(H_i)$s form a basis for the whole Lie algebra $\mathfrak{g}$. 
+\ec 
+We call these simultaneous eigenvectors \textit{root vectors} and denote them by $E_{\underline{\a}}$, where $\underline{\a} = (\a^1,...,\a^r)$ are the simultaneous eigenvalues.\footnote{We have actually used the fact that the eigenvectors are non degenerate. That is, each $\underline{\a}$ has a unique eigenvector $E_{\underline{\a}}$} We call $\underline{\a}$ the \textit{root} and it lives in an $r$-dimensional vector space, called the \textit{root space}. The set of all roots is called the \textit{root system}, and it corresponds to the spectrum of the Cartan subalgebra.
+
+The eigenvector condition tells us 
+\be
+\label{eqn:AdHEigenvectors}
+    ad(H_i)E_{\underline{\a}} := [H_i,E_{\underline{\a}}] = \a_i E_{\underline{\a}},
+\ee 
+where the middle expression is just the definition of the adjoint representation. Comparing to the previous lecture, we see that the root vectors are just the generalisation of the step operators. This is nice, but last lecture the commutators were $[H,E_{\pm}]=\pm 2E_{\pm}$, we want to recover this.
+
+The Killing form induces a metric on $\mathfrak{h}$:
+\bse 
+    g_{ij} = f_{i \,\,\, d}^{\,\, c} f_{j \,\,\, c}^{\,\, d}, \qquad \text{with} \qquad i,j\in\{1,...,r\} \text{ and } c,d\in\{1,...,\dim\mathfrak{g}\}.
+\ese
+By Cartan's theorem this is invertible, and so we have 
+\bse 
+    g^{ij} := (g^{-1})_{ij}.
+\ese
+We define the inner product as 
+\be 
+\label{eqn:CartanInnerProduct}
+    \la X , Y \ra := X_k g^{ks} Y_s 
+\ee 
+for $X,Y\in\mathfrak{h}$. Then we define, for every root $\underline{\a}$,
+\be 
+\label{eqn:HAlphaCheck}
+    H_{\underline{\a}^{\chm}} := \frac{2g^{ij}\a_iH_j}{\la \underline{\a},\underline{\a}\ra},
+\ee 
+which is just a linear combination of Cartan elements. We also define 
+\be 
+\label{eqn:Coroots}
+    \a_i^{\chm} := \frac{\a_i}{\la\underline{\a},\underline{\a}\ra},
+\ee 
+which we call a \textit{coroot.} This gives us 
+\bse 
+    H_{\underline{\a}^{\chm}} = \la \underline{\a}^{\chm}, H\ra = \a_{i}^{\chm} g^{ij} H_j,
+\ese 
+which in turn gives us 
+\bse 
+    [H_{\underline{\a}^{\chm}}, E_{\underline{\a}}] = \frac{2g^{ij}\a_i}{\la\underline{\a},\underline{\a}\ra} [H_j,E_{\underline{\a}}] = \frac{2g^{ij}\a_i}{\la\underline{\a},\underline{\a}\ra} \a_j E_{\underline{\a}} = 2E_{\underline{\a}},
+\ese 
+which is what we wanted to obtain. 
+
+\br 
+    Note we can think of $\la \underline{\a},\underline{\a}\ra$ as an inner product on the root space, telling us the length the root $\underline{\a}$ w.r.t. $g^{ij}$. This is exactly what we were talking about last lecture with the root diagrams not having nice shapes but being squashed. We can make them nicer by taking a change of basis such that this metric becomes the Euclidean one. 
+\er 
+
+\bbox 
+    Consider the weight lattice given last lecture for the fundamental represntation of SU($3$), i.e. the squashed triangle with states $\ket{1,0}, \ket{-1,1}$ and $\ket{0,-1}$. The Killing metric on this root space is 
+    \bse 
+        g^{ij} = \begin{pmatrix}
+            2 & 1 \\
+            1 & 2 
+        \end{pmatrix}
+    \ese 
+    so that the inner product
+    \bse 
+        \la \underline{\a}, \underline{\beta} \ra = \begin{pmatrix}
+            2 & -1
+        \end{pmatrix} \begin{pmatrix}
+            2 & 1 \\
+            1 & 2 
+        \end{pmatrix} \begin{pmatrix}
+            -1 \\
+            2
+        \end{pmatrix} = -3.
+    \ese 
+    By considering the inner product of all the weights, convince yourself that geometrically the weight lattice form the vertices of an equilateral triangle. 
+    
+    \textit{Comment: Again this one is taken straight from the problem sheets on the course, but I've included it to illustrate the fact that we can make nice shapes. As always, feel free to email me if you want further explanation.} 
+\ebox 
+
+\subsubsection{Step 3}
+
+The last thing we have to do is find the commutators between the different root vectors, i.e. 
+\bse 
+    [E_{\underline{\a}},E_{\underline{\beta}}] = ?
+\ese 
+Well recall last lecture we set 
+\bse 
+    E_{\a+\beta} = [E_{\a},E_{\beta}]. 
+\ese 
+\bbox 
+    Use \Cref{eqn:AdHEigenvectors} to show 
+    \bse 
+        ad(H_i)\big([E_{\underline{\a}},E_{\underline{\beta}}]\big) = (\a_i+\beta_i)[E_{\underline{\a}},E_{\underline{\beta}}],
+    \ese 
+    thereby justifying what we defined last lecture.
+\ebox 
+This result also explains why last lecture we only needed to consider the simple roots $\a$ and $\beta$ and not the other root $(\a+\beta)$. This result generalises to the following definition. 
+
+\bd[Simple Root]
+    A simple root is a positive root $\underline{\a}$ that can not be written as a sum of two positive roots. 
+\ed 
+
+\br 
+    We say \textit{positive} root, because obviously if we have the root $\underline{\a}$, then $-\underline{\a}$ is also a root, so we decide to split our root space in two and define simple roots only using the positive ones. Note \textit{we decide} which roots are positive, it is not something that is given to us. In perhaps more technical language, we take an $(r-1)$-dimensional hyperplane of our root space and say "everything above this plane is positive, and everything below it is negative".
+\er 
+
+\bc 
+    Our root space has exactly $r$ simple roots.
+\ec 
+
+\bq 
+    This just follows from the fact that our root space is a $r$-dimensional lattice space, and so we have $r$ linearly independent roots that we can use to span the space. 
+\eq 
+
+This Corollary allows us to categorise all other roots, simply: we call a non-simple root \textit{positive} if it can be written as a sum of simple roots with all coefficients being positive. Likewise we have a negative root. Note that a root is either positive or negative, as it either lies above the hyperplane or below it. 
+
+This basis on the root space induces a nice basis on the Cartan subalgebra given by $\{H_{\underline{\a}_i^{\chm}}\}$ such that 
+\be
+\label{eqn:CartanMetric}
+    [H_{\underline{\a}_i^{\chm}}, E_{\underline{\a}_j}] = C_{ij} E_{\underline{\a}_j},
+\ee 
+where $C_{ij}$ is a $r\times r$ matrix, known as the \textit{Cartan matrix}. 
+
+\bex 
+    For $\mathfrak{su}(2)$ the rank is $r=1$ and we just have $C_{11}=2$. For $\mathfrak{su}(3)$ the rank is $r=2$ and we have 
+    \bse 
+        C_{ij} = \begin{pmatrix}
+            2 & -1 \\
+            -1 & 2
+        \end{pmatrix}.
+    \ese 
+\eex 
+
+The $\mathfrak{su}(3)$ example above shows us that although we have a bunch of embedded $\mathfrak{su}(2)$s, they do talk to each other as the off diagonal elements are non-vanishing. However it is a nice surprise that for a general $\mathfrak{su}(N)$ the Cartan matrix is the $(N-1)\times (N-1)$ matrix of the form 
+\bse 
+    C_{ij} = \begin{pmatrix}
+        2 & -1 &  &   \\
+        -1 & \ddots & \ddots  &  \\
+         & \ddots & \ddots & -1  \\
+         & & -1 & 2  
+    \end{pmatrix},
+\ese 
+with all the missing elements being $0$. This tells us that although the embedded $\mathfrak{su}(2)$s speak to each other, they only speak with their `neighbours' and not \textit{everyone}, i.e. it is only the just off diagonal elements that are non-zero.
+
+\bp 
+    All the information about a simple Lie algebra can be extracted from the Cartan matrix and the simple roots.
+\ep 
+
+The `proof' of this proposition is the following idea: you start with the highest weight state and use the Cartan metric to work downwards and obtain all other states. For clarity, the states are given by 
+\bse 
+    d(H_{\underline{\a}_i^{\chm}})\ket{\l_1,...,\l_r} = \l_i\ket{\l_1,...,\l_r},
+\ese 
+where $d$ is some representation. The highest weight state is defined via 
+\bse 
+    d(E_{\underline{\a}}) \ket{\Lambda_1,...,\Lambda_r} = 0,
+\ese 
+for all simple roots $\underline{\a}$.
+
+Cartan managed to classify \textit{all} (not just $\mathfrak{su}(N)$) simple Lie algebras by examining the possible Cartan matrices and possible allowed root lattices. He developed a system to indicate these pictorially, known as \textit{Dynkin diagrams}. Dr. Dorigoni did not have time to discuss these in this course, but details about them can be found in Dexter Chua's notes or on Dr. Schuller's "Lectures on the Geometric Anatomy of Theoretical Physics".
+
+\section{Lie Groups Relevant In Physics}
+
+We end this course with a brief mention of some of the Lie groups relevant in physics.
+\ben[label=(\roman*)]
+    \item In the standard model, the gauge group is $SU(3)\times SU(2)\times U(1)$. 
+    \item Grand unified theories, need a group that can contains the standard model group as a subgroup. Two possibilities are $SU(5)$ and $SO(10)$.
+    \item In superstring theory we have multiple groups, including $SO(10)$\footnote{See my notes on Dr. Shiraz Minwalla's string theory course for why we need $SO(10)$.} and something called $E_8$ (classified as a Dynkin diagram).
+\een 

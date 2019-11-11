@@ -1,0 +1,738 @@
+\chapter{Groups}
+
+\section{Why Do We Care About Group Theory?}
+
+As we will see, symmetries are often related to groups and, as any quantum field theorist knows, symmetries are incredible important and powerful tools in physics. They allow us to massively simplify complex problems and they also reveal \textit{a lot} about the physics. The symmetries can actually be so powerful that it allows us to solve the theory \textit{exactly}. We refer to this as \textit{integrability}. In fact I guess you could argue that, at least at an introductory level, QFT is the study of symmetries in Lagrangians and their corresponding conserved currents.\footnote{If this means nothing to you, look up Noether's Theorem.}
+
+\bex 
+    Electric charge is conserved in particle interactions, and so there is some symmetry in the Lagrangian that corresponds to this.  
+\eex
+
+There are several symmetries that occur in Nature that we may be familiar with, here are some examples:
+\begin{center}
+	\begin{tabular}{@{} p{4cm} p{3cm} p{4cm} @{}}
+		\toprule
+		Symmetry & Group & Continuous Or Discrete \\
+		\midrule 
+		Rotational & SO($3$) & Continuous \\
+		Lorentz & SO($3,1$) & Continuous \\
+		Gauge \& Flavour & e.g, SU($3$) & Continuous \\
+		Parity & $\vec{x} \longrightarrow -\vec{x}$ & Discrete \\
+		Charge Conjugation & $e^- \longrightarrow e^+$ & Discrete \\
+		Time Reversal & $ t \longrightarrow -t$ & Discrete \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+We have indicated whether the symmetry is a \textit{continuous} or \textit{discrete} symmetry. The names are reasonably self explanatory. In this course we will focus on continuous symmetries as they give rise to Lie algebras (which we will study a lot).
+
+\br 
+    It actually turns out the neither parity, nor charge conjugation, nor time reversal are proper symmetries of the standard model of particle physics. The combination of charge and parity, known as CP, is a symmetry of the electromagnetism and QCD (strong force), and the full beast charge-parity-time, CPT, is a symmetry of the weak force. 
+\er 
+
+\section{Group Definitions}
+
+The next section is going to contain a lot of definitions, so if you are not used to reading maths notes... enjoy!
+
+\subsection{Generalities}
+
+\bd[Group] 
+    A \textit{group} $G$ is a set $\{g\}$ equipped with a multiplication law 
+    \begin{equation*}
+        \begin{split}
+            \bullet : G \times G & \to G \\
+            (g_1,g_2) & \mapsto g_1\bullet g_2,
+        \end{split}
+    \end{equation*}
+    such that:
+    \ben[label=(\roman*)]
+        \item Closure; $\forall g_1,g_2\in G$, $g_1\bullet g_2 \in G$,
+        \item Associativity; $\forall g_1,g_2,g_3\in G$, $g_1\bullet(g_2\bullet g_3) = (g_1\bullet g_2)\bullet g_3$,
+        \item Identity; there exists a unique $e\in G$ such that $\forall g \in G$ $e\bullet g = g\bullet e =g$, and 
+        \item Inverse; $\forall g \in G$ there exists a unique element $g^{-1}\in G$ such that $g^{-1}\bullet g = g \bullet g^{-1} = e$.
+    \een
+\ed 
+
+\bd[Order Of A Group]
+    Let $(G,\bullet)$ be a group. Then we call the number of elements in $G$ the \textit{order} of the group. 
+\ed 
+
+\br 
+    We call $\bullet$ a \textit{multiplication}, however it need not multiply two elements by our common understanding of the word. For example $\bullet$ could be addition, as we will see in the examples below. 
+\er 
+
+\bbox 
+    Show that the identity and inverse are unique. \textit{Hint: Suppose that they aren't unique and prove by contradiction.}
+\ebox 
+
+\bd[Subgroup]
+    Let $(G,\bullet)$ be a group and let $H\ss G$ be a subset. Then $H$ is a \textit{subgroup} $(H,\bullet)$ is itself a group. 
+\ed 
+
+\br 
+\label{rem:SubgroupNeedsIdentity}
+    Note by the uniqueness of the identity, if $H\ss G$ is to be a subgroup, it must contain $e$.
+\er 
+
+\bd[Abelian Group]
+    Let $(G,\bullet)$ be a group. We say that it is \textit{abelian} if, for all $g_1,g_2 \in G$ 
+    \bse 
+        g_1 \bullet g_2 = g_2 \bullet g_1.
+    \ese 
+\ed 
+
+\bex 
+    The real numbers equipped with addition, $(\R,+)$ form a continuous, abelian group. The identity is simply $0\in\R$ and the inverse of $a\in \R$ is $-a\in \R$. Associativity and closure should be easy to see from every day use. The order is infinite. 
+\eex 
+
+\bex
+    The real numbers, \textit{excluding the origin}, equipped with multiplication, $(\R^*,\times)$, forms a continuous, abelian group. Again closure and associativity should be familiar. The identity is simply $1\in\R^*$ and the inverse of $a\in\R^*$ is $\frac{1}{a}\in\R^*$. It is because inverse condition that we need to exclude the origin. It might not seem obvious at first that this group is continuous as we have removed the origin. However simply consider redefining all the elements as $a \longrightarrow 1/a$, then the origin is taken all the way to infinity and we're happy. The order is infinite.
+\eex 
+
+\bex 
+    The set of integers modulo $n$ equipped with addition, $(\Z_n,+_n)$,\footnote{I have put a subscript $n$ on here because technically this addition is different to the additional on integers (it adds equivalence classes). I will use the notation of equivalence relations (square brackets etc) in the proof. If this is not familiar to you, don't worry its not needed to understand the course. However they are useful in maths so I encourage you to read up on them.} form a discrete, abelian group. We can show closure and associativity easily given that we know $(\Z,+)$ is a group. We simply define the addition $+_n$ by 
+    \bse 
+        [a] +_n [b] := [a+b],
+    \ese 
+    where the addition on the right-hand side is the addition on $\Z$. We need to show this is well defined: our equivalence relation is given by
+    \bse 
+        a' \sim a \qquad \iff \qquad a' - a = An
+    \ese
+    where $A \in \Z$ (i.e. $a'$ and $a$ differ by an integer multiple of $n$). So let's consider $a'= a+An$ and $b' = b + Bn$ where $A,B\in\Z$, so $[a']=[a]$ and $[b']=[b]$. Then we have 
+    \begin{equation*}
+        \begin{split}
+            [a'] +_n [b'] & := [a' + b'] \\
+            & = [ (a + An) + (b + Bn)] \\
+            & = [ a + An + b + Bn] \\
+            & = [ (a + b) + (A+B)n] \\
+            & = [a+b],
+        \end{split}
+    \end{equation*}
+    where we have used the associativity and abelian nature of $(\Z,+)$ and that $(A+B)\in\Z$ so $[(a+b)+(A+B)n]=[a+b]$. This shows our definition is well defined. We then inherit all the group properties from $(\Z,+)$. In particular, the identity is $[0]\in\Z_n$ and the inverse of $[a]\in\Z_n$ is $[-a]\in\Z_n$. The order is $n$, as any integers greater than $n-1$  or less than $0$ are equivalent to one in the set $\{0,...,n-1\}$.
+\eex
+
+\bex 
+    The permutation of $n$ elements, denoted $S_n$, forms a discrete group. I am not going to prove this one here, but set it as an exercise below. The order is $n!$
+\eex 
+
+\bbox 
+    Prove that the above example is true. \textit{Hint: You can prove this by writing a permutation as
+    \bse 
+        \sig = \begin{pmatrix}
+            a_1 & a_2 & ... & a_n \\
+            \sig(a_1) & \sig(a_2) & ... & \sig(a_n)
+        \end{pmatrix},
+    \ese
+    and then making a bijective argument.}
+\ebox 
+
+Any mathematicians reading this will ask the obvious question of "what is the structure preserving map?" That is, what map makes two different groups `look the same'? The answer is the following definition. 
+
+\bd[Group Isomorphism]
+    Let $(G,\bullet)$ and $(H,\circ)$ be two groups. Then if there exists a bijective map $\phi: G \to H$ satisfying 
+    \bse 
+        \phi(g_1\bullet g_2) = \phi(g_1)\circ \phi(g_2)
+    \ese 
+    for all $g_1,g_2\in G$, then we call $\phi$ a \textit{group isomorphism}. We say that the groups $(G,\bullet)$ and $(H,\circ)$ are (group) isomorphic, which we write as $G\cong_{\text{grp}} H$.\footnote{Note that we use a subscript "grp" on the $\cong$. This is because the two \textit{sets} $G$ and $H$ can be isomorphic (and indeed they are by the bijective nature of $\phi$), and so we need to distinguish the two cases. I suppose we could get around this by writing $(G,\bullet)\cong(H,\circ)$, but this is a lot of writing and we're lazy.}
+\ed 
+
+
+In this course we are going to be interested mostly in \textit{matrix} groups, where the multiplication law is simply matrix multiplication. Note that in general these will \textit{not} be abelian. In any proofs that follow, we will assume associativity holds to save time. We will also drop the $\bullet$ basically everywhere and just assume matrix multiplication is implicit. 
+
+\subsection{Matrix Groups}
+
+For the non-maths people, unfortunately we are not done with the definitions: we need to define some matrix sets that will appear \textit{a lot}. Even though we are essentially just defining the \textit{sets} below, we will call the the so-and-so group. This is just because they always pop up as matrix groups so may as well call them that. The proofs just show that the group conditions meets the restrictions on the set.
+
+\bd[General Linear Group]
+    The \textit{general linear} over $\R$ group is the matrix group with set\footnote{The notation $M^{\R}_{n\times n}$ just means a real $n\times n$ matrix.} 
+    \bse 
+        GL(n,\R) := \big\{ A \in M^{\R}_{n\times n} \, | \, \det A \neq 0 \big\}.
+    \ese 
+    We can similarly define $GL(n,\C)$. The $\det A \neq 0$ condition is needed so that $A$ is invertible (which is the inverse of $A$ in the group).
+\ed 
+
+\bq 
+    First note that the identity is the $n\times n$ identity matrix $\b1_n$ which has $\det \b1_n = 1 \neq 0$. Next recall the relation
+    \bse 
+        \det(AB) = \det(A)\det(B).
+    \ese 
+    So if $\det A, \det B \neq 0$ then $\det(AB)\neq 0$. Using the above relation we also have 
+    \bse 
+        1 = \det\b1_n = \det(AA^{-1}) = \det(A)\det(A^{-1}),
+    \ese
+    and so $\det A^{-1} = (\det A)^{-1} \neq 0$.
+\eq 
+
+Using the fact that $\det\b1_n = 1$, and with \Cref{rem:SubgroupNeedsIdentity} in mind, we can define the following matrix group. 
+
+\bd[Special Linear Group]
+    The \textit{special}\footnote{As we shall see the letter S appears often and always stands for "special" and corresponds to the condition that the determinant is 1.} \textit{linear} group over $\R$ is the matrix group with set 
+    \bse 
+        SL(n,\R) := \big\{ A \in GL(n,\R) \, | \, \det A = 1 \big\}. 
+    \ese 
+    This is a subgroup of GL($n,\R$). Again we can define SL($n,\C$) similarly. 
+\ed 
+
+\bq 
+    Everything follows through as with the above proof but with $=1$ everywhere.
+\eq 
+
+\bd[Orthogonal Group]
+    The \textit{orthogonal} group is the matrix group with set 
+    \bse 
+        O(n) := \big\{ A \in GL(n,\R) \, | \, AA^T = A^TA = \b1_n\big\}. 
+    \ese 
+\ed 
+
+\bq 
+    The identity and clearly obeys the transpose condition. So just need to show it for closure:
+    \bse 
+        (AB)^T(AB) = B^TA^TAB = B^T\b1_nB = B^TB = \b1_n,
+    \ese 
+    where we have used $(AB)^T = B^TA^T$ and the definition of the identity element in a group. Note, using 
+    \bse 
+        \det A^T = \det A,
+    \ese 
+    we have 
+    \bse 
+        1 = \det \b1_n = \det(A^TA) = \det A^T \det A = (\det A)^2,
+    \ese 
+    so $\det A = \pm 1$ for $A\in O(n)$.
+\eq 
+
+With footnote 4 in mind, we have the following definition.
+
+\bd[Special Orthogonal Group]
+    The \textit{special orthogonal} group is the matrix group with set 
+    \be 
+    \label{eqn:SO(n)}
+        SO(n) := \big\{ A \in O(n) \, | \, \det A = 1 \big\}.
+    \ee 
+\ed 
+
+\bq 
+    We've basically done all the work for this. 
+\eq 
+
+Let's give an example of O($n$) and SO($n$) in order to highlight their difference. 
+\bex 
+    Let $n=2$ then
+    \bse 
+        O(2) = \bigg\{
+        \begin{pmatrix}
+            \cos\theta & \sin\theta \\
+            -\sin\theta & \cos\theta 
+        \end{pmatrix}
+        \cup 
+        \begin{pmatrix}
+            -\cos\theta & \sin\theta \\
+            \sin\theta & \cos\theta 
+        \end{pmatrix} 
+        \, \Big| \,  \theta \in [0,2\pi) \bigg\},
+    \ese
+    and 
+    \bse 
+        SO(2) = \bigg\{
+        \begin{pmatrix}
+            \cos\theta & \sin\theta \\
+            -\sin\theta & \cos\theta 
+        \end{pmatrix}
+        \, \Big| \,  \theta \in [0,2\pi) \bigg\}.
+    \ese 
+    Now consider the actions on these matrices on a general vector in $\R^2$ with $\theta=\pi/2$
+    \bse 
+        \begin{pmatrix}
+            \cos\pi/2 & \sin\pi/2 \\
+            -\sin\pi/2 & \cos\pi/2
+        \end{pmatrix} 
+        \begin{pmatrix}
+            x \\
+            y
+        \end{pmatrix} = 
+        \begin{pmatrix}
+            y \\
+            -x 
+        \end{pmatrix},
+    \ese 
+    which is an anticlockwise rotation by $\pi/2$. We also have 
+    \bse 
+        \begin{pmatrix}
+            -\cos\pi/2 & \sin\pi/2 \\
+            \sin\pi/2 & \cos\pi/2
+        \end{pmatrix} 
+        \begin{pmatrix}
+            x \\
+            y
+        \end{pmatrix} = 
+        \begin{pmatrix}
+            y \\
+            x 
+        \end{pmatrix},
+    \ese 
+    which is a reflection about the $x=y$ axis. Indeed SO($n$) is the set of rotations in $n$-dimensions and O($n$) is both rotations and reflections. The rotations have $\det A=1$ and reflections $\det A = -1$.
+\eex 
+
+Unlike with the linear groups, we can't extend the definition of the orthogonal groups to the complex numbers. This is because for complex matrices we need to take the \textit{Hermitian conjugate} instead of transpose. These groups are significantly different that we give them separate names. 
+
+\bd[Unitary Group]
+    The \textit{unitary} group is the matrix group with set 
+    \bse 
+        U(n) := \big\{ A \in GL(n,\C) \, | \, UU^{\dagger} = U^{\dagger}U = \b1_n, \big\}
+    \ese 
+\ed 
+
+\bq 
+    The proof for this is basically identical to O($n$) but now we get 
+    \bse 
+    \det A = e^{i\a},  \qquad  \a\in[0,2\pi).
+    \ese 
+\eq 
+
+Of course we also have the special case.
+
+\bd[Special Unitary Group] 
+    The \textit{special unitary} group is the matrix group with set 
+    \be 
+    \label{eqn:SU(n)}
+        SU(n) := \big\{ A \in U(n) \, | \, \det A = 1\big\}.
+    \ee
+\ed 
+
+\bq 
+    Again basically done.
+\eq 
+
+\section{Lie Groups}
+
+All of the above matrix groups are examples of what are known as \textit{Lie groups}. This course is predominantly the study of the Lie groups SO($n$) and SU($n$). 
+
+So what is a Lie group? Well we have seen (or at least just said) that the groups we are interested in are continuous. We can therefore think of them as some kind of continuous geometric shape, with each point on the shape corresponding to an element in the group. For example, we could maybe think of SO($2$) as a circle in the $xy$-plane and identify the elements of SO($2$) by the angle from the $x$-axis.
+
+\begin{center}
+    \btik 
+        \draw[thick] (0,0) circle [radius=2cm];
+        \draw[thick, ->] (-3,0) -- (3,0);
+        \node at (3,-0.5) {\large{$x$}};
+        \draw[thick, ->] (0,-3) -- (0,3);
+        \node at (-0.5,3) {\large{$y$}};
+        \draw[thick, fill=black] (1.6,1.2) circle [radius=0.1cm]; 
+        \draw[thick, dashed] (0,0) -- (1.6,1.2);
+        \node at (0.6,0.2) {\large{$\theta$}};
+    \etik 
+\end{center}
+
+Now we note that in order to do this, we have to `project' our circle down onto the $xy$-plane (because the dashed line does not lie on the circle itself). To those familiar with general relativity, this looks a awful lot like a manifold, and indeed that's exactly what it is. For those not familiar, I shall provide a brief explanation of what a manifold is now. If you don't follow this, see any differential geometry textbook, or \href{https://68e2be02-1beb-4f45-b742-5f60efd2d044.filesusr.com/ugd/6b203f_dc24fe06fbe14a71ae32a1ad031e1928.pdf?index=true}{my notes on Dr. Schuller's GR course}.
+
+\subsection{Manifolds (In a Nutshell)}
+
+\bd[Manifold]
+    A \textit{manifold} is the triple $(\cM,\cO,\cA)$, where $\cM$ is a set, $\cO$ is a \textit{topology},\footnote{A topology is basically a collection of boundariless overlapping shapes, i.e. \textit{open sets}, that collectively contain every element of $\cM$.} and $\cA$ is an \textit{atlas}. The atlas is a collection of doublets $(U,\varphi_U)$ where $U\in \cO$ is an open set in $\cM$ and $\varphi_U:U \to \R^n$ is an injective\footnote{That is, one-to-one.} map onto the plane. The dimension of the manifold is $n$. If $U,V\in\cO$ are overlapping sets, i.e. $U\cap V \neq \emptyset$, then we can place conditions on the maps $\varphi_V\circ \varphi_U^{-1} : \varphi(U) \to \varphi(V)$ (i.e. they are maps from open subsets of $\R^n$ to open subsets of $\R^n$) in order to give the manifold itself some properties.
+\ed 
+
+Ok that above definition will mean almost nothing to someone who doesn't know what it already means so let's given an example using the circle above. 
+
+\bex 
+    Our set $\cM$ is the points on the circle. We now need a topology, $\cO$. These need to be open (i.e. we cannot take a `hard cut' of the circle), and every point of the circle must be in at least one element of the topology. This means we need at least two elements in our topology. Why? Well consider using just one element. We either don't cover the whole circle (left in diagram below) or we cover the same point twice in one element (right below):
+    \begin{center}
+        \btik 
+            \draw[thick] (-3,0) circle [radius=2cm];
+            \draw[thick, red] (-0.8,0) arc (0:350:2.2);
+            \draw[thick] (3,0) circle [radius=2cm];
+            \draw[thick, red] (5.2,0) arc (0:350:2.2);
+            \draw[thick, red] (5.2,0) arc (30:0:2);
+        \etik 
+    \end{center}
+    The left one is obviously a problem because there's a bit missing. The right one is a problem because we wanted our maps $\varphi_U$ to be injective, but now we have two points in $U$ that will be mapped to the same point, so its not injective. We therefore need something like the following diagram:
+    \begin{center}
+        \btik 
+            \draw[thick] (0,0) circle [radius=2cm];
+            \draw[thick, red, rotate around={-10:(0,0)}] (2.2,0) arc (0:200:2.2);
+            \node at (1.8,2) {\large{\textcolor{red}{$U$}}};
+            \draw[thick, blue, rotate around={10:(0,0)}] (2.4,0) arc (0:-200:2.4);
+            \node at (2,-2) {\large{\textcolor{blue}{$V$}}};
+        \etik 
+    \end{center}
+    We then define our maps $\varphi_{U/V}$ to the real line $\R$ as shown diagrammatically below:
+    \begin{center}
+        \btik 
+            \draw[thick, ->] (-0.5,0) -- (5,0);
+            \node at (5,-0.5) {\large{$\R$}};
+            \draw[thick] (0,-0.2) -- (0,0.2);
+            \node at (0,-0.5) {\large{$0$}};
+            \draw[thick] (2,-0.2) -- (2,0.2);
+            \node at (2,-0.5) {\large{$\pi$}};
+            \draw[thick] (4,-0.2) -- (4,0.2);
+            \node at (4,-0.5) {\large{$2\pi$}};
+            \draw[thick, red] (-0.2,0.3) -- (2.2,0.3);
+            \draw[thick, blue] (1.8,0.5) -- (4.2,0.5);
+        \etik 
+    \end{center}
+    We obviously require that $\varphi_U(U\cap V) = \varphi_V(U\cap V)$, i.e. we get the same value on the $\R$ line where where the red and blue lines overlap.
+\eex 
+
+We said at the end of the definition above that we can put constraints on the \textit{transition maps} $\varphi_V\circ \varphi_U^{-1}$ and get conditions on the manifold itself. The questions is "what kind of constraints do we use?" Well in the above we have actually already assumed that these transition maps are continuous, but there is a stronger constraint we can imply known as \textit{smoothness}. This is essentially the condition that all the transition maps are infinitely differentiable with continuous result. We call such manifolds \textit{smooth} (or $C^{\infty}$). By doing this we can talk about maps $f : \cM \to \cM$ themselves as being smooth by projecting them down into the charts and studying them there.\footnote{For a much more detailed, and probably better, explanation see my notes on Dr. Schuller's GR course. Link above.} These are hugely important constructions in GR and will be the type of manifold we consider here. 
+
+\subsection{Back To Lie Groups}
+
+Ok so we know (or at least know where to learn) what a smooth manifold is, so we can now define a Lie group. 
+
+\bd[Lie Group]
+    A \textit{Lie group} is a continuous group $(G,\bullet)$ whose underlying set is a smooth manifold and where the multiplication map, $\bullet :  G \times G \to G$, and inverse map, $i : G \to G$, defined by $i(g) = g^{-1}$, are smooth. 
+\ed 
+
+It is clear that we need the groups to be continuous otherwise we wouldn't be able to get a manifold (i.e. our shape wouldn't connect up and so our open sets would be a problem --- what is an open set of a single point?)
+
+\bd[Dimension Of Lie Group]
+    The \textit{dimension} of the Lie group is given by the dimension of the manifold.
+\ed 
+
+\bd[Lie Subgroup]
+    Let $(G,\bullet)$ be a Lie group and let $(H,\bullet)$ be a subgroup. Then we say $(H,\bullet)$ is a \textit{Lie subgroup} if it is also a Lie group under the restriction of the maps to $H$.
+\ed 
+
+The mathematicians will now again ask "what are the structure preserving maps?" The answer is again given by the following definition.
+
+\bd[Lie Group Isomorphism]
+    Let $(G,\bullet)$ and $(H,\circ)$ be two Lie groups that are isomorphic as groups, i.e. $G\cong_{\text{grp}}H$, via the group isomorphism $\phi:G\to H$. If $\phi$ is also a diffeomorphism (that is it is smooth and its inverse is also smooth) then we say that the Lie groups are isomorphic.  
+\ed 
+
+\bcl 
+    We claim (without proof) that our lovely matrix groups above are Lie groups. Their dimensions are given by the number of free parameters in the matrix. For example SO($n$) is a $\frac{n(n+1)}{2}$ dimensional Lie group.
+\ecl 
+
+\bnn 
+    From now on I am very likely to drop the multiplication when writing a group. As in I will call $G$ a (Lie) group without specifying the multiplication. 
+\enn 
+
+\section{Lie Algebras}
+
+Lie groups have an associated structure known as a \textit{Lie algebra}. It turns out that a lot of the useful information about a Lie group can be found by studying its associated Lie algebra, it also turns out that the Lie algebra is easier to study. The Lie algebra of a Lie group, $G$, is the \textit{tangent space to the identity} $e\in G$. To those unfamiliar with GR, a tangent space to a point $p\in\cM$ is basically the plane that `kisses' the manifold at $p$. We can also think of the Lie algebra as the points infinitesimally close to the identity.
+
+As we just said, we can think of the Lie algebra as the elements infinitesimally close to the identity. Now recall that the Taylor expansion of an exponential of a matrix is
+\bse 
+    e^{\epsilon M} = \b1 + \epsilon M + \frac{1}{2}\epsilon^2M^2 + ...,
+\ese 
+so if we consider $\epsilon$ to be some small continuous parameter, we can drop $\cO(\epsilon^2)$ terms and obtain 
+\bse 
+    e^{\epsilon M} \approx \b1 + \epsilon M.
+\ese 
+This is an infinitesimal relation near the identity. So we can get the Lie algebra of a Lie group by taking the exponential of the matrix.\footnote{Of course not all Lie groups are matrices, but as we said above, in these notes we are basically only considering matrix groups.} 
+
+We will give the definition of a Lie algebra in a minute, but first let's study via an example. 
+
+\subsection{Example SO($3$)}
+
+Consider the Lie group SO($3$). As we said before SO($n$) are rotations in $n$-dimensions. Let's consider explicitly a rotation around the $z$-axis\footnote{Note here we're using one of our coordinate systems to define what we mean by $z$.} by angle $\varphi_z$. The matrix is given explicitly as 
+\bse 
+    R_z(\varphi_z) = \begin{pmatrix}
+        \cos\varphi_z & \sin\varphi_z & 0 \\
+        -\sin\varphi_z & \cos\varphi_z & 0 \\
+        0 & 0 & 1 
+    \end{pmatrix}.
+\ese 
+Now consider (as if by magic) the matrix 
+\bse 
+    T_z := \begin{pmatrix}
+        0 & -1 & 0 \\
+        1 & 0 & 0 \\
+        0 & 0 & 0 
+    \end{pmatrix}.
+\ese 
+Then we can show (exercise below) that 
+\be 
+\label{eqn:RzExpTz}
+    R_Z(\varphi_z) = e^{\varphi_zT_Z}.
+\ee 
+
+\bbox 
+    Prove \Cref{eqn:RzExpTz}. \textit{Hint: Find out the general formula for $(T_z)^n$ by considering the first few values of $n$. Then Taylor expand the exponential and compare the Taylor expansions of $\cos\theta$ and $\sin\theta$.}
+\ebox 
+
+We can show similar relations for  rotations about the $x$ and $y$ axes by angles $\varphi_x$ and $\varphi_y$, respectively, with 
+\bse 
+    T_x := \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 0 & -1 \\
+        0 & 1 & 0 
+    \end{pmatrix}, \qand T_y := \begin{pmatrix}
+        0 & 0 & 1 \\
+        0 & 0 & 0 \\
+        -1 & 0 & 0 
+    \end{pmatrix}.
+\ese 
+
+\br 
+    Note that $T_x,T_y,T_Z \notin SO(3)$! In fact they are all antisymmetric and obey $(T_{x/y/z})^T = - T_{x/y/z}$.
+\er 
+
+Now a general rotation in $\R^3$ can be written as 
+\be 
+\label{eqn:RxRyRz}
+    R_x(\varphi_x) R_y(\varphi_y) R_z(\varphi_z) = e^{\varphi_xT_x} e^{\varphi_yT_y} e^{\varphi_zT_z}.
+\ee 
+This is nice, but what we really want is the right-hand side to be a single exponential instead of the product of three! So how do we do this? Well we introduce the Baker-Campbell-Haussdorff (BCH) formula. 
+
+\bp[BCH Formula] 
+    For any two matrices the following formula holds:
+    \be 
+    \label{eqn:BCH}
+        e^A e^B = e^{A+B+\frac{1}{2}[A,B] + ...},
+    \ee
+    where 
+    \bse 
+        [A,B] = AB-BA
+    \ese
+    is the commutator between matrices. The $...$ terms on the right hand side are all made up of the commutators. 
+\ep
+
+\bq 
+    We shall prove that \Cref{eqn:BCH} holds up the the given terms. Insert a `book keeping' variable $t$ (we can set $t=1$ at the end) and consider the Taylor expansion
+    \bse 
+        \begin{split}
+            e^{tA}e^{tB} & = \bigg( \b1 + tA + \frac{1}{2}t^2A^2 + ... \bigg) \bigg( \b1 + tB + \frac{1}{2}t^2B^2 + ... \bigg) \\
+            & = \b1 + t(A+B) + t^2\bigg( AB + \frac{1}{2}A^2 + \frac{1}{2}B^2 \bigg) + \cO(t^3).
+        \end{split}
+    \ese 
+    Now we want to compare it to something of the form 
+    \bse 
+        e^{t(A+B)+t^2X} = \b1 + t(A+B) + t^2X + \frac{1}{2}t^2(A+B)^2 + \cO(t^3).
+    \ese 
+    Comparing the right-hand sides of these two expressions order by order in $t$, we have 
+    \bse 
+        \begin{split}
+            X & = \frac{1}{2}A^2 + \frac{1}{2}B^2 + AB - \frac{1}{2}(A+B)^2 \\
+            & = \frac{1}{2}[A,B],
+        \end{split}
+    \ese 
+    which is exactly the result we wanted. 
+\eq 
+
+\br 
+    Note that for Abelian groups we have $[A,B]=0$ for all $A,B\in G$ and so we get the `usual' formula 
+    \bse 
+        e^Ae^B = e^{A+B}.
+    \ese
+    Indeed the reason we are allowed to use this when `identity' in school is because the real numbers form an Abelian group under multiplication. 
+\er 
+
+So we can now express the right-hand side of \Cref{eqn:RxRyRz} as a single exponential in terms of $T_x,T_y,T_z$ and their commutators. The question is "what are these commutators?" Insert exercise. 
+
+\bbox 
+    Show that 
+    \be 
+    \label{eqn:TxTyTzCommutators}
+        [T_x, T_y] = T_z, \qquad [T_z,T_x] = T_y, \qand [T_y,T_z] = T_x.
+    \ee 
+    \br 
+        As we will see, this will turn out to be an important property in terms of Lie algebras below.
+    \er 
+\ebox 
+
+This tells us that all the terms in our single exponential are determined by knowing $T_x,T_y$ and $T_z$. So we claim that the Lie algebra of our Lie group SO($3$) is the vector space spanned by these three matrices. This is \textit{much} easier to study! 
+
+\subsection{Converting Lie Group Properties To Lie Algebra Properties}
+
+We have defined our Lie groups as matrices with constrictions imposed, i.e. $A^TA=\b1$ etc. The question is "what do these translate to in terms of the Lie algebra?" Well we use the exponential map to find out. 
+
+Let's consider the orthogonal condition. Let 
+\bse 
+    A = \b1 + \epsilon a + \cO(\epsilon^2)
+\ese 
+be our infinitesimal expansion around the identity. Now from $A^TA=\b1$, we have 
+\bse 
+    \begin{split}
+        \b1 & = (\b1 + \epsilon a)^T(\b1 \epsilon a) + \cO(\epsilon^2) \\
+        & = \b1 + \epsilon(a^T + a) + \cO(\epsilon^2),
+    \end{split}
+\ese 
+and so we conclude 
+\be 
+\label{eqn:aT+a=0}
+    a^T = -a,
+\ee 
+which says that $a$ is antisymmetric. This is exactly the condition the $T$s obeyed. 
+\bbox 
+    Show that the special condition, $\det A = 1$, translates to 
+    \be 
+    \label{eqn:Tra=0}
+        \Tr a = 0.
+    \ee 
+\ebox 
+
+\br
+    Note that antisymmetric matrices are already traceless (it's 0s on diagonal), however for SU($n$) we will need this traceless condition to get the dimensions right. 
+\er 
+
+The above two results tell us the the Lie algebra of SO($3$) is the 3-dimensional vector space of antisymmetric matrices and $T_x,T_y$ and $T_z$ form a basis for this vector space. In fact we have that the Lie algebra for SO($n$) is the vector space of antisymmetric $n\times n$ matrices, which has dimension $\frac{n(n-1)}{2}$. 
+
+For SU($n$) we are considering complex spaces and so we have a choice to make. We either define the infinitesimal expansion to be 
+\bse 
+    H = \b1 + i\epsilon h + \cO(\epsilon^2)
+\ese 
+or the same without the $i$. Of course as long as we're consistent it doesn't matter which one we pick. If we take the definition above, then by an analogous calculation to the one that gave \Cref{eqn:aT+a=0}, we have
+\be 
+\label{eqn:hdagger=h}
+    h^{\dagger} = h,
+\ee 
+so the Lie algebra of SU($n$) is the set of $n\times n$ hermitian, traceless matrices. These have \textit{real} dimension $n^2-1$. The only thing that changes if we don't use the $i$ is that we get \textit{anti}hermitian matrices, i.e. $h^{\dagger}=-h$. Of course the dimension is the same in both cases. 
+
+\bex 
+    The Lie algebra of SU($2$) is the set of $2\times 2$ traceless, hermitian matrices. These are just the Pauli matrices!
+    \be
+    \label{eqn:PauliMatrices}
+        \sig_1 = \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+        \end{pmatrix}, \qquad \sig_2 = \begin{pmatrix}
+        0 & -i \\
+        i & 0
+        \end{pmatrix}, \qand \sig_1 = \begin{pmatrix}
+        1 & 0 \\
+        0 & -1
+        \end{pmatrix}.
+    \ee 
+    These are going to be very useful for us in the future. 
+\eex 
+
+\section{Definitions}
+
+Although we have motivated the idea of a Lie algebra via Lie groups, they are actually abstract objects in their own right. That is, we don't need a Lie group in order to define a Lie algebra. 
+
+\bd[Lie Algebra]
+    A \textit{Lie algebra}, $\mathfrak{g}$, is a vector space equipped with a map 
+    \bse 
+        [,] : \mathfrak{g} \times \mathfrak{g} \to \mathfrak{g},
+    \ese 
+    called the \textit{Lie bracket}, which satisfies the following conditions:
+    \ben[label=(\roman*)]
+        \item Bilinearity; for all $x,y,z\in\mathfrak{g}$ and $\a,\beta\in\R$\footnote{Or $\C$ or whatever the underlying field is.} we require 
+        \bse 
+            [\a x + \beta y, z] = \a[x,z] + \beta[y,z],
+        \ese 
+        and similarly for the second entry. 
+        \item Antisymmetry; for all $x,y\in \mathfrak{g}$
+        \bse 
+            [x,y] = - [y,x].
+        \ese 
+        \item Jacobi identity; for all $x,y,z\in\mathfrak{g}$
+        \bse 
+            \big[x,[y,z]\big] + \big[z,[x,y]\big] + \big[y,[z,x]\big] = 0.
+        \ese 
+    \een 
+    The \textit{dimension} of the Lie algebra is the dimension of the vector space.
+\ed 
+
+\bd[Lie subalgebra]
+    Let $(\mathfrak{g},[,])$ be a Lie algebra and let $\mathfrak{g}$ be a vector subspace. Then $(\mathfrak{g},[,])$ is a \textit{Lie subalgebra} if it is also a Lie algebra.
+\ed 
+
+Note that the Lie bracket above does \textit{not} need to be the commutator but could be something completely different. However it is relativity easy to show (exercise coming!) that the vector space of matrices forms a Lie algebra when equipped with the commutator. 
+
+\bbox 
+    Show the above claim.
+\ebox  
+
+Now, because $\mathfrak{g}$ is a vector space, we can express any element in it in terms of a basis. But we have just defined the Lie bracket to be a map to $\mathfrak{g}$, and so the result must be expandable in the basis. This motives the below definition.
+
+\bd[Structure Constants]
+    Let $\mathfrak{g}$ be a Lie algebra and let $\{T_a\}$ be a basis. Then we define the \textit{structure constants} ${f_{ab}}^c$ via the Lie bracket as 
+    \be 
+    \label{eqn:StructureConstants}
+        [T_a,T_b] =: {f_{ab}}^c T_c.
+    \ee 
+\ed 
+
+It follows from the antisymmetry of the Lie bracket that 
+\bse 
+    {f_{ab}}^c = -{f_{ba}}^c.
+\ese
+
+\bbox 
+    Show that the Jacobi identity implies 
+    \bse 
+        {f_{ab}}^d {f_{cd}}^e + {f_{bc}}^d {f_{ad}}^e + {f_{ca}}^d {f_{bd}}^e = 0.
+    \ese 
+    \textit{Hint: Note that the terms in the Jacobi identity are just cyclic permutations, so you can save some time by just working out $\big[T_a,[T_b,T_c]\big]$ and then cyclicly permuting the result.}
+\ebox
+
+\br 
+\label{rem:StructureConstantsAlmost}
+    As we will see, for the case of a Lie algebra associated to a Lie group, the structure constants capture almost \textit{all} of the properties of the associated Lie group.
+\er 
+
+As we did in the definition above, we often denote Lie algebras using `mathfrak' notation. This is especially true for Lie algebras that are associated to Lie groups, we give examples in the table below.
+
+\begin{center}
+	\begin{tabular}{@{} p{4cm} p{2cm} @{}}
+		\toprule
+		Lie Group & Lie Algebra \\
+		\midrule 
+		$GL(n,\R)$ & $\mathfrak{gl}(n,\R)$ \\
+		$SL(n,\R)$ & $\mathfrak{sl}(n,\R)$ \\
+		$SO(n)$ & $\mathfrak{so}(n)$ \\
+		$SU(n)$ & $\mathfrak{su}(n)$ \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+For future reference let's write the last two explictly. 
+\be 
+\label{so(n)Algebra}
+    \mathfrak{so}(n) = \big\{ a\in M_{n\times n}^{\R} \, | \, a^T =-a, \, \Tr a = 0 \big\}.
+\ee 
+
+\be 
+\label{su(n)Algebra}
+    \mathfrak{su}(n) = \big\{ a\in M_{n\times n}^{\C} \, | \, a^{\dagger} = a, \, \Tr a = 0 \big\}.
+\ee 
+
+\bex 
+    Using \Cref{eqn:TxTyTzCommutators} we see that the structure constants of $\mathfrak{so}(3)$ are the Levi-Civita symbols, ${\epsilon_{ij}}^k$, which are totally antisymmetric in all indices and obey
+    \bse 
+        {\epsilon_{12}}^3 = 1.
+    \ese
+    We don't often write the Levi-Civita tensor (density) this way and so the result is normally written 
+    \bse 
+        [T_i,T_j] = \epsilon^{ijk}T_k,
+    \ese 
+    even though this breaks summation convention. 
+\eex
+
+Once again the mathematicians will ask "\textit{now} what are the structure preserving maps for Lie algebras?" Once again, we define the answer below. First we need to know what it means for two vector spaces to be isomorphic. 
+
+\bd[Vector Space Isomorphism]
+    Let $(A,+_A,\cdot_A)$ and $(B,+_B,\cdot_B)$ be two vector spaces over the same field, say $\R$. Then the bijective map $\phi:A \to B$ is a \textit{vector space isomorphism} iff: for all $a_1,a_2\in A$ and $\lambda\in\R$
+    \bse 
+        \phi(a_1+_Aa_2) = \phi(a_1)+_B\phi(a_2), \qand \phi(\lambda\cdot_Aa_1) = \lambda\cdot_B\phi(a).
+    \ese 
+    We say that the two vector spaces are \textit{isomorphic as vector spaces}, denoted $A\cong_{\text{vec}}B$.
+\ed 
+
+\bd[Lie Algebra Isomorphism]
+    Let $(\mathfrak{g},[,]_{\mathfrak{g}})$ and $(\mathfrak{h},[,]_{\mathfrak{h}})$ be two Lie algebras. Then we call the map $\phi:\mathfrak{g}\to \mathfrak{h}$ a \textit{Lie algebra isomorphism} if it is a vector space isomorphism and, for all $g_1,g_2\in\mathfrak{g}$
+    \bse 
+        \phi([g_1,g_2]_{\mathfrak{g}}) = \big[\phi(g_1),\phi(g_2)\big]_{\mathfrak{h}}
+    \ese
+    holds. 
+\ed 
+
+\subsection{SO(3) \& SU(2)}
+
+We can now addressed a subtle wording used above: in \Cref{rem:StructureConstantsAlmost} we said the structure constants \textit{almost} capture all of the properties of the associated Lie group. Why almost? Well we have already seen that the structure constants for SO(3) are $\epsilon^{ijk}$. Well direct calculation shows that the Pauli matrices, \Cref{eqn:PauliMatrices}, also obey 
+\bse 
+    [\sig_i,\sig_j] = \epsilon^{ijk}\sig_k.
+\ese 
+So $\mathfrak{so}(3)$ and $\mathfrak{su}(2)$ have the exact same structure constants! This tells us that the Lie algebras are isomorphic? Indeed we can construct the isomorphism explicitly as 
+\bse 
+    \begin{split}
+        \phi : \mathfrak{su}(2) & \to \mathfrak{so}(3) \\
+        \sig_i & \mapsto T_i.
+    \end{split}
+\ese 
+
+This doesn't necessarily seem like a bad thing, until we notice that the Lie groups SO(3) and SU(2) are \textit{not} isomorphic! So we see two distinguishable Lie groups have the same Lie algebra. 
+
+This particular case is very well known and you can show that $SO(3)$ is actually what is known as a \textit{double cover} of $SU(2)$. I will not explain what this means here, but it is covered in Chau's notes, so the interested reader is directed there. 
+
+\section{What On Earth Is Going On?}
+
+Ok, so that was quite a dense lecture with lots of definitions, so let's just have a little recap as to what on Earth we're doing. We want to study the symmetries of physics because they're very powerful and give us important results. We claim that continuous groups are related to symmetries (more on this next lecture). So we define some of our favourite matrix groups. We then see that these are quite hard things to study so we look for an easier structure to study. We claim that Lie algebras associated to Lie groups contain (almost) all the interesting information about the Lie group. We therefore decide to use the Lie algebras, because they are vector spaces and so we can add different elements together and scale them. We also have a basis into which we can decompose elements. These are \textit{very} nice properties to have. It only took us 14 pages to say that. 

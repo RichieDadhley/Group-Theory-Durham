@@ -1,0 +1,702 @@
+\chapter{Systematic Approach To Finite Dimensional Irreps}
+
+We now want to give some systematic approach to getting the irreps of finite dimensional $\mathfrak{su}(N)$. We will consider $\mathfrak{su}(2)$ and $\mathfrak{su}(3)$. 
+
+\section{$\mathfrak{su}(2)$}
+
+Recall that the Lie algebra $(\mathfrak{su}(2),[,])$ is the set of $2\times 2$, antihermitian,\footnote{Note we have actually changed convention here compared to Lecture 1, where we had Hermitian matrices.} traceless matrices, and the Lie bracket is the commutator. A basis for such matrices are the \textit{Pauli matrices}, \Cref{eqn:PauliMatrices}. We shall actually scale the matrices slightly, and use the basis 
+\be 
+\label{eqn:TauBasis}
+    \begin{split}
+        \tau_1 & = -i\frac{\sig_1}{2} = \begin{pmatrix}
+            0 & -i/2 \\
+            -i/2 & 0 
+        \end{pmatrix}, \\
+        \tau_2 & = -i\frac{\sig_2}{2} = \begin{pmatrix}
+            0 & -1/2 \\
+            1/2 & 0 
+        \end{pmatrix}, \\ 
+        \tau_3 & = -i\frac{\sig_3}{2} = \begin{pmatrix}
+            -i/2 & 0 \\
+            0 & i/2 
+        \end{pmatrix}.
+    \end{split}
+\ee 
+The reason we use these is because now the commutation relation becomes 
+\be 
+\label{eqn:TauCommutator}
+    [\tau_i,\tau_j] = \epsilon_{ijk} \tau_k.
+\ee 
+
+This is a useful basis but there is a different one which makes connection with QFT easier, which is something we ultimately want to do (as this is a course for particle physicists). Recall that in QM and QFT we have raising and lowering (or ladder) operators which increase the eigenvalues of a given operator. The question is, can w do something similar with $\mathfrak{su}(2)$? The answer is yes,\footnote{Otherwise I wouldn't be saying all this} and is given by 
+\be 
+\label{eqn:su(2)RaisingLoweringOperators}
+    \begin{split}
+        E_+ & := i\tau_1 - \tau_2 = \begin{pmatrix}
+            0 & 1 \\ 
+            0 & 0 
+        \end{pmatrix}, \\
+        E_- & := i\tau_1 + \tau_2 = \begin{pmatrix}
+            0 & 0 \\ 
+            1 & 0 
+        \end{pmatrix}, \\
+        H & := 2i\tau_3 = \begin{pmatrix}
+            1 & 0 \\ 
+            0 & -1 
+        \end{pmatrix}.
+    \end{split}
+\ee 
+
+\bbox 
+    Show that 
+    \be 
+    \label{eqn:HECommutators}
+        [H, E_{\pm}] = \pm 2E_{\pm}, \qand [E_+,E_-] = H.
+    \ee  
+\ebox  
+
+\br 
+    Note that \Cref{eqn:TauBasis} are complex matrices but \Cref{eqn:su(2)RaisingLoweringOperators} are real matrices. This might seem like a problem for the latter to be a basis, but we have to remember that our underlying field is the complex numbers, so we can still span the whole space. 
+\er 
+
+Ok, so now let's consider a representation $d$. What form do our new basis elements take? Well we note that $H$ is unitary, so we can expect the representation $d(H)$ be unitary too. Now its a fact that any unitary matrix is diagonalisable.\footnote{This is a consequence of something called the \textit{spectral theorem}. For more details see Simon and my notes on Dr. Schuller's QM course, available on my blog site.} That is we can always find an equivalent representation $\widetilde{d}(H)= Sd(H)S^{-1}$ such that we get a diagonal matrix. We shall therefore always do this. 
+
+As $d(H)$ is diagonal, we can construct the representation space such that each element is an eigenvector of $d(H)$. That is $d(H)$ is a $\dim d\times \dim d$ matrix, so we can construct our representation space as a $\dim d$ column matrix. This obviously smells a lot like QM, and so we use bra-ket notation. As $d(H)$ is unitary,it is Hermitian, so we know the eigenvalues are real. We shall also assume that these eigenvalues are unique, so we can label the eigenstates by their eigenvalues. That is, we write 
+\be  
+\label{eqn:dHket(k)}
+    d(H)\ket{k} = k\ket{k}.
+\ee 
+
+So what about the action of $E_{\pm}$ on our states? Well, that's an exercise. 
+\bbox 
+    Show that 
+    \bse 
+        d(H)d(E_{\pm})\ket{k} = (k\pm 2) d(E_{\pm})\ket{k}.
+    \ese 
+    \textit{Hint: Using \Cref{eqn:HECommutators}.}
+\ebox 
+
+The result of this exercise tells us that 
+\bse 
+    d(E_{\pm}) \propto \ket{k\pm2},
+\ese 
+the question is "what are the proportionality constants?" Well we rescale our system such that 
+\be 
+\label{eqn:dE-ket}
+    d(E_-)\ket{k} = \ket{k-2}.
+\ee 
+So we just need to find the coefficient for $d(E_+)$. As the title of this lecture says, we want to consider \textit{finite} dimensional representations, and so we require there to be some bound on the values of $k$. In particular we require that there is some maximum value, $k=j$, such that 
+\be 
+\label{eqn:su(2)HighestweightState}
+    d(E_+)\ket{j} = 0.
+\ee 
+We call this state the \textit{highest weight state}. We can use this to find the action on a general state. We get a recursion relation as follows: let $d(E_+)\ket{k}=r_{k+2}\ket{k+2}$, then we have
+\bse 
+    \begin{split}
+        d(E_+)\ket{k-2} & = d(E_+)d(E_-)\ket{k} \\
+        & = \big(d(H) + d(E_-)d(E_+)\big)\ket{k} \\
+        & = (k + r_{k+2})\ket{k},
+    \end{split}
+\ese 
+giving the relation 
+\bse 
+    r_k = \begin{cases}
+        k + r_{k+2} & k\neq j \\
+        0 & k={j+2}.
+    \end{cases}
+\ese 
+This is solved by 
+\be 
+    r_{j-2k} = (k+1)(j-k).
+\ee 
+To clarify,\footnote{As this took me a few minutes to see.} get the highest weight state by setting $k=-1$: 
+\bse 
+    r_{j+2} = r_{j-2(-1)} = (-1+1)(j+1) = 0.
+\ese 
+We see that we also have $r_{-j}=0$, which corresponds to the fact we must also put a lower bound on the values of $k$. In terms of the lowering operator this is the statement that 
+\be
+\label{eqn:su(2)LowestWeightState}
+    d(E_-)\ket{-j} = 0.
+\ee 
+This gives us a weight `lattice':
+\begin{center}
+    \btik 
+        \draw[fill=black] (-5,0) circle [radius=0.07];
+        \draw[fill=black] (-3,0) circle [radius=0.07];
+        \draw[fill=black] (-1,0) circle [radius=0.07];
+        \node at (0,0) {\large{...}};
+        \draw[fill=black] (1,0) circle [radius=0.07];
+        \draw[fill=black] (3,0) circle [radius=0.07];
+        \draw[fill=black] (5,0) circle [radius=0.07];
+        %
+        \node at (-5.2,-0.3) {$-j$};
+        \node at (-3.2,-0.3) {$-j+2$};
+        \node at (-1.2,-0.3) {$-j+4$};
+        \node at (1,-0.3) {$j-4$};
+        \node at (3,-0.3) {$j-2$};
+        \node at (5,-0.3) {$j$};
+        %
+        \draw[thick, ->] (-5,0.2) .. controls (-4.5,0.5) and (-3.5,0.5) .. (-3.1,0.2);
+        \draw[thick, ->] (-2.9,0.2) .. controls (-2.5,0.5) and (-1.5,0.5) .. (-1,0.2);
+        \node at (0,0.75) {$d(E_+)$};
+        \draw[thick, ->] (1,0.2) .. controls (1.5,0.5) and (2.5,0.5) .. (2.9,0.2);
+        \draw[thick, ->] (3.1,0.2) .. controls (3.5,0.5) and (4.5,0.5) .. (5,0.2);
+        %
+        \draw[thick, <-] (3.1,-0.6) .. controls (3.5,-0.9) and (4.5,-0.9) .. (5,-0.6);
+        \draw[thick, <-] (1,-0.6) .. controls (1.5,-0.9) and (2.5,-0.9) .. (2.9,-0.6);
+        \node at (0,-0.75) {$d(E_-)$};
+        \draw[thick, <-] (-2.9,-0.6) .. controls (-2.5,-0.9) and (-1.5,-0.9) .. (-1,-0.6);
+        \draw[thick, <-] (-5,-0.6) .. controls (-4.5,-0.9) and (-3.5,-0.9) .. (-3.1,-0.6);
+    \etik 
+\end{center}
+
+The conclusion we draw from this result is that for each value of $j$ we have a $(j+1)$-dimensional irrep with basis elements 
+\bse 
+    \ket{j}, \ket{j-2} , ... , \ket{-j+2} , \ket{-j},
+\ese 
+which we can write as a column matrix explicitly as 
+\bse 
+    \ket{j} = \begin{pmatrix}
+        1 \\
+        0 \\
+        \vdots \\
+        0
+    \end{pmatrix}, \qquad ... \qquad \ket{-j} = \begin{pmatrix}
+        0 \\
+        0 \\
+        \vdots \\
+        1
+    \end{pmatrix}.
+\ese
+Our matrices $H, E_{\pm}$ take the form\footnote{I wasn't sure how to make the 0s big, but basically everything blank is a 0.} 
+\bse 
+    \begin{split}
+        d(H) = \begin{pmatrix}
+            j &  & 0 \\
+            & \ddots & \\
+            0 & & -j
+        \end{pmatrix}, \qquad  d(E_-) = \begin{pmatrix}
+            0 & & & 0 \\
+            1 & \ddots & & \\
+            & \ddots & \ddots & \\
+            0& & 1 & 0
+        \end{pmatrix} \qquad d(E_+)  = \begin{pmatrix}
+            0 & r_j & & 0 \\
+            & \ddots & r_{j-2} & \\
+            & & \ddots & \ddots  \\
+            0& & & 0
+        \end{pmatrix}.
+    \end{split}
+\ese 
+
+\br 
+    There is a nice way to convert these irreps into Young-Tableaux. We're considering $SU(2)$, so, as we described in \Cref{sec:ListOfAllSU(2)}, we can categorise any Young-Tableaux by its dimension. An irrep with dimension $n$ has $(n-1)$ boxes. So, from the fact that the dimension of our irreps are $(j+1)$, our Young-Tableaux are just $j$ horizontal boxes. 
+\er 
+
+\bex 
+    Let's consider the example of $j=1$, then we have 
+    \bse 
+        d(H) = \begin{pmatrix}
+            1 & 0 \\
+            0 & -1
+        \end{pmatrix}, \qquad d(E_-) = \begin{pmatrix}
+            0 & 0 \\
+            1 & 0
+        \end{pmatrix}, \qquad d(E_+) = \begin{pmatrix}
+            0 & 1 \\
+            0 & 0
+        \end{pmatrix},
+    \ese 
+    which are exactly \Cref{eqn:su(2)RaisingLoweringOperators}, so this is the fundamental representation. This agrees with the remark above as we expect the Young-Tableaux to just be a single box, which is the fundamental representation. Our states are $\ket{\pm1}$.
+\eex 
+
+\bex 
+    Now let's consider $j=2$. Here we have 
+    \bse 
+        d(H) = \begin{pmatrix}
+            2 & 0 & 0 \\
+            0 & 0 & 0 \\
+            0 & 0 & -2
+        \end{pmatrix}, \qquad d(E_-) = \begin{pmatrix}
+            0 & 0 & 0 \\
+            1 & 0 & 0 \\
+            0 & 1 & 0
+        \end{pmatrix}, \qquad d(E_+) = \begin{pmatrix}
+            0 & 2 & 0 \\
+            0 & 0 & 2 \\
+            0 & 0 & 0
+        \end{pmatrix}.
+    \ese 
+    We have three states $\ket{\pm2}$ and $\ket{0}$. Our Young-Tableaux here is simply 
+    \begin{center}
+        \byt 
+            ~ &  
+        \eyt.
+    \end{center}
+\eex 
+
+\bbox 
+    Check that the Casimir \Cref{eqn:CasimirOperator} is indeed a multiple of the identity for the irreps of $j=1,2$. \textit{Hints: 1) We have already found the  Killing form in \Cref{example:Casimirsu(2)}. 2) Be careful: the \Cref{eqn:CasimirOperator} is expressed in terms of $d(\tau)$s, you need to convert this into $d(H)/d(E_{\pm})$ first. }
+\ebox 
+
+The generalisation of the above exercise for general $j$ is
+\bse 
+    C = \frac{j}{2}\bigg(\frac{j}{2}+1\bigg) \frac{\b1}{2}.
+\ese 
+To a quantum physicist this whole lecture will have looked \textit{very} familiar, and this last result in particular; recall that the spin operator acts as
+\bse 
+    S^2 = s(s+1) \frac{\b1}{2},
+\ese 
+so we see that $j$ is twice the spin. Equally $d(H)$ is playing the role of $2S_z$.
+
+\br
+    Of course we could have divided $j$ by two everywhere and obtained exactly the spin, however we have been using a mathematicians convention and they prefer to carry $2$s around then $1/2$s.
+\er 
+
+As a final comment before moving on to SU(3), let's just make a comment on how you to relate the index notation $\phi^{(ij...)}$ to kets. We do it for $j=1$ and set $j=2$ as an exercise.\footnote{Again this is because it's set as an exercise on the course and I don't want to put the answers on here. If you don't understand what I did below please feel free to email me for clarity.}
+
+\bex 
+    For $j=1$ we have a single index, which transforms as 
+    \bse 
+        d(X) : \phi^i \mapsto {X^i}_j\phi^j.
+    \ese 
+    Now consider the action of $d(H)$: we have $H=\text{diag}(1,-1)$, so we get
+    \bse 
+        \begin{split}
+            d(H) : \phi^1 & \mapsto {H^1}_j \phi^j = \phi^1 \\
+            d(H) : \phi^2 & \mapsto {H^2}_j \phi^j = -\phi^2,
+        \end{split}
+    \ese 
+    so we relate 
+    \bse 
+        \phi^1 \sim \ket{1}, \qand \phi^2 \sim \ket{-1},
+    \ese 
+    and obtain 
+    \bse 
+        d(H) = \text{diag}(1,-1),
+    \ese 
+    which is just the fundamental representation, in agreement with the previous comments. 
+\eex 
+
+\bbox 
+    Repeat the calculation above but now for $j=2$ to obtain 
+    \bse 
+        \phi^{11} \sim \ket{2}, \qquad \phi^{(12)} \sim \ket{0}, \qand \phi^{22} \sim \ket{-2}.
+    \ese 
+    This tells us that 
+    \bse 
+        d(H) = \text{diag}(2,0,-2),
+    \ese 
+    which we agrees with what we wrote before.
+\ebox 
+
+\section{$\mathfrak{su}(3)$}
+
+Let's now consider the Lie algebra of SU(3). We have seen that this is the set of $3\times 3$, traceless, antihermitian matrices. The commonly used basis for this space are the so-called \textit{Gell-Mann} matrices:
+\be 
+\label{eqn:GellMannMatrices}
+    \begin{split}
+        \l_1 & = \begin{pmatrix}
+            0 & 1 & 0 \\
+            1 & 0 & 0 \\
+            0 & 0 & 0
+        \end{pmatrix} \qquad \l_2 = \begin{pmatrix}
+            0 & -i & 0 \\
+            i & 0 & 0 \\
+            0 & 0 & 0
+        \end{pmatrix} \qquad  \l_3 = \begin{pmatrix}
+            1 & 0 & 0 \\
+            0 & -1 & 0 \\
+            0 & 0 & 0
+        \end{pmatrix} \\
+        \l_4 & = \begin{pmatrix}
+            0 & 0 & 1 \\
+            0 & 0 & 0 \\
+            1 & 0 & 0
+        \end{pmatrix} \qquad \l_5 = \begin{pmatrix}
+            0 & 0 & -i \\
+            0 & 0 & 0 \\
+            i & 0 & 0
+        \end{pmatrix} \qquad \l_6 = \begin{pmatrix}
+            0 & 0 & 0 \\
+            0 & 0 & 1 \\
+            0 & 1 & 0
+        \end{pmatrix} \\
+        \l_7 & = \begin{pmatrix}
+            0 & 0 & 0 \\
+            0 & 0 & -i \\
+            0 & i & 0
+        \end{pmatrix} \qand \l_8 = \frac{1}{\sqrt{3}}\begin{pmatrix}
+            1 & 0 & 0 \\
+            0 & 1 & 0 \\
+            0 & 0 & -2
+        \end{pmatrix}.
+    \end{split}
+\ee 
+
+An observant person might realise that these matrices have the Pauli matrices (i.e. the basis elements of $\mathfrak{su}(2)$) embedded in them. For example $\l_1,\l_2$ and $\l_3$ contain exactly the Pauli matrices in the top left corner. 
+
+\bcl 
+    We can group the Gell-Mann matrices into three groups, each of which obeys an $\mathfrak{su}(2)$ algebra (i.e. the structure constants is the Levi-Civita tensor). The groups are 
+    \ben[label=(\roman*)]
+        \item $\l_1$, $\l_2$ and $\l_3$,
+        \item $\l_4$, $\l_5$ and $\frac{1}{2}(\sqrt{3}\l_8+\l_3)$, and 
+        \item $\l_6$, $\l_7$ and $\frac{1}{2}(\sqrt{3}\l_8-\l_3)$.
+    \een 
+\ecl 
+
+\bq 
+    This can easily be checked just by calculating all the commutation relations, but we gain little insight by doing this, so just state its true here.\footnote{By all means feel free to check yourself.}
+\eq 
+
+We now want to do a similar thing to the $\mathfrak{su}(2)$ case and use a smart basis that corresponds to raising and lowering operators. We have a bit more of a challenge here though, as we have 3 $\mathfrak{su}(2)$s to consider. Luckily the result is known so, as if by magic, we just state it. We label each $\mathfrak{su}(2)$ by $\a,\beta$ and $(\a+\beta)$ with 
+\bse 
+    H_{\a+\beta} = H_{\a} + H_{\beta}, \qand E_{\pm(\a+\beta)} = [E_{\pm\a},E_{\pm\beta}].
+\ese 
+Explicitly we get 
+\bse 
+     H_{\a} = \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & -1 & 0 \\
+        0 & 0 & 0 
+    \end{pmatrix} \qquad E_{\a} = \begin{pmatrix}
+        0 & 1 & 0 \\
+        0 & 0 & 0 \\
+        0 & 0 & 0 
+    \end{pmatrix} \qquad E_{-\a} = \begin{pmatrix}
+        0 & 0 & 0 \\
+        1 & 0 & 0 \\
+        0 & 0 & 0 
+    \end{pmatrix}
+\ese
+\bse 
+    H_{\beta} = \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 1 & 0 \\
+        0 & 0 & -1 
+    \end{pmatrix} \qquad E_{\beta} = \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 0 & 1 \\
+        0 & 0 & 0 
+    \end{pmatrix} \qquad E_{-\beta} = \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 0 & 0 \\
+        0 & 1 & 0 
+    \end{pmatrix}
+\ese 
+\bse 
+    H_{\a+\beta} = \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & 0 & 0 \\
+        0 & 0 & -1
+    \end{pmatrix} \qquad E_{\a+\beta} = \begin{pmatrix}
+        0 & 0 & 1 \\
+        0 & 0 & 0 \\
+        0 & 0 & 0 
+    \end{pmatrix} \qquad E_{-\a-\beta} = \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 0 & 0 \\
+        1 & 0 & 0 
+    \end{pmatrix}.
+\ese 
+As the notation suggests the idea is that each label forms one $\mathfrak{su}(2)$ group, and the $E_{\pm}$s are the raising and lowering operators within each group. We call $\a$ and $\beta$ \textit{simple roots}, whereas $(\a+\beta)$ is a \textit{non-simple root}.
+
+We can just focus on the simple roots (as the non-simple ones are obtainable from simple ones). First note that 
+\bse 
+    [H_{\a},H_{\beta}] = 0,
+\ese 
+and so, from the definition of a representation of a Lie algebra, 
+\bse 
+    [d(H_{\a}), d(H_{\beta})] = 0.
+\ese    
+This tells us that we can simultaneously diagonalise both $d(H_{\a})$ and $d(H_{\beta})$, as they are both unitary. We then proceed as before to label the states of the representation space, but now we have two weights (i.e. eigenvalues) to keep track of. We define the states by 
+\be 
+    d(H_{\a})\ket{m,n} = m\ket{m,n}, \qand d(H_{\beta})\ket{m,n} = n\ket{m,n}.
+\ee 
+
+Now we want to define the action of the lowering operators, $d(E_{-\a})$ and $d(E_{-\beta})$, on these states as before. First consider $d(E_{-\a})$: we know
+\bse 
+    [d(H_{\a}),d(E_{-\a})] = -2d(E_{-\a}),
+\ese 
+which, following the calculation from the previous section, tells us that $d(E_{-\a})$ lowers the value of $m$ by $2$. The question is "does it effect $n$?" 
+
+\bbox 
+    Verify that 
+    \bse 
+        [d(H_{\beta}),d(E_{-\a})] =  d(E_{-\a}).
+    \ese 
+    Use this to show that $d(E_{-\a})$ increases the value of $n$ by $1$. \textit{Hint: You can just find the commutator of $H_{\beta}$ and $E_{-\a}$ and then use the definition of $d$ to obtain the above result. }
+\ebox 
+
+Putting the result of the above exercise together with the comment just before it, and making a similar argument for $d(E_{-\beta})$ we rescale our states so that they satisfy
+\be 
+\label{eqn:su(3)statesRaisingLowering}
+    d(E_{-\a}) \ket{m,n} = \ket{m-2,n+1}, \qand d(E_{-\beta}) \ket{m,n} = \ket{m+1,n-2}.
+\ee 
+We define our highest weight state by the condition 
+\bse 
+    d(E_{\a}) \ket{m,n} = 0 = d(E_{\beta}) \ket{m,n}.
+\ese 
+From this condition and \Cref{eqn:su(3)statesRaisingLowering}, we can again produce the whole weight lattice with lowest weight state 
+\bse 
+    d(E_{-\a}) \ket{\widetilde{m},\widetilde{n}} = 0 = d(E_{-\beta}) \ket{\widetilde{m},\widetilde{n}}.
+\ese 
+
+\bd[Root Lattice]
+    We define the \textit{root lattice} to the be the lattice of all the states of simple roots.
+\ed 
+
+\bex 
+    Consider the fundamental representation.  We can find the states by considering the index expressions. We have 
+    \bse 
+        d(H_{\a}) : \phi^i \mapsto {(H_{\a})^i}_j \phi^j,
+    \ese 
+    and similarly for $d(H_{\beta})$. Therefore, using the matrix expressions above, we get
+    \bse 
+        \begin{split}
+            d(H_{\a}) : \phi^1 & \mapsto \phi^1 \\
+            d(H_{\a}) : \phi^2 & \mapsto -\phi^2 \\
+            d(H_{\a}) : \phi^3 & \mapsto \phi^3.
+        \end{split}
+    \ese 
+    Doing the same thing for $d(H_{\beta})$ gives the states
+    \be 
+    \label{eqn:su(3)FundamentalStates}
+        \ket{1,0}, \qquad \ket{-1,1}, \qand \ket{0,-1}.
+    \ee 
+    The first/last is the highest/lowest weight state, respectively. The root lattice is depicated below.
+    \begin{center}
+        \btik 
+            \draw[->] (-2.5,0) -- (2.5,0);
+            \node at (2.5,-0.5) {\large{$m$}};
+            \draw[->] (0,-2.5) -- (0,2.5);
+            \node at (-0.5,2.5) {\large{$n$}};
+            % 
+            \draw[fill=black] (1.5,0) circle [radius=0.07];
+            \node at (1.5,0.5) {$\ket{1,0}$};
+            \draw[fill=black] (-1.5,1.5) circle [radius=0.07];
+            \node at (-1.5,2) {$\ket{-1,1}$};
+            \draw[fill=black] (0,-1.5) circle [radius=0.07];
+            \node at (-0.7,-1.6) {$\ket{0,-1}$};
+            % 
+            \midarrow (0,-1.5) -- (1.5,0);
+            \node at (1.2,-1) {$\underline{\a}+\underline{\beta}$};
+            \draw[thick, decoration={markings, mark=at position 0.45 with {\arrow{>}}}, postaction={decorate}] (0,-1.5) -- (-1.5,1.5);
+            \node at (-1,-0.3) {$\underline{\beta}$};
+            \draw[thick, decoration={markings, mark=at position 0.6 with {\arrow{>}}}, postaction={decorate}] (-1.5,1.5) -- (1.5,0);
+            \node at (0.3,1) {$\underline{\a}$};
+        \etik 
+    \end{center}
+    We have indicated the states on the diagram. The raising/lowering operators move you from point to point on the root lattice, going with/against the vectors
+    \be 
+    \label{eqn:RootLatticeAlphaBeta}
+        \underline{\a} = \begin{pmatrix}
+            2 \\
+            -1
+        \end{pmatrix}, \qand \underline{\beta} = \begin{pmatrix}
+            -1 \\
+            2
+        \end{pmatrix}.
+    \ee 
+    That is, for example,
+    \bse 
+        d(E_{\a}) : \ket{-1,1} \mapsto \ket{1,0}, \qand d(E_{-\beta}) : \ket{-1,1} \mapsto \ket{0,-1}.
+    \ese
+\eex 
+
+\bbox 
+    Finish obtaining \Cref{eqn:su(3)FundamentalStates}, i.e. do the $d(H_{\beta})$ part.
+\ebox 
+
+\bex 
+    Now let's consider the representation which has the highest/lowest weight states $\ket{1,1}/\ket{-1,-1}$, respectively. We don't know the expressions for $d(H_{\a/\beta})$ here,\footnote{Note we could obtain them using the index aproach, but I think you'd agree the method used here is a lot faster.} but we can obtain the root lattice by plotting these two states and applying the raising and lowering operators, i.e. use \Cref{eqn:RootLatticeAlphaBeta}. We get the following diagram.
+    \begin{center}
+        \btik 
+            \draw[->] (-3,0) -- (3,0);
+            \node at (3.3,0) {$m$};
+            \draw[->] (0,-3) -- (0,3);
+            \node at (0,3.3) {$n$};
+            %
+            \draw[thick, red, decoration={markings, mark=at position 0.4 with {\arrow{>}}}, postaction={decorate}] (-1.5,3) -- (1.5,1.5);
+            \draw[thick, red, decoration={markings, mark=at position 0.4 with {\arrow{>}}}, red, postaction={decorate}] (3,-1.5) -- (1.5,1.5);
+            \draw[thick, red, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, red, postaction={decorate}] (0,0) -- (1.5,1.5);
+            \draw[thick, blue, decoration={markings, mark=at position 0.4 with {\arrow{>}}}, postaction={decorate}] (-1.5,-1.5) -- (-3,1.5);
+            \draw[thick, blue, decoration={markings, mark=at position 0.4 with {\arrow{>}}}, postaction={decorate}] (-1.5,-1.5) -- (1.5,-3);
+            \draw[thick, blue, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (-1.5,-1.5) -- (0,0);
+            \midarrow (-3,1.5) -- (-1.5,3);
+            \midarrow (1.5,-3) -- (3,-1.5);
+             %
+            \draw[blue,fill=blue] (0,0) circle [radius=0.2];
+            \draw[blue,fill=blue] (-1.5,-1.5) circle [radius=0.07];
+            \draw[blue,fill=blue] (1.5,-3) circle [radius=0.07];
+            \draw[blue,fill=blue] (-3,1.5) circle [radius=0.07];
+            \draw[red,fill=red] (1.5,1.5) circle [radius=0.07];
+            \draw[red,fill=red] (-1.5,3) circle [radius=0.07];
+            \draw[red,fill=red] (3,-1.5) circle [radius=0.07];
+            \draw[red,fill=red] (0,0) circle [radius=0.07];
+            %
+            \node at (2,1.7) {$\ket{1,1}$};
+            \node at (-1.5,3.3) {$\ket{-1,2}$};
+            \node at (3.7,-1.5) {$\ket{2,-1}$};
+            \node at (-2,-2) {$\ket{-1,-1}$};
+            \node at (2.3,-3) {$\ket{1,-2}$};
+            \node at (-3.6,1.7) {$\ket{-2,1}$};
+            \node at (0.5,-0.5) {$\ket{0,0}$};
+        \etik 
+    \end{center}
+    I have tried to make it clear how you obtain the points: the red points/arrows are the highest weight state and the lowering operators acting on it; the blue points/arrows are the lowest weight state and the raising operators acting on it. The black arrows are included to show you can `close' the diagram using $d(E_{\pm(\a+\beta)})$. 
+    
+    Note that we can get to the origin in two different ways. We count these as two separate states, so in total we have $8$ states. This tells us the the dimension of the representation space is $8$, which we can use to obtain the Young-Tableaux: 
+    \begin{center}
+        \byt 
+            ~ & \\
+            ~
+        \eyt 
+    \end{center}
+    which for SU(3) does indeed have dimension $8$. We can do a similar thing for the previous example (with dimension 3) to get the single box Young-Tableaux, which is the fundamental representation, as required.
+\eex 
+
+\br 
+    Note that in the root lattice diagrams we can identify the highest/lowest weight states by looking where the arrows point to/away from. This is because the arrows representing raising, so they all point towards the highest weight state and away from the lowest weight state. Combining this with the Young-Tableaux argument given at the end of the last example, we see how much information is really packed into these diagrams!
+\er 
+
+\subsection{The Eightfold Way}
+
+The above remark just made a point about how much information is contained in these diagrams, however it seems a shame that they're not very nice shapes. By which I mean, both of them are squashed versions of nice shapes (i.e. an equilateral triangle and a hexagon). The question is: "can we make them look nicer?" The answer is yes, and we will do this next lecture, but here's the basic idea. There root space comes with a metric, and as we've drawn them the metric is not in some nice form. We make the diagrams look nicer by considering a change of basis, making the metric into the Euclidean metric. This will make the above two diagrams look like the following. In both diagrams, $\Lambda$ labels the highest weight state and $-\Lambda$ the lowest weight state. The dashed line is explained in a minute.
+\begin{center}
+    \btik 
+        \begin{scope}[shift={(-4.5,0)}]
+            \draw[->] (-1,0) -- (3.5,0);
+            \draw[->] (0,-1) -- (0,3);
+            \midarrow (0,0) -- (3,0);
+            \node at (1.5,-0.3) {$\underline{\a}$};
+            \midarrow (0,0) -- (1.5,2.6);
+            \midarrow (3,0) -- (1.5,2.6);
+            \node at (2.5,1.5) {$\underline{\beta}$};
+            \draw[fill=black] (0,0) circle [radius=0.07];
+            \draw[fill=black] (3,0) circle [radius=0.07];
+            \draw[fill=black] (1.5,2.6) circle [radius=0.07];
+            \node at (1.5,3) {$\Lambda$};
+            \node at (-0.3,-0.3) {$-\Lambda$};
+        \end{scope}
+        \begin{scope}[shift={(4.5,0.75)}]
+            \draw[->] (-2.5,0) -- (2.5,0);
+            \draw[->] (0,-2.5) -- (0,2.5);
+            \draw[fill=black] (0,0) circle [radius=0.07];
+            \draw (0,0) circle [radius=0.15];
+            \draw[fill=black] (2,0) circle [radius=0.07];
+            \draw[fill=black] (-2,0) circle [radius=0.07];
+            \draw[fill=black] (1,1.7) circle [radius=0.07];
+            \draw[fill=black] (-1,1.7) circle [radius=0.07];
+            \draw[fill=black] (1,-1.7) circle [radius=0.07];
+            \draw[fill=black] (-1,-1.7) circle [radius=0.07];
+            \node at (1.3,2) {$\Lambda$};
+            \node at (-1.3,-2) {$-\Lambda$};
+            %
+            \draw[thick, decoration={markings, mark=at position 0.45 with {\arrow{>}}}, postaction={decorate}] (-1,1.7) -- (1,1.7);
+            \draw[thick, decoration={markings, mark=at position 0.45 with {\arrow{>}}}, postaction={decorate}] (2,0) -- (1,1.7);
+            \midarrow (1,-1.7) -- (2,0);
+            \draw[thick, decoration={markings, mark=at position 0.45 with {\arrow{>}}}, postaction={decorate}] (-1,-1.7) -- (1,-1.7);
+            \draw[thick, decoration={markings, mark=at position 0.45 with {\arrow{>}}}, postaction={decorate}] (-1,-1.7) -- (-2,0);
+            \midarrow (-2,0) -- (-1,1.7);
+            %
+            \draw[thick, dashed, rotate around={-60:(0,0)}] (0,-2.5) -- (0,2.5);
+        \end{scope}
+    \etik 
+\end{center}
+
+The hexagon diagram has direct relation to particle physics. The story goes (roughly) as follows: in the 1950s particle physicists were trying to work out the symmetries of the strong force. After a lot of work they realised that the combination of \textit{isospin} and \textit{strangeness} were (almost) conserved by the strong interactions. They also found that certain hadrons with the same spin had (almost) degenerate masses, which suggested a symmetry. If you plot the third component of isospin, $T_3$, against the so-called \textit{hyper charge},\footnote{Baryon number + strangeness.} $Y$, you got the following diagram:
+\begin{center}
+    \btik 
+        \draw[->] (-2.5,0) -- (3,0);
+        \node at (3.3,0) {$T_3$};
+        \draw[->] (0,-2.5) -- (0,3);
+        \node at (0,3.3) {$\frac{\sqrt{3}}{2}Y$};
+        \draw[fill=black] (0,0) circle [radius=0.07];
+        \draw (0,0) circle [radius=0.15];
+        \draw[fill=black] (2,0) circle [radius=0.07];
+        \draw[fill=black] (-2,0) circle [radius=0.07];
+        \draw[fill=black] (1,1.7) circle [radius=0.07];
+        \draw[fill=black] (-1,1.7) circle [radius=0.07];
+        \draw[fill=black] (1,-1.7) circle [radius=0.07];
+        \draw[fill=black] (-1,-1.7) circle [radius=0.07];
+        %
+        \node at (1.2,2.2) {$K^+$};
+        \node at (-1.2,2.2) {$K^0$};
+        \node at (2.1,-0.3) {$\pi^+$};
+        \node at (0.3,-0.3) {$\pi^0$};
+        \node at (-0.2,-0.4) {$\eta$};
+        \node at (-2,-0.3) {$\pi^-$};
+        \node at (-1,-2.1) {$K^-$};
+        \node at (1.2,-2.1) {$\overline{K}^0$};
+    \etik 
+\end{center}
+
+Hmm... this looks awful familiar. This lead them to the idea that the fundamental objects are quarks/antiquarks, which transform to the fundamental/antifundamental representations of SU(3), i.e. 
+\begin{center}
+    $\byt 
+        ~
+    \eyt \qand \myov{\byt
+            ~ 
+        \eyt} = \byt 
+        ~ \\
+        ~ 
+        \eyt $
+\end{center}
+are the quark and antiquark respectively. Mesons (a quark-antiquark pair) are therefore given by 
+\bse
+    \byt 
+        ~
+    \eyt ~ \otimes ~ \byt
+        ~ \\
+        ~
+    \eyt ~ = ~ \byt 
+        ~ & \\
+        ~
+    \eyt ~ \oplus ~ 1,
+\ese
+or
+\bse 
+    \mathbf{3} \otimes \mathbf{\bar{3}} = \mathbf{8} \oplus \mathbf{1}.
+\ese 
+This gives us exactly the hexagon diagram above. This result is often referred to as the \textit{eightfold way}. As the diagram corresponds to an irrep, by the argument made at the end of lecture 2, we see that these things have the same mass! So these root diagrams have very physical importance for us. 
+
+
+\br 
+    The dashed line on the hexagon diagram represents a physical symmetry known as Weyl symmetry.
+\er 
+
+Similarly for baryons (which are $3$ quarks) we get the decomposition
+\bse 
+    \mathbf{3} \otimes \mathbf{3} \otimes \mathbf{3} = \mathbf{10} \oplus \mathbf{8} \oplus \mathbf{8} \oplus \mathbf{8} \oplus \mathbf{1}.
+\ese 
+The two $\mathbf{8}$s correspond to hexagons as above, while the $\mathbf{10}$ corresponds to the following big triangle, known as the \textit{baryon decuplet}.
+
+\begin{center}
+    \btik 
+        \draw[->] (-3,0) -- (3,0);
+        \draw[->] (0,-3) -- (0,2);
+        %
+        \draw[fill=black] (0,0) circle [radius=0.07];
+        \draw[fill=black] (1.5,0) circle [radius=0.07];
+        \draw[fill=black] (-1.5,0) circle [radius=0.07];
+        \draw[fill=black] (0.75,1.3) circle [radius=0.07];
+        \draw[fill=black] (2.25,1.3) circle [radius=0.07];
+        \draw[fill=black] (-0.75,1.3) circle [radius=0.07];
+        \draw[fill=black] (-2.25,1.3) circle [radius=0.07];
+        \draw[fill=black] (0.75,-1.3) circle [radius=0.07];
+        \draw[fill=black] (-0.75,-1.3) circle [radius=0.07];
+        \draw[fill=black] (0,-2.6) circle [radius=0.07];
+        %
+        \node at (-2.1,1.75) {$\Delta^-$};
+        \node at (-0.6,1.75) {$\Delta^0$};
+        \node at (0.9,1.75) {$\Delta^+$};
+        \node at (2.5,1.75) {$\Delta^{++}$};
+        \node at (-1.4,0.5) {$\Sigma^{*-}$};
+        \node at (0,0.5) {$\Sigma^{*0}$};
+        \node at (1.6,0.5) {$\Sigma^{*+}$};
+        \node at (-0.6,-0.9) {$\Xi^{*-}$};
+        \node at (0.9,-0.9) {$\Xi^{*+}$};
+        \node at (0.07,-2.2) {$\Omega^-$};
+    \etik 
+\end{center}

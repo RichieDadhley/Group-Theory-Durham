@@ -1,0 +1,488 @@
+\chapter{Young-Tableaux}
+
+% https://tex.stackexchange.com/questions/429386/how-can-i-draw-these-young-tableaux-type-diagrams 
+% This is the link to the stack exchange page I got Young-Tableaux package info. Here in case I need to see it again.
+
+In the last lecture we gave arguments for how useful it is to decompose our tensor product of representations into a direct sum of irreps. We gave some explicit examples by finding invariant subspaces. As we saw this took a reasonable amount of work for the two index tensor and we basically only got the answer because we had an idea from GR. It seems like we're doomed when it comes to considering objects with more indices. For example, as we will show soon, the following decomposition is not trivial to see
+\be
+\label{eqn:phi(ij)varphik}
+    \phi^{(ij)}\varphi^k = \frac{1}{3}\big( \phi^{(ij)}\varphi^k + \phi^{ik}\varphi^j + \phi^{jk}\varphi^i \big) + \frac{1}{3}\big( 2\phi^{(ij)}\varphi^k - \phi^{(jk)}\varphi^i - \phi^{(ik)}\varphi^j\big).
+\ee 
+These two terms are invariant subspaces of $D\otimes D\otimes D$. The first term is maybe not too hard to guess, its just the fully symmetric $\phi^{(ij}\varphi^{k)}$, however the second term doesn't have any nice easy to guess property. Sure it is symmetric in $i\leftrightarrow j$, but the exchange $j\leftrightarrow k$ gives 
+\bse 
+    2\phi^{(ik)}\varphi^j - \phi^{(jk)}\varphi^i - \phi^{(ij)}\varphi^k.
+\ese 
+The middle term hasn't changed at all but the other two have changed sign and factors of $2$. A similar thing happens for $i \leftrightarrow k$. 
+
+So what are we to do? Well of course we could go via trial and error, but that's not fun. Luckily a brilliant mathematician, called Alfred Young, swoops in and saves the day. He developed a rather remarkable pictorial way to find the decomposition into direct sums in 1990. The pictures even allow us to calculate the dimensions of the irreps. These diagrams are called \textit{Young-Tableaux} and will be the study of this lecture.
+
+\bnn 
+    We shall switch to a notation where capital $N$ is the $N$ in SU($N$) and little $n$ is the number of indices. This is just done to make it easier for me to work from Dr. Dorigoni's notes (which do this).
+\enn 
+
+\section{The Rules}
+
+A Young-Tableaux is a pictorial representation to characterise irreps SU($N$)\footnote{You can adjust them for other groups like SO($n$), but i this course we will only be interested in SU($N$).} and correspond to a particular symmetrisation and antisymmetrisation procedure. It will generate the irreps of a tensor product and it will also give us the dimensions of each irrep. The pictures correspond to drawing boxes. Of course there are rules on how to construct such diagrams, which we lay out below. 
+
+\mybox{
+\ben[label=(\roman*)]
+    \item Each term must have the same number of boxes as there are free indices (i.e. not ones summed over).
+    \item Boxes in the same \textit{row} correspond to \textit{symmetrised} indices. 
+    \item Boxes in the same \textit{column} correspond to \textit{antisymmetrised} indices.
+    \item Each row must contain \textit{no more boxes than the one above}.
+    \item The rows are aligned to the left.
+    \item The number of rows must not exceed $N$ for SU($N$). 
+\een 
+}
+
+\br 
+\label{rem:NRowsYT}
+    Note condition (vi) makes perfect sense given condition (iii): rows in the same column are antisymmetrised and for SU($N$) the range of the indices is $i=1,...,N$. If we have $(N+1)$ indices then at least two of them will have to be the same, and so if we antisymmetrise them all, this term vanishes. For example, for $N=2$, an object with $n=3$ indices will vanish if fully antisymmetrised, as we require 
+    \bse 
+        \phi^{ijk} = - \phi^{ikj} = -\phi^{kji}
+    \ese 
+    but if we set $i=1$ and $j=2$ then either $k=1$, and so the second equality gives 0, or $k=2$ and so the first equality gives 0. A similar argument is made for any other combination for $ijk$. 
+\er 
+
+Let's give the pictorial version of the conditions above for clarity, then we'll give some examples. 
+
+\ben[label=(\roman*)]
+    \item This one is pretty self explanatory, but here's an example 
+    \begin{center}
+        \ydiagram{5,3,2,1,1} 
+    \end{center}
+    This corresponds to an object with $n=12$ indices. 
+    \item The $n$ index fully symmetrised object $\phi^{(i_1...i_n)}$ corresponds to 
+    \begin{center}
+        $\underbrace{\begin{ytableau}
+            \, & \, & ... & \,
+        \end{ytableau}}_{n}$
+    \end{center}
+    \item The $n$ index fully antisymmetrised object $\phi^{[i_1...i_n]}$ is similar to the above one but now the boxes are vertical. 
+    \item As we have drawn in (i), each row has no more boxes than the one above it. Note we can have the same number of boxes, as with the last two rows in (i), but a diagram like 
+    \begin{center}
+        \ydiagram{2,3,4,1}
+    \end{center}
+    would not be valid.
+    \item Again as we have done in (i), all the rows are aligned to the left, so a diagram like 
+    \begin{center}
+        \begin{ytableau}
+            ~ & \none & \none &  \\
+            \none  &  &  & 
+        \end{ytableau}
+    \end{center}
+    would not be valid, both because the top row has `gaps' and because the second row starts shifted in. 
+    \item We already explained why this is the case in \Cref{rem:NRowsYT}, but pictorially we can write
+    \begin{center}
+        \begin{ytableau}
+            \none & \none[1] & ~ \\
+            \none &  \none[2] &  \\
+            \none & \none[$\vdots$] & $\vdots$ \\
+            \none[\quad N+1] & \none & 
+        \end{ytableau}  ~ = ~ 0.
+    \end{center}
+\een 
+
+It is worth clarifying what these pictures actually tell us. The number of boxes gives us the number of indices on the elements in our representation space, and the way the boxes are ordered tells us what the invariant subspaces are. So each diagram tells us an invariant subspace, and corresponds to one term in the direct sum of irreps. 
+
+We then take the direct sum of all the different diagrams (i.e. all the different invariant subspaces) and so we obtain the full action of the representation on the representation space. So these diagrams tell us both what the vector space $V$ is (i.e. it is the span of the objects whose indices are given by the diagrams) and the decomposition of the representation (as we know the invariant subspaces).
+
+\section{Fundamental \& Antifundamental}
+
+The first, and essentially the building block of all Young-Tableaux is the fundamental. We give it here as a definition.
+
+\bd[Fundamental Young-Tableaux] 
+    The \textit{fundamental Young-Tableaux} is simply a single box:
+    \begin{center}
+        \begin{ytableau}
+            ~ 
+        \end{ytableau} ~ = ~ $\phi^i \mapsto {U^i}_j \phi^j$.
+    \end{center}
+\ed
+
+We will see later that there is a nice relation between the fundamental and antifundamental Young-Tableaux for SU($N$). So now we introduce a nice notation for the antifundamental Young-Tableaux in terms of a definition.
+
+\bd[Antifundamental Young-Tableaux] 
+    The \textit{antifundamental Young-Tableaux} is drawn as a box with a bar over it:
+    \begin{center}
+        $\myov{\begin{ytableau}
+            ~ 
+        \end{ytableau}} ~ = ~ \phi_i \mapsto {(U^{\dagger})^j}_i \phi_j$.
+    \end{center}
+\ed
+
+\section{Tensor Products}
+
+So how do we write tensor products of Young-Tableaux in terms of direct sums? Well let's give an example here, and then explain why it's correct. We saw (or at least claimed) in \Cref{eqn:phi(ij)varphik} that we can decompose the tensor product of a 2-index symmetric object with a fundamental object as the direct sum of the fully symmetric object and something that was symmetric in $ij$ but some non-trivial antisymmetry with $k$. As Young-Tableaux this is 
+\be
+\label{eqn:phi(ij)varphikYT}
+    \byt 
+        ~ & 
+    \eyt ~ \bigotimes~ \byt 
+        ~
+    \eyt ~ = ~ \byt 
+        ~ & &
+    \eyt ~ \bigoplus ~ \byt 
+        ~ & \\
+        & \none 
+    \eyt 
+\ee
+The first term on the right-hand side, by condition (ii), is just $\phi^{(ij}\varphi^{k)}$, while the other term corresponds to the funny property. Note this terms makes some kind of sense: we have two indices symmetrised and one with some antisymmetry property. 
+
+So how do we arrive at this expression? Well the attentive person might realise that all we have done is put the fundamental box in the only two allowed places: on the end of the two-boxes and below it. We is essentially the correct idea, and we will give a more detailed description next lecture, including what to do if you have more than one box to `distribute'. 
+
+How do we see that the last term in the above Young-Tableaux corresponds to the term in \Cref{eqn:phi(ij)varphik}? Well we need to explain the procedure of symmetrisation/antisymmetrisation in a Young-Tableaux. It goes as follows: for a given Young-Tableaux diagram
+\ben
+    \item Assign indices to the boxes, starting at the top left, working along the row and then down to the next column. 
+    \item Apply the permutation operator
+        \bse
+            P = \sum_{r} p,
+        \ese
+    where $r$ indicates the row number and $p$ permutes the indices in a row. 
+    \item Apply the graded permutation operator 
+        \bse 
+            Q = \sum_{c} \text{sgn}(q)q,
+        \ese 
+    where $c$ indicates the column number, $q$ permutes the indices in a column, and sgn$(q)$ is the sign of the permutation.\footnote{A permutation $q$ is even (has sgn$(q)$=+1) is it can be written as the product of an even number of transpositions (something that switches only two indices). Otherwise it is odd (has sgn$(q)$=-1).}
+\een
+
+Let's show how this gives the above result.\footnote{We ignore all the factors of $1/2$ etc that comes from symmetrisation etc.} 
+\ben 
+    \item First we have 
+    \begin{center}
+        $\psi^{ijk}$ ~ = ~ \byt 
+            i & j \\
+            k 
+        \eyt
+    \end{center}
+    \item Then we permute along the rows: i.e. symmetrise $i$ and $j$ ($k$ has nothing else in its row so it's left alone) 
+    \bse 
+        P\big(\psi^{ijk}\big) = \psi^{ijk} + \psi^{jik} ~ = ~ \byt 
+            i & j \\
+            k 
+        \eyt ~ + ~ \byt 
+            j & i \\
+            k 
+        \eyt
+    \ese 
+    \item Then we graded permute in the columns: the permutations that do nothing obviously have positive sgn, while both permutations  $i\leftrightarrow k$ and $j\leftrightarrow k$ correspond to one transposition and so have negative sgn. This gives
+    \bse 
+        Y\big(\psi^{ijk}\big) := (Q\circ P)\big(\psi^{ijk}\big) = \big(\psi^{ijk} - \psi^{kji}\big) + \big(\psi^{ijk} - \psi^{ikj}\big).
+    \ese 
+    This is exactly (apart from the factor 1/3) the second term on the right-hand side of \Cref{eqn:phi(ij)varphik}.
+\een
+
+\br 
+    It turns out that in SO($N$) the contraction of indices will allow for further decomposition into irreps. We will not be concerned with this fact in this course, as we focus on SU($N$).
+\er 
+
+\section{Dimensions From Young-Tableaux}
+
+As we said at the beginning of this lecture, Young-Tableaux not only give us a way to decompose the tensor product of the representations into a direct sum of irreps, but it also gives us a way to find the dimension of the irreps. We give the prescription of how to do this here. This result is highly non-trivial to see, and we do not provide a proof of it but simply request you believe it's true. 
+
+First we define the \textit{Hook} of a box in a Young-Tableaux.
+
+\bd[Hook In Young-Tableaux] 
+    The \textit{Hook} of a box $X$ in a Young-Tableaux is the integer given by summing over the number of boxes directly to the right of $X$, plus the number of boxes directly below $X$, plus one for $X$ itself. 
+\ed 
+
+\bex 
+\label{example:YTHook}
+    Let's give an example of a Hook. Consider the Young-Tableaux
+    \begin{center}
+        \byt 
+            ~ & $X$ & & & \\
+            $Y$ & & & \\
+            & & \\
+            &
+        \eyt
+    \end{center}
+    We have 
+    \bse 
+        \text{Hook}(X) = \underset{\text{right}}{3} + \underset{\text{below}}{3} + \underset{\text{self}}{1} = 7, \qand \text{Hook}(Y) = \underset{\text{right}}{3} + \underset{\text{below}}{2} + \underset{\text{self}}{1} = 6.
+    \ese 
+\eex 
+
+\bcl
+\label{claim:YTDimension}
+    The dimension of a Young-Tableaux of SU($N$) is given by the following procedure. 
+    \ben
+        \item Put $N$ in the top left box. 
+        \item Add $1$ as you move along the row (so second box has $N+1$, third has $N+2$ etc). 
+        \item Minus $1$ as you move down a column (so second row, first column has $N-1$, but second row second column has $N$ --- as you add one as you move across row)
+        \item Multiply all these numbers together and divide by the product of all the Hooks. 
+        \item The result is the dimension.
+    \een 
+\ecl 
+
+For clarity, we give a pictorial representation of how to associate the numbers to boxes using the Young-Tableaux given in \Cref{example:YTHook} for the case SU(5):
+\begin{center}
+        \byt 
+            5 & 6 & 7 & 8 & 9 \\
+            4 & 5 & 6 & 7 \\
+            3 & 4 & 5 \\
+            2 & 3
+        \eyt
+\end{center}
+
+\br 
+    Note condition (vi) for Young-Tableaux ensures that the dimension is positive definite. That is you will never get $0$ or a negative number in a box, as you would need $N+1$ rows to get $0$ and more rows to get a negative number.
+\er 
+
+\bex 
+    Let's find the dimension of the following Young-Tableaux for SU($6$):
+    \begin{center}
+        \byt 
+            ~ & & & \\
+            & \\
+            & \\
+            ~ \\
+            ~
+        \eyt
+    \end{center}
+    Writing the value of the Hook as a number in the box, we have 
+    \begin{center}
+        \bse
+            \byt 
+                6 & 7 & 8 & 9 \\
+                5 & 6\\
+                4 & 5 \\
+                3 \\
+                2
+            \eyt ~ \Bigg{/} \qquad  \byt 
+                8 & 5 & 2 & 1 \\
+                5 & 2\\
+                4 & 1 \\
+                2 \\
+                1
+            \eyt ~ = ~ \frac{6 \cdot 7 \cdot 8 \cdot 9 \cdot 5 \cdot 6 \cdot 4 \cdot 5 \cdot 3 \cdot 2}{8 \cdot 5 \cdot 2 \cdot 1 \cdot 5 \cdot 2 \cdot 4 \cdot 1 \cdot 2 \cdot 1} = 1701,
+        \ese 
+    \end{center}
+    where the slash is meant to indicate a divide.\footnote{Apologies for how pathetic it looks, I'm new to the Young-Tableaux package and don't know how to make a proper big slash yet.} This example highlights the power of Young-Tableaux (imagine trying to find the dimension of a 10 index object with the above symmetrisation/antisymmetrisation).
+\eex 
+
+\bbox 
+    Use the above procedure to show that the dimensions of the decomposition \Cref{eqn:phi(ij)varphik} works out. That is show that both sides of \Cref{eqn:phi(ij)varphikYT} have the same dimension. \textit{Hint: Recall that $\dim(A\otimes B) = (\dim A)\cdot(\dim b)$ and $\dim(A\oplus B) = (\dim A) + (\dim B)$.}
+\ebox 
+
+\section{Antifundamental Young-Tableaux From $(N-1)$-Rows}
+
+\subsection{Invariant Tensor}
+
+Let's consider the specific case of a Young-Tableaux of SU($N$) with exactly $N$ rows. This corresponds to a fully antisymmetrised object and has dimension 
+\bse 
+    \byt 
+        N \\
+        \vdots \\
+        1 
+    \eyt ~ \Bigg{/} ~ \byt 
+        N \\
+        \vdots \\
+        1 
+    \eyt  = 1.
+\ese 
+This looks a lot like the Levi-Civita tensor. So what we're looking at is something like 
+\bse 
+    \phi^{[i_1...i_N]} = \varphi \epsilon^{i_1...i_N},
+\ese 
+where $\varphi$ is just some scalar (it doesn't transform under the representation. 
+
+\bp 
+    The Levi-Civita tensor is an invariant tensor under SU($N$). That is, 
+    \bse 
+        (\underbrace{D\otimes ... \otimes D}_{N\text{-times}})(U) : \epsilon^{i_1....i_N} \mapsto \epsilon^{i_1...i_N}.
+    \ese
+\ep 
+
+\bq 
+    Just compute the action:
+    \bse 
+        (D\otimes ... \otimes D)(U) : \epsilon^{i_1...i_N} \mapsto {U^{i_1}}_{j_1}...{U^{i_N}}_{j_N}\epsilon^{j_1...j_N} = \det U \epsilon^{i_1...i_N},
+    \ese 
+    where the second equality is a well known fact (see a linear algebra textbook). But $\det U =1$ for SU($N$) and so we get the result.
+\eq 
+
+This result tells us that the $N$-row Young-Tableaux corresponds to the trivial representation, and so in all future Young-Tableaux we can always `strip off' this part of a diagram. For example, if $N=4$ we would replace 
+\begin{center}
+    \byt 
+        ~ & & & \\
+        & & \\
+        & \\
+        ~
+    \eyt  ~ $\qquad \longrightarrow \qquad $ ~ \byt 
+        ~ & &  \\
+        &  \\
+        ~
+    \eyt 
+\end{center}
+Note that by doing this we will actually violate condition (i) in our Young-Tableaux procedure. It is important to note that we are \textit{not} saying that you remove the indices, but simply that these indices will not transform, and simply come along for the ride. So in order to save ourselves writing it down in every step, we simply `forget about it for now'.
+
+\br 
+    It turns out that SO($N$) has more than one invariant tensor, and so you can `forget about' more of the diagram. However, as with other SO($N$) remarks, this won't concern us in this course. 
+\er 
+
+\subsection{Antifundamental}
+
+What about if we have $(N-1)$ rows? A similar calculation to the one above tells us that 
+\begin{center}
+    dim ~ \begin{ytableau}
+        ~ & \none[1]  \\
+         &  \none[2] \\
+         $\vdots$ & \none[$\vdots$]  \\
+        & \none[\qquad N-1] 
+    \end{ytableau}  ~ = ~ $N$.
+\end{center}
+What representation do we know that has dimension $N$? Well the fundamental of course (it's $N/1=N$). The above Young-Tableaux isn't the fundamental though, so what is it? A bit of thought suggests the antifundamental. Let's show this more concretely. 
+
+If we write the vector as 
+\bse 
+    \phi^{[i_1...i_{N-1}]} = \epsilon^{i_1...i_{N-1}j}\Phi_j,
+\ese 
+then the transformation is as follows
+\bse 
+    \begin{split}
+        (\underbrace{D\otimes...\otimes D}_{N-1})(U) : \phi^{[i_1...i_{N-1}]} & \mapsto ({U^{i_1}}_{j_1} ... {U^{i_{N-1}}}_{j_{N-1}}) \epsilon^{j_1...j_{N-1}j}\Phi_j \\
+        & = ({U^{i_1}}_{j_1} ... {U^{i_{N-1}}}_{j_{N-1}})\cdot  \del^j_i \cdot  \epsilon^{j_1...j_{N-1}i}\Phi_j \\
+        & = ({U^{i_1}}_{j_1} ... {U^{i_{N-1}}}_{j_{N-1}}) \cdot {(U^{\dagger})^j}_k {U^k}_i \cdot \epsilon^{j_1...j_{N-1}i}\Phi_j \\
+        & = (\det U) \epsilon^{i_1...i_{N-1}k} {(U^{\dagger})^j}_k \Phi_j,
+    \end{split}
+\ese
+but the first part is just the invariant tensor from the previous subsection, and so we just get a transformation in the antifundamental representation. So we have 
+\be
+\label{eqn:AntifundamentalYTN-1Boxes}
+    \begin{ytableau}
+        \none & \none[1] & ~ \\
+        \none &  \none[2] &  \\
+        \none & \none[$\vdots$] & $\vdots$ \\
+        \none[\quad N-1] & \none & 
+    \end{ytableau}  ~ = ~ \myov{\byt 
+        ~
+    \eyt}.
+\ee
+This tells us that, for SU($N$), we don't actually need to consider the antifundamental representation in terms of Young-Tableaux, and we can get all irreps using just the fundamental. This is good because as we have defined the Young-Tableaux, we only ever used the fundamental representation! To emphasise, our Young-Tableaux construction gives us \textit{all} the irreps for SU($N$).
+
+\section{List Of All Irreps}
+
+Now that we have a pictorial tool to list all of the irreps for a given SU($N$), let's list some examples.
+
+\subsection{SU($2$)}
+\label{sec:ListOfAllSU(2)}
+
+For SU($2$) our invariant tensor is the Young-Tableaux 
+\begin{center}
+    \byt 
+        ~ \\
+        ~
+    \eyt 
+\end{center}
+so we only need to consider one row. We therefore can list all the irreps as 
+
+\begin{center}
+	\begin{tabular}{@{} p{4cm} p{3cm} p{2cm} @{}}
+		\toprule
+		Young-Tableaux & Tensor & Dimension \\
+		\midrule 
+		\byt 
+		    ~
+		\eyt & $\phi^i$ & 2 \\ \\
+		\byt 
+		    ~ &
+		\eyt & $\phi^{(ij)}$ & 3 \\ \\
+		\byt 
+		    ~ & & 
+		\eyt & $\phi^{(ijk)}$ & 4  \\
+		$\qquad \vdots$ & $\quad \vdots$ & $\vdots$ \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+We can therefore characterise the Young-Tableaux by a single number, namely the number of boxes.
+
+Note that for SU($2$) the fundamental and the antifundamental are the equivalent:
+\begin{center}
+    \byt 
+        ~
+    \eyt ~ = ~ $\myov{\byt 
+        ~ 
+    \eyt }$.
+\end{center}
+This is obviously not true for any other SU($N$).
+
+\subsection{SU(3)}
+
+For SU(3) we now have at most $2$ rows, and have 
+\begin{center}
+    \byt 
+        ~ \\
+        ~
+    \eyt ~ = ~ $\myov{\byt 
+        ~ 
+    \eyt }$.
+\end{center}
+A general Young-Tableaux is of the form 
+\begin{center}
+    \byt 
+        \none[1] & \none[...] & \none[...] & \none[q] & \none[1] & \none[...] & \none[...] & \none[p] \\
+        ~ & ... & ... & & & ... & ... & \\
+        ~ & ... & ... & 
+    \eyt,
+\end{center}
+and so we can simply characterise an arbitrary Young-Tableaux for SU($3$) by the double $(p,q)$, which tells us the number of fundamental and antifundamental, respectively, indices. 
+
+\br 
+    These objects can be written as $(p,q)$ tensors that are fully symmetric in all $p$ contravaiarnt indices, fully symmetric in the $q$ covariant indices are are completely traceless, i.e.
+    \bse 
+        \phi^{(i_1...i_p)}_{(j_1...j_q)} \qquad \text{with} \qquad \phi^{ki_2...i_p}_{kj_2...j_q} = 0.
+    \ese
+    We do not explain why, but just state that this is true.
+\er 
+
+\subsection{SU(4) \& Higher}
+
+It is not so easy to characterise a general Young-Tableaux for SU($4$) and higher. Simply drawing the Young-Tableaux is most compact way to write down a general tensor. 
+
+\section{Bold Face Dimension Notation}
+
+There is a short hand notation to writing the irreps of a Young-Tableaux by its dimension. We simply use a bold font number, and place a bar over it if its antifundamental. For example the fundamental and antifundamental representations of SU($N$) are written as $\mathbf{N}$ and $\mathbf{\overline{N}}$, respectively. 
+
+\bex 
+    For SU(5), we can write the Young-Tableaux 
+    \begin{center}
+        \byt 
+            ~
+        \eyt ~ $\bigotimes$ ~ \byt 
+            ~
+        \eyt ~ = \byt 
+            ~ \\
+            ~
+        \eyt ~ $\bigoplus$ ~ \byt 
+            ~ & 
+        \eyt 
+    \end{center}
+    as 
+    \bse 
+        \mathbf{5} \otimes \mathbf{5} = \mathbf{15} \oplus \mathbf{10}.
+    \ese
+    Note that $5\times 5 = 25 = 15 + 10$, so you can always check to see if your answer at least adds up correctly. It is standard convention to list the numbers in decreasing value as we have done.
+\eex 
+
+\bbox 
+    Write the above Young-Tableaux in bold face notation for SU($3$). \textit{Hint: Notice something special about the above diagram for SU($3$).}
+\ebox 
+
+\bbox 
+    Write the Young-Tableaux \Cref{eqn:phi(ij)varphikYT} in the bold face notation for SU(6). \textit{Hint: You should get a total dimension of $126$.}
+\ebox  
+
+\bbox 
+    Verify that $\mathbf{8}\otimes \mathbf{8}$ for SU($3$) corresponds to 
+    \begin{center}
+        \byt 
+            ~ & \\
+            ~ 
+        \eyt ~ $\bigotimes$ ~ \byt 
+            ~ & \\
+            ~ 
+        \eyt.
+    \end{center}
+    \textit{Comment: We will use this result next lecture, so please actually do this.}
+\ebox 
