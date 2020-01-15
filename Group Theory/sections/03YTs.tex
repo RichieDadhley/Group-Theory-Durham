@@ -6,7 +6,7 @@
 In the last lecture we gave arguments for how useful it is to decompose our tensor product of representations into a direct sum of irreps. We gave some explicit examples by finding invariant subspaces. As we saw this took a reasonable amount of work for the two index tensor and we basically only got the answer because we had an idea from GR. It seems like we're doomed when it comes to considering objects with more indices. For example, as we will show soon, the following decomposition is not trivial to see
 \be
 \label{eqn:phi(ij)varphik}
-    \phi^{(ij)}\varphi^k = \frac{1}{3}\big( \phi^{(ij)}\varphi^k + \phi^{ik}\varphi^j + \phi^{jk}\varphi^i \big) + \frac{1}{3}\big( 2\phi^{(ij)}\varphi^k - \phi^{(jk)}\varphi^i - \phi^{(ik)}\varphi^j\big).
+    \phi^{(ij)}\varphi^k = \frac{1}{3}\big( \phi^{(ij)}\varphi^k + \phi^{(ik)}\varphi^j + \phi^{(jk)}\varphi^i \big) + \frac{1}{3}\big( 2\phi^{(ij)}\varphi^k - \phi^{(jk)}\varphi^i - \phi^{(ik)}\varphi^j\big).
 \ee 
 These two terms are invariant subspaces of $D\otimes D\otimes D$. The first term is maybe not too hard to guess, its just the fully symmetric $\phi^{(ij}\varphi^{k)}$, however the second term doesn't have any nice easy to guess property. Sure it is symmetric in $i\leftrightarrow j$, but the exchange $j\leftrightarrow k$ gives 
 \bse 
@@ -22,7 +22,7 @@ So what are we to do? Well of course we could go via trial and error, but that's
 
 \section{The Rules}
 
-A Young-Tableaux is a pictorial representation to characterise irreps SU($N$)\footnote{You can adjust them for other groups like SO($n$), but i this course we will only be interested in SU($N$).} and correspond to a particular symmetrisation and antisymmetrisation procedure. It will generate the irreps of a tensor product and it will also give us the dimensions of each irrep. The pictures correspond to drawing boxes. Of course there are rules on how to construct such diagrams, which we lay out below. 
+A Young-Tableaux is a pictorial representation to characterise irreps SU($N$)\footnote{You can adjust them for other groups like SO($n$), but in this course we will only be interested in SU($N$).} and correspond to a particular symmetrisation and antisymmetrisation procedure. It will generate the irreps of a tensor product and it will also give us the dimensions of each irrep. The pictures correspond to drawing boxes. Of course there are rules on how to construct such diagrams, which we lay out below. 
 
 \mybox{
 \ben[label=(\roman*)]
@@ -89,7 +89,7 @@ We then take the direct sum of all the different diagrams (i.e. all the differen
 
 \section{Fundamental \& Antifundamental}
 
-The first, and essentially the building block of all Young-Tableaux is the fundamental. We give it here as a definition.
+The first, and essentially the building block of all Young-Tableaux, is the fundamental. We give it here as a definition.
 
 \bd[Fundamental Young-Tableaux] 
     The \textit{fundamental Young-Tableaux} is simply a single box:
@@ -129,7 +129,7 @@ So how do we write tensor products of Young-Tableaux in terms of direct sums? We
 \ee
 The first term on the right-hand side, by condition (ii), is just $\phi^{(ij}\varphi^{k)}$, while the other term corresponds to the funny property. Note this terms makes some kind of sense: we have two indices symmetrised and one with some antisymmetry property. 
 
-So how do we arrive at this expression? Well the attentive person might realise that all we have done is put the fundamental box in the only two allowed places: on the end of the two-boxes and below it. We is essentially the correct idea, and we will give a more detailed description next lecture, including what to do if you have more than one box to `distribute'. 
+So how do we arrive at this expression? Well the attentive person might realise that all we have done is put the fundamental box in the only two allowed places: on the end of the two-boxes and below it. This is essentially the correct idea, and we will give a more detailed description next lecture, including what to do if you have more than one box to `distribute'. 
 
 How do we see that the last term in the above Young-Tableaux corresponds to the term in \Cref{eqn:phi(ij)varphik}? Well we need to explain the procedure of symmetrisation/antisymmetrisation in a Young-Tableaux. It goes as follows: for a given Young-Tableaux diagram
 \ben
@@ -143,7 +143,7 @@ How do we see that the last term in the above Young-Tableaux corresponds to the 
         \bse 
             Q = \sum_{c} \text{sgn}(q)q,
         \ese 
-    where $c$ indicates the column number, $q$ permutes the indices in a column, and sgn$(q)$ is the sign of the permutation.\footnote{A permutation $q$ is even (has sgn$(q)$=+1) is it can be written as the product of an even number of transpositions (something that switches only two indices). Otherwise it is odd (has sgn$(q)$=-1).}
+    where $c$ indicates the column number, $q$ permutes the indices in a column, and sgn$(q)$ is the sign of the permutation.\footnote{A permutation $q$ is even (has sgn$(q)=+1$) is it can be written as the product of an even number of transpositions (something that switches only two indices). Otherwise it is odd (has sgn$(q)=-1$).}
 \een
 
 Let's show how this gives the above result.\footnote{We ignore all the factors of $1/2$ etc that comes from symmetrisation etc.} 
@@ -285,7 +285,7 @@ This looks a lot like the Levi-Civita tensor. So what we're looking at is someth
 \bse 
     \phi^{[i_1...i_N]} = \varphi \epsilon^{i_1...i_N},
 \ese 
-where $\varphi$ is just some scalar (it doesn't transform under the representation. 
+where $\varphi$ is just some scalar (it doesn't transform under the representation). 
 
 \bp 
     The Levi-Civita tensor is an invariant tensor under SU($N$). That is, 
@@ -442,7 +442,7 @@ It is not so easy to characterise a general Young-Tableaux for SU($4$) and highe
 
 \section{Bold Face Dimension Notation}
 
-There is a short hand notation to writing the irreps of a Young-Tableaux by its dimension. We simply use a bold font number, and place a bar over it if its antifundamental. For example the fundamental and antifundamental representations of SU($N$) are written as $\mathbf{N}$ and $\mathbf{\overline{N}}$, respectively. 
+There is a short hand notation to writing the irreps of a Young-Tableaux by its dimension. We simply use a bold font number, and place a bar over it if it's antifundamental. For example the fundamental and antifundamental representations of SU($N$) are written as $\mathbf{N}$ and $\mathbf{\overline{N}}$, respectively. 
 
 \bex 
     For SU(5), we can write the Young-Tableaux 

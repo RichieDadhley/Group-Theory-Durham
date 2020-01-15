@@ -140,7 +140,7 @@ In this course we are going to be interested mostly in \textit{matrix} groups, w
 
 \subsection{Matrix Groups}
 
-For the non-maths people, unfortunately we are not done with the definitions: we need to define some matrix sets that will appear \textit{a lot}. Even though we are essentially just defining the \textit{sets} below, we will call the the so-and-so group. This is just because they always pop up as matrix groups so may as well call them that. The proofs just show that the group conditions meets the restrictions on the set.
+For the non-maths people, unfortunately we are not done with the definitions: we need to define some matrix sets that will appear \textit{a lot}. Even though we are essentially just defining the \textit{sets} below, we will call them the so-and-so group. This is just because they always pop up as matrix groups, so we may as well call them that. The proofs just show that the group conditions meets the restrictions on the set.
 
 \bd[General Linear Group]
     The \textit{general linear} over $\R$ group is the matrix group with set\footnote{The notation $M^{\R}_{n\times n}$ just means a real $n\times n$ matrix.} 
@@ -184,7 +184,7 @@ Using the fact that $\det\b1_n = 1$, and with \Cref{rem:SubgroupNeedsIdentity} i
 \ed 
 
 \bq 
-    The identity and clearly obeys the transpose condition. So just need to show it for closure:
+    The identity and inverse clearly obey the transpose condition. So just need to show it for closure:
     \bse 
         (AB)^T(AB) = B^TA^TAB = B^T\b1_nB = B^TB = \b1_n,
     \ese 
@@ -461,7 +461,7 @@ We can show similar relations for  rotations about the $x$ and $y$ axes by angle
 \ese 
 
 \br 
-    Note that $T_x,T_y,T_Z \notin SO(3)$! In fact they are all antisymmetric and obey $(T_{x/y/z})^T = - T_{x/y/z}$.
+    Note that $T_x,T_y,T_Z \notin SO(3)$! In fact they are all antisymmetric, i.e. they obey $(T_{x/y/z})^T = - T_{x/y/z}$.
 \er 
 
 Now a general rotation in $\R^3$ can be written as 
@@ -511,7 +511,7 @@ This is nice, but what we really want is the right-hand side to be a single expo
     \bse 
         e^Ae^B = e^{A+B}.
     \ese
-    Indeed the reason we are allowed to use this when `identity' in school is because the real numbers form an Abelian group under multiplication. 
+    Indeed the reason we are allowed to use this `identity' when in school is because the real numbers form an Abelian group under multiplication. 
 \er 
 
 So we can now express the right-hand side of \Cref{eqn:RxRyRz} as a single exponential in terms of $T_x,T_y,T_z$ and their commutators. The question is "what are these commutators?" Insert exercise. 
@@ -540,7 +540,7 @@ Let's consider the orthogonal condition. Let
 be our infinitesimal expansion around the identity. Now from $A^TA=\b1$, we have 
 \bse 
     \begin{split}
-        \b1 & = (\b1 + \epsilon a)^T(\b1 \epsilon a) + \cO(\epsilon^2) \\
+        \b1 & = (\b1 + \epsilon a)^T(\b1 + \epsilon a) + \cO(\epsilon^2) \\
         & = \b1 + \epsilon(a^T + a) + \cO(\epsilon^2),
     \end{split}
 \ese 
@@ -622,7 +622,7 @@ Although we have motivated the idea of a Lie algebra via Lie groups, they are ac
 \ed 
 
 \bd[Lie subalgebra]
-    Let $(\mathfrak{g},[,])$ be a Lie algebra and let $\mathfrak{g}$ be a vector subspace. Then $(\mathfrak{g},[,])$ is a \textit{Lie subalgebra} if it is also a Lie algebra.
+    Let $(\mathfrak{g},[,])$ be a Lie algebra and let $\mathfrak{h}$ be a vector subspace. Then $(\mathfrak{h},[,])$ is a \textit{Lie subalgebra} if it is also a Lie algebra.
 \ed 
 
 Note that the Lie bracket above does \textit{not} need to be the commutator but could be something completely different. However it is relativity easy to show (exercise coming!) that the vector space of matrices forms a Lie algebra when equipped with the commutator. 

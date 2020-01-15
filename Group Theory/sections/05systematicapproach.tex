@@ -28,7 +28,7 @@ The reason we use these is because now the commutation relation becomes
     [\tau_i,\tau_j] = \epsilon_{ijk} \tau_k.
 \ee 
 
-This is a useful basis but there is a different one which makes connection with QFT easier, which is something we ultimately want to do (as this is a course for particle physicists). Recall that in QM and QFT we have raising and lowering (or ladder) operators which increase the eigenvalues of a given operator. The question is, can w do something similar with $\mathfrak{su}(2)$? The answer is yes,\footnote{Otherwise I wouldn't be saying all this} and is given by 
+This is a useful basis but there is a different one which makes connection with QFT easier, which is something we ultimately want to do (as this is a course for particle physicists). Recall that in QM and QFT we have raising and lowering (or ladder) operators which increase the eigenvalues of a given operator. The question is, can we do something similar with $\mathfrak{su}(2)$? The answer is yes,\footnote{Otherwise I wouldn't be saying all this} and is given by 
 \be 
 \label{eqn:su(2)RaisingLoweringOperators}
     \begin{split}
@@ -59,9 +59,9 @@ This is a useful basis but there is a different one which makes connection with 
     Note that \Cref{eqn:TauBasis} are complex matrices but \Cref{eqn:su(2)RaisingLoweringOperators} are real matrices. This might seem like a problem for the latter to be a basis, but we have to remember that our underlying field is the complex numbers, so we can still span the whole space. 
 \er 
 
-Ok, so now let's consider a representation $d$. What form do our new basis elements take? Well we note that $H$ is unitary, so we can expect the representation $d(H)$ be unitary too. Now its a fact that any unitary matrix is diagonalisable.\footnote{This is a consequence of something called the \textit{spectral theorem}. For more details see Simon and my notes on Dr. Schuller's QM course, available on my blog site.} That is we can always find an equivalent representation $\widetilde{d}(H)= Sd(H)S^{-1}$ such that we get a diagonal matrix. We shall therefore always do this. 
+Ok, so now let's consider a representation $d$. What form do our new basis elements take? Well we note that $H$ is unitary, so we can expect the representation $d(H)$ be unitary too. Now it's a fact that any unitary matrix is diagonalisable.\footnote{This is a consequence of something called the \textit{spectral theorem}. For more details see Simon and my notes on Dr. Schuller's QM course, available on my blog site.} That is we can always find an equivalent representation $\widetilde{d}(H)= Sd(H)S^{-1}$ such that we get a diagonal matrix. We shall therefore always do this. 
 
-As $d(H)$ is diagonal, we can construct the representation space such that each element is an eigenvector of $d(H)$. That is $d(H)$ is a $\dim d\times \dim d$ matrix, so we can construct our representation space as a $\dim d$ column matrix. This obviously smells a lot like QM, and so we use bra-ket notation. As $d(H)$ is unitary,it is Hermitian, so we know the eigenvalues are real. We shall also assume that these eigenvalues are unique, so we can label the eigenstates by their eigenvalues. That is, we write 
+As $d(H)$ is diagonal, we can construct the representation space such that each element is an eigenvector of $d(H)$. That is $d(H)$ is a $\dim d\times \dim d$ matrix, so we can construct our representation space as a $\dim d$ column matrix. This obviously smells a lot like QM, and so we use bra-ket notation. As $d(H)$ is unitary, it is Hermitian, and so we know the eigenvalues are real. We shall also assume that these eigenvalues are unique, so we can label the eigenstates by their eigenvalues. That is, we write 
 \be  
 \label{eqn:dHket(k)}
     d(H)\ket{k} = k\ket{k}.
@@ -101,7 +101,7 @@ We call this state the \textit{highest weight state}. We can use this to find th
 giving the relation 
 \bse 
     r_k = \begin{cases}
-        k + r_{k+2} & k\neq j \\
+        k + r_{k+2} & k\neq j+2 \\
         0 & k={j+2}.
     \end{cases}
 \ese 
@@ -250,10 +250,10 @@ To a quantum physicist this whole lecture will have looked \textit{very} familia
 so we see that $j$ is twice the spin. Equally $d(H)$ is playing the role of $2S_z$.
 
 \br
-    Of course we could have divided $j$ by two everywhere and obtained exactly the spin, however we have been using a mathematicians convention and they prefer to carry $2$s around then $1/2$s.
+    Of course we could have divided $j$ by two everywhere and obtained exactly the spin, however we have been using a mathematician's convention and they prefer to carry $2$s around then $1/2$s.
 \er 
 
-As a final comment before moving on to SU(3), let's just make a comment on how you to relate the index notation $\phi^{(ij...)}$ to kets. We do it for $j=1$ and set $j=2$ as an exercise.\footnote{Again this is because it's set as an exercise on the course and I don't want to put the answers on here. If you don't understand what I did below please feel free to email me for clarity.}
+As a final comment before moving on to SU(3), let's just make a comment on how you relate the index notation $\phi^{(ij...)}$ to kets. We do it for $j=1$ and set $j=2$ as an exercise.\footnote{Again this is because it's set as an exercise on the course and I don't want to put the answers on here. If you don't understand what I did below please feel free to email me for clarity.}
 
 \bex 
     For $j=1$ we have a single index, which transforms as 
@@ -292,7 +292,7 @@ As a final comment before moving on to SU(3), let's just make a comment on how y
 
 \section{$\mathfrak{su}(3)$}
 
-Let's now consider the Lie algebra of SU(3). We have seen that this is the set of $3\times 3$, traceless, antihermitian matrices. The commonly used basis for this space are the so-called \textit{Gell-Mann} matrices:
+Let's now consider the Lie algebra of SU(3). We have seen that this is the set of $3\times 3$, traceless, hermitian matrices. The commonly used basis for this space are the so-called \textit{Gell-Mann} matrices:
 \be 
 \label{eqn:GellMannMatrices}
     \begin{split}
@@ -399,7 +399,7 @@ Explicitly we get
         1 & 0 & 0 
     \end{pmatrix}.
 \ese 
-As the notation suggests the idea is that each label forms one $\mathfrak{su}(2)$ group, and the $E_{\pm}$s are the raising and lowering operators within each group. We call $\a$ and $\beta$ \textit{simple roots}, whereas $(\a+\beta)$ is a \textit{non-simple root}.
+As the notation suggests, the idea is that each label forms one $\mathfrak{su}(2)$ group, and the $E_{\pm}$s are the raising and lowering operators within each group. We call $\a$ and $\beta$ \textit{simple roots}, whereas $(\a+\beta)$ is a \textit{non-simple root}.
 
 We can just focus on the simple roots (as the non-simple ones are obtainable from simple ones). First note that 
 \bse 
@@ -428,7 +428,7 @@ which, following the calculation from the previous section, tells us that $d(E_{
     Use this to show that $d(E_{-\a})$ increases the value of $n$ by $1$. \textit{Hint: You can just find the commutator of $H_{\beta}$ and $E_{-\a}$ and then use the definition of $d$ to obtain the above result. }
 \ebox 
 
-Putting the result of the above exercise together with the comment just before it, and making a similar argument for $d(E_{-\beta})$ we rescale our states so that they satisfy
+Putting the result of the above exercise together with the comment just before it, and making a similar argument for $d(E_{-\beta})$, we rescale our states so that they satisfy
 \be 
 \label{eqn:su(3)statesRaisingLowering}
     d(E_{-\a}) \ket{m,n} = \ket{m-2,n+1}, \qand d(E_{-\beta}) \ket{m,n} = \ket{m+1,n-2}.
@@ -456,7 +456,7 @@ From this condition and \Cref{eqn:su(3)statesRaisingLowering}, we can again prod
         \begin{split}
             d(H_{\a}) : \phi^1 & \mapsto \phi^1 \\
             d(H_{\a}) : \phi^2 & \mapsto -\phi^2 \\
-            d(H_{\a}) : \phi^3 & \mapsto \phi^3.
+            d(H_{\a}) : \phi^3 & \mapsto 0.
         \end{split}
     \ese 
     Doing the same thing for $d(H_{\beta})$ gives the states
@@ -464,7 +464,7 @@ From this condition and \Cref{eqn:su(3)statesRaisingLowering}, we can again prod
     \label{eqn:su(3)FundamentalStates}
         \ket{1,0}, \qquad \ket{-1,1}, \qand \ket{0,-1}.
     \ee 
-    The first/last is the highest/lowest weight state, respectively. The root lattice is depicated below.
+    The first/last is the highest/lowest weight state, respectively. The root lattice is depicted below.
     \begin{center}
         \btik 
             \draw[->] (-2.5,0) -- (2.5,0);
@@ -632,7 +632,7 @@ The hexagon diagram has direct relation to particle physics. The story goes (rou
     \etik 
 \end{center}
 
-Hmm... this looks awful familiar. This lead them to the idea that the fundamental objects are quarks/antiquarks, which transform to the fundamental/antifundamental representations of SU(3), i.e. 
+Hmm... this looks awful familiar. This lead them to the idea that the fundamental objects are quarks/antiquarks, which transform in the fundamental/antifundamental representations of SU(3), i.e. 
 \begin{center}
     $\byt 
         ~
@@ -659,7 +659,7 @@ or
 \bse 
     \mathbf{3} \otimes \mathbf{\bar{3}} = \mathbf{8} \oplus \mathbf{1}.
 \ese 
-This gives us exactly the hexagon diagram above. This result is often referred to as the \textit{eightfold way}. As the diagram corresponds to an irrep, by the argument made at the end of lecture 2, we see that these things have the same mass! So these root diagrams have very physical importance for us. 
+This gives us exactly the hexagon diagram above. This result is often referred to as the \textit{eightfold way}. As the diagram corresponds to an irrep, by the argument made at the end of lecture 2, we see that these things have the same mass!\footnote{It turns out these things do actually have different mass. This comes from the fact that the different generations of quarks form separate invariant subspaces of the $SU(2)_L$ part of the standard model. Therefore the different generations of quarks have different masses which ruins the result here.} So these root diagrams have very physical importance for us. 
 
 
 \br 

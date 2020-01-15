@@ -211,7 +211,7 @@ This will probably seem highly cryptic, but it's rather straight forward. Let's 
 
 \section{Final Comment on Young-Tableaux}
 
-As we have seen, Young-Tableaux are a very neat and useful trick for the study of SU($N$). Other Lie groups, however, a more complicated. For example, for SO($N$) the fundamental representation acts as 
+As we have seen, Young-Tableaux are a very neat and useful trick for the study of SU($N$). Other Lie groups, however, are more complicated. For example, for SO($N$) the fundamental representation acts as 
 \bse
     \varphi^i \mapsto {M^i}_j \varphi^j,
 \ese 
@@ -359,19 +359,32 @@ The important point about Lie algebras to understand is that, unlike Lie groups,
     defined via its action:
     \be 
     \label{eqn:AdjointRepresentation}
-        ad(X) :(Y) \mapsto [X,Y].
+        ad(X) : Y \mapsto [X,Y],
     \ee 
-    We call this the \textit{adjoint representation}.
+    is a representation, called the \textit{adjoint representation}.
 \ed 
 
 \bbox 
-    Prove that the adjoint representation is indeed a representation. That is show it is:
+    Prove that the adjoint representation is indeed a representation. That is show that $ad(X)$
     \ben[label=(\roman*)]
-        \item Linear, 
-        \item Antisymmetric, and 
-        \item Obeys the Jaccobi identity. 
-    \een 
+        \item Is linear:
+        \bse 
+            ad(X) (\a Y + \beta Z) = \a ad(X)(Y) + \beta ad(X)(Z).
+        \ese 
+        \item Preserves the commutator:
+        \bse 
+            ad_X([Y,Z]) = [ad_X(Y),ad_X(Z)].
+        \ese 
+    \een
 \ebox 
+
+\br 
+    Note the linearity condition above is linearity in the argument of $ad(X)$, i.e. in $Y$ not in $X$ itself. It is true that $ad(X)$ is also linear in $X$ (as the commutator is bilinear). For this reason we could define the bilinear map 
+    \bse 
+        ad : \mathfrak{g} \times \mathfrak{g} \to \mathfrak{g}
+    \ese 
+    as the commutator. This is \textit{not} a representation though as the representation only maps from one copy of $\mathfrak{g}$. To be totally clear it is the \textit{whole} $ad(X)$ that is the representation, not just $ad$. 
+\er 
 
 Note that unlike the other representations we have considered so far, the adjoint representation does not give a matrix. It is just a linear map, which is all we need for a representation, as stated way back in \Cref{rem:RepresentationNeedNotBeMatrix}. We can, though, extract a matrix form for the adjoint representation as follows. We know that the representation is a vector space and has a basis, $\{X_a\}$, and we know that the Lie bracket of two elements is an element itself. This just gives us the structure constants, \Cref{eqn:StructureConstants}. So we can use these structure constants to construct a matrix. To be more clear, we have 
 \bse 
@@ -407,9 +420,9 @@ As we have said many times a Lie algebra is a vector space and this has given us
 We can write the Killing form in components as 
 \bse
     \begin{split}
-        B(X_a,X_b) & = \Tr \big( {[ad(X_a)ad(X_b)]^e}_c\big) \\
-        & = \Tr \big( {[ad(X_a)]^e}_d {[ad(X_b)]^d}_c \big) \\
-        & = {f_{ac}}^d{f_{bd}}^c \\
+        B(X_a,X_b) & = \Tr \big( {[ad(X_a)ad(X_b)]_c}^e\big) \\
+        & = \Tr \big( {[ad(X_a)]_d}^e {[ad(X_b)]_c}^d \big) \\
+        & = {f_{ad}}^c{f_{bc}}^d \\
         & =: g_{ab}.
     \end{split}
 \ese
@@ -456,7 +469,7 @@ This is a very powerful result; if $d$ is an irrep then we know, from Schur's Le
     \bse 
         C = -\frac{1}{2}\Big(\big[d(X_1)\big]^2 + \big[d(X_2)\big]^2 + \big[d(X_3)\big]^2\Big).
     \ese 
-    This tells you that whenever $d$ is an irrep of SU($2$) that the Casimir is a multiple of the identity. This is often written as 
+    This tells you that whenever $d$ is an irrep of SU($2$) the Casimir is a multiple of the identity. This is often written as 
     \bse 
         J^2 = J_1^2 + J_2^2 + J_3^2 = \l \b1,
     \ese 

@@ -1,7 +1,7 @@
 \chapter{Lorentz Group \& Cartan Classification}
 
 \br 
-    Unfortunately this lecture is the one that is must heavily bashed by the lack of time on the course, so a lot of the material is sort of brushed over or set as exercises. I shall try and flush out this lecture with additional information to help clarify things, however as with previous exercises, I won't type the answers to any of the exercises set in Dr. Dorigoni's notes/problem sheets. I am currently typing up several courses, so it might be a while before I get round to doing this, and if you're reading this it means I haven't done it yet.
+    Unfortunately this lecture is the one that is must heavily bashed by the lack of time on the course, so a lot of the material is sort of brushed over or set as exercises. I shall try and flush out this lecture with additional information to help clarify things, however as with previous exercises, I won't type the answers to any of the exercises set in Dr. Dorigoni's notes/problem sheets.
 \er 
 
 We saw last lecture that $\mathfrak{su}(2)$ appeared to be some kind of `building block' for other Lie algebras. In this lecture we are going to show that this is actually more powerful than just the case of $\mathfrak{su}(3)$ discussed in the previous lecture, by first considering the Lorentz group and then touching on Cartan's classification.
@@ -40,7 +40,7 @@ Physically the Lorentz group corresponds to spatial rotations and Lorentz boosts
     is the infinitesimal deviation from the identity element in SO$(3,1)$, provided $\omega_{\mu\nu}=-\omega_{\nu\mu}$.
 \ebox 
 
-The previous result tells us about the Lie algebra. The generators are the ${\omega^{\mu}}_{\nu}$s, an the antisymmetry condition tells us that the dimension is $d=\frac{4(4-1)}{2} = 6$. These are the three spatial rotations ad the three boosts, and you can show they obey the commutation relations
+The previous result tells us about the Lie algebra. The generators are the ${\omega^{\mu}}_{\nu}$s, and the antisymmetry condition tells us that the dimension is $d=\frac{4(4-1)}{2} = 6$. These are the three spatial rotations and the three boosts, and you can show they obey the commutation relations
 \be 
 \label{eqn:JKCommutators}
     \begin{split}
@@ -98,14 +98,14 @@ where the $L/R$ stand for left/right, respectively. The reason for this will bec
 
 \br 
 \label{rem:LorentzGroupVsAlgebra}
-    Now things are a little subtle because we're treading the line between mixing the Lie group, which have the matrices ${\Lambda^{\mu}}_{\nu}$, and the Lie algebra,which have the basis elements $\{N_i,\overline{N}_i\}$. The objects in the table above are in the representation space of the Lie group (that's why we can draw Young-Tableaux), but we want to use the nice properties of the Lie algebra to study things. What we have to remember is that the two structures are related by the exponential map, and we can related their representations this way. I shall try to be as explicit as possible in the following but it's likely I'll make a couple errors. 
+    Now things are a little subtle because we're treading the line between mixing the Lie group, which have the matrices ${\Lambda^{\mu}}_{\nu}$, and the Lie algebra, which have the basis elements $\{N_i,\overline{N}_i\}$. The objects in the table above are in the representation space of the Lie group (that's why we can draw Young-Tableaux), but we want to use the nice properties of the Lie algebra to study things. What we have to remember is that the two structures are related by the exponential map, and we can relate their representations this way. I shall try to be as explicit as possible in the following but it's likely I'll make a couple errors. 
 \er 
 
 \bnn 
     As we have done in the table above, we will denote elements of $SU(2)_L$ with $\a,\beta$ etc., and we will denote elements of $SU(2)_R$ with $\dot{\a},\dot{\beta}$ etc. The reason is that this is the usual notation used in places like supersymmetry. Note that both indices take values in $\{1,2\}$.
 \enn 
 
-We should stop a second a make a few comments on the table above. The first three entries are fine, but we call the $(1,1)$ entry a vector. As is required it has an $\a$ and a $\dot{\a}$ index, but we're used to writing vectors with a single spacetime index, $\mu$. So what's going on? Well, as we will see shortly, it turns out that something of the form $A_{\a\dot{\a}}$ does indeed transform as a vector in SO($3,1$), i.e. we can `repackage' the information such that 
+We should stop a second a make a few comments on the table above. The first three entries are fine, but we call the $(1,1)$ entry a vector. As is required, it has an $\a$ and a $\dot{\a}$ index, but we're used to writing vectors with a single spacetime index, $\mu$. So what's going on? Well, as we will see shortly, it turns out that something of the form $A_{\a\dot{\a}}$ does indeed transform as a vector in SO($3,1$), i.e. we can `repackage' the information such that 
 \bse 
     A^{\mu} \mapsto {\Lambda^{\mu}}_{\nu} A^{\nu}. 
 \ese 
@@ -180,7 +180,7 @@ Note these two sign conventions have been chosen so that they line up with \Cref
 \ee 
 
 \br 
-    Note that ${M^{\beta}}_{\a} \in SL(2,\C)$ and \textit{not} $SU(2)$. That is it is not unitary. This is a result of a theorem which says that non-compact groups cannot have unitary representations, and in \Cref{rem:NonCompactGroups} we said that the Lorentz group is non-compact. Note that this result stems from the fact that we have complexified the $n_i$s. If we had not (e.g. if we'd set $n_i=r_i+b_i$) then we could have got two types of rotation in \Cref{eqn:LieGroupOnLeftHanded} and we would have been studying SO(4), which is compact.
+    Note that ${M^{\beta}}_{\a} \in SL(2,\C)$ and \textit{not} $SU(2)$. That is it is not unitary. This is a result of a theorem which says that non-compact groups cannot have unitary representations, and in \Cref{rem:NonCompactGroups} we said that the Lorentz group is non-compact. Note that this result stems from the fact that we have complexified the $n_i$s. If we had not (e.g. if we'd set $n_i=r_i+b_i$) then we could have got two types of rotation in \Cref{eqn:LieGroupOnLeftHanded}, and we would have been studying SO(4), which is compact.
 \er 
 
 We can now redo the whole game for the right-handed spinors. In this case we have the representation opposite to \Cref{eqn:dNLeftHanded}, namely
@@ -197,7 +197,7 @@ and obtain
     \widetilde{D}(\Lambda) : \psi_{\dot{\a}} \mapsto {(M^*)^{\dot{\beta}}}_{\dot{\a}} \psi_{\dot{\beta}}, \qquad \text{with} \qquad {(M^*)^{\dot{\beta}}}_{\dot{\a}} := \exp \bigg( -\frac{ir_i}{2} \sig_i + \frac{b_i}{2}\sig_i{\bigg)^{\dot{\beta}}}_{\dot{\a}}.
 \ee
 
-Note that basically the only difference between the representations on left-handed and right-handed Weyl spinors is the sign before the boost part. This corresponds to physically to a property known as \textit{helicity}. Helicity basically tells you the projection of the spin of a massless particle (which Weyl spinors are) onto its momentum, we call the two options left- and right-handed (hence the names we've been using). These names come from our hands: make a thumbs up but don't curl your fingers all the way in, now imagine your thumb points in the direction of momentum, then your fingers tell you about the spin direction. A right-handed spinor has spin-momentum projection like your right hand looks, and similarly for a left-handed spinor. 
+Note that basically the only difference between the representations on left-handed and right-handed Weyl spinors is the sign before the boost part. This corresponds physically to a property known as \textit{helicity}. Helicity basically tells you the projection of the spin of a massless particle (which Weyl spinors are) onto its momentum, we call the two options left- and right-handed (hence the names we've been using). These names come from our hands: make a thumbs up but don't curl your fingers all the way in, now imagine your thumb points in the direction of momentum, then your fingers tell you about the spin direction. A right-handed spinor has spin-momentum projection like your right hand looks, and similarly for a left-handed spinor. 
 
 \begin{center}
     \btik 
@@ -306,7 +306,7 @@ So we have done a lot of work regarding representations of groups, the final que
 \ed 
 
 \bc 
-    Every Lie algebra posses two ideals, namely $\mathfrak{h}=\{0\}$ and $\mathfrak{h}=\mathfrak{g}$. We refer to these as \textit{trivial} ideals. 
+    Every Lie algebra possesses two ideals, namely $\mathfrak{h}=\{0\}$ and $\mathfrak{h}=\mathfrak{g}$. We refer to these as \textit{trivial} ideals. 
 \ec
 
 \bbox 
@@ -321,7 +321,7 @@ So we have done a lot of work regarding representations of groups, the final que
     Ideals is a similar concept to an invariant subspace of a representation. Similarly, simple Lie algebras are akin to irreps. 
 \er 
 
-It is the \textit{Abelian ideals} that mess up our classification process. This is just because once you enter an after you hit one element of an Abelian ideal, everything commutes and so you loose all the information (i.e. the structure constants are all vanishing). This motives the next definition. 
+It is the \textit{Abelian ideals} that mess up our classification process. This is just because once you hit one element of an Abelian ideal, everything commutes and so you loose all the information (i.e. the structure constants are all vanishing). This motives the next definition. 
 
 \bd[Semisimple Lie Algebras]
     A Lie algebra is said to be \textit{semisimple} if it has no Abelian ideals.
@@ -535,3 +535,7 @@ We end this course with a brief mention of some of the Lie groups relevant in ph
     \item Grand unified theories, need a group that can contains the standard model group as a subgroup. Two possibilities are $SU(5)$ and $SO(10)$.
     \item In superstring theory we have multiple groups, including $SO(10)$\footnote{See my notes on Dr. Shiraz Minwalla's string theory course for why we need $SO(10)$.} and something called $E_8$ (classified as a Dynkin diagram).
 \een 
+
+\section{Dykin Diagrams}
+
+\textcolor{red}{To come when I get time to type this up. These were not part of the course, but just something I think worth including.}

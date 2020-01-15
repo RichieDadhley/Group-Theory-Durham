@@ -87,12 +87,12 @@ In the mathematical lingo, we say that the operators form a \textit{representati
 \er 
 
 \bd[Unitary Representation]
-    Let $G$ be a Lie group with representation map $D$. If $D[g]$ is unitary for all $g\in G$ then we say the representation is \textit{unitary}. 
+    Let $G$ be a Lie group with representation map $D$. If $D(g)$ is unitary for all $g\in G$ then we say the representation is \textit{unitary}. 
 \ed 
 
 \section{Representations of SU($n$)}
 
-The main group we are going to be considered in representing is SU($n$), \Cref{eqn:SU(n)}. It is important to note that the idea of a representation holds for a general Lie group. That is we do not need to only consider matrix Lie groups, as we are in these notes. The idea of a representation is to convert the group into a set of matrices, as we know how to calculate the action of a matrix on a vector space (which we just write as a column matrix). However SU($n$) is already a matrix group and so we don't really need to do anything to it. But first a comment on notation 
+The main group we are going to be considering in representing is SU($n$), \Cref{eqn:SU(n)}. It is important to note that the idea of a representation holds for a general Lie group. That is we do not need to only consider matrix Lie groups, as we are in these notes. The idea of a representation is to convert the group into a set of matrices, as we know how to calculate the action of a matrix on a vector space (which we just write as a column matrix). However SU($n$) is already a matrix group and so we don't really need to do anything to it. But first a comment on notation 
 
 \bnn 
     We will denote the elements of a matrix using indices. We will adopt the convention that the contravariant (i.e. upper) index tells us the \textit{row}, and the covariant (lower) index tells us the \textit{column}. For an explicit example, let $U$ be an $n\times n$ matrix, then 
@@ -111,7 +111,7 @@ The main group we are going to be considered in representing is SU($n$), \Cref{e
 As we have just said, SU($n$) already has the properties of a representation, that is it's already a matrix group and obeys the properties \Cref{eqn:RepOfGroup}. We can therefore just let $D$ be the identity map. This is known as the fundamental representation. 
 
 \bd[Fundamental Representation Of Lie Group]
-    Let $G$ be a matrix Lie group. Then we define the \textit{fundamental representation} of $G$ o $V$ simply as 
+    Let $G$ be a matrix Lie group. Then we define the \textit{fundamental representation} of $G$ over $V$ simply as 
     \be 
     \label{eqn:FundamentalRepGroup}
         D(U) = U.
@@ -126,7 +126,7 @@ As we have just said, SU($n$) already has the properties of a representation, th
 There is another important representation of matrix Lie groups related to the fundamental representation. We define it below. 
 
 \bd[Antifundamental Representation Of Lie Group]
-    Let $G$ be a matrix Lie group. Then we define the \textit{antifundamental representation} or \textit{conjugate representation} on $G$ on $V$ as
+    Let $G$ be a matrix Lie group. Then we define the \textit{antifundamental representation} or \textit{conjugate representation} of $G$ over $V$ as
     \be 
     \label{eqn:AntifundamentalRepGroup}
         \overline{D}(U) = \overline{U},
@@ -204,7 +204,7 @@ There is a useful trick to notice that can save us a lot of time when we have co
 
 \section{Reducible \& Irreducible Representations}
 
-The last exercise shows that some tensor product constructions don't actually give rise to anything knew, and we can essentially consider just the action of one part of it independently. In other words, it appears we can `reduce' complicated constructions into more bite size bits and deal with them one by one. If we can do this, we say the representation if \textit{reducible}. 
+The last exercise shows that some tensor product constructions don't actually give rise to anything new, and we can essentially consider just the action of one part of it independently. In other words, it appears we can `reduce' complicated constructions into more bite size bits and deal with them one by one. If we can do this, we say the representation if \textit{reducible}. 
 
 \bd[Reducible Representation]
     A representation of a Lie group,\footnote{In fact we will see this holds for representations of Lie algebras too.} $D$, of dimension $n$ is called \textit{reducible} if it is equivalent to representation of the form 
@@ -318,7 +318,7 @@ We can therefore write the condition for completely reducible in a nice mathemat
     \ese
     where $n=d_1+d_2$. We are free to choose this basis such that $\{e_1,...,e_{d_1}\}$ is a basis for $V_1$. Define the subspace spanned by $\{e_{d_1+1},...,e_{d_1+d_2}\}$ by $V_2$. We see straight away that $V_1$ and $V_2$ are orthogonal.
     
-    Now because $V_1$ is an invariant subspace we know every $v_1$ satisfies
+    Now because $V_1$ is an invariant subspace we know every $v_1\in V_1$ satisfies
     \bse 
         D(g)v_1 \in V_1,
     \ese
@@ -349,7 +349,7 @@ We can therefore write the condition for completely reducible in a nice mathemat
     and so we can decompose $D$ in a similar manner. 
 \eq 
 
-This theorem is incredible powerful because it tells us that for SU($n$) the only thing we need to consider is irreducible representations and their direct sums. This \textit{massively} simplifies things. 
+This theorem is incredibly powerful because it tells us that for SU($n$) the only thing we need to consider is irreducible representations and their direct sums. This \textit{massively} simplifies things. 
 
 \br 
     Note also for SU($2$) Maschke's theorem allows us to stop distinguishing between just reducible and completely reducible. We shall therefore just say reducible (as it's one less word).
@@ -472,6 +472,6 @@ So why is this a nice physical answer to our question at the start of this secti
 \bse 
     [H,D(g)] = 0 \qquad \forall g \in G.
 \ese 
-Schur's Lemma therefore tells us that the Hamiltonian acts as $E\cdot \b1$ on an irrep of a symmetry group $G$. In fancier language: states in an irrep of an exact symmetry group form a \textit{multiplet} with degenerate energies. This is a very powerful statement, because recalling that small equation of Einsteins, $E=mc^2$, we see that states that are connected by an irrep of an exact symmetry group \textit{have the same mass}! This is the reason why an electron and a positron have the same mass. It is a fact that the dimension of the irrep corresponds to the number of terms in the multiplet, and so if we can find an irrep of dimension $n$ that commutes with $H$ we instantly know that there are $n$ particles with equal mass. 
+Schur's Lemma therefore tells us that the Hamiltonian acts as $E\cdot \b1$ on an irrep of a symmetry group $G$. In fancier language: states in an irrep of an exact symmetry group form a \textit{multiplet} with degenerate energies. This is a very powerful statement, because recalling that small equation of Einstein's, $E=mc^2$, we see that states that are connected by an irrep of an exact symmetry group \textit{have the same mass}! This is the reason why an electron and a positron have the same mass. It is a fact that the dimension of the irrep corresponds to the number of terms in the multiplet,\footnote{Check you understand why this is the case.} and so if we can find an irrep of dimension $n$ that commutes with $H$ we instantly know that there are $n$ particles with equal mass. 
 
 Now if that isn't a physically compelling argument for why irreps are worth studying, then I'm sorry but you're never going to be convinced. 
